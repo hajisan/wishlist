@@ -1,3 +1,3 @@
-README 
+**WISHLIST** 
 
-Wishlist is a 2. semester project done by KEA students, studying computer science
+This is a 2. semester project done by KEA students, studying computer science.
