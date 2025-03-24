@@ -1,2 +1,3 @@
-# wishlist-
-2. semester tværfaglig projekt 
+**WISHLIST** 
+
+This is a 2. semester project done by KEA students, studying computer science.
