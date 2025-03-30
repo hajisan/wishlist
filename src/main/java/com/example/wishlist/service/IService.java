@@ -1,4 +1,4 @@
 package com.example.wishlist.service;
 
-public interface IService {
+public interface IService<T, ID> {
 }
