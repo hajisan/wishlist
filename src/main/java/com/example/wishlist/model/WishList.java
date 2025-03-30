@@ -3,10 +3,10 @@ import java.util.List;
 
 public class WishList {
 
-    private String name;
+    private String name; // description
     private int id;
     private List<Wish> wishes;
-    //Profile profile??
+    // Profile profile??
 
     public WishList(List<Wish> wishes, int id, String name) {
         this.wishes = wishes;

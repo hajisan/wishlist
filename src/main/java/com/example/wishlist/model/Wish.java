@@ -3,8 +3,9 @@ package com.example.wishlist.model;
 public class Wish {
 
     private String name, description, link;
-    private int id;
+    private int id; // quantity;
     private double price;
+    // private boolean isReserved;
 
     public Wish(String name, String description, String link, int id, double price) {
         this.name = name;
