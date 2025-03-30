@@ -2,12 +2,13 @@
 
   on:
     push:
-      branches: [main, development]
+      branches: [main, development] #pusher direkte til main el. development
     pull_request:
-      branches: [main,development]
+      branches: [main] #laver pr til main
 
   jobs:
     build:
+      name: Build and test with Maven
       runs-on: ubuntu-latest
 
       steps:
@@ -21,4 +22,4 @@
             java-version: '17'
 
         - name: Build with Maven
-          run: mvn -B clear verify #Renser, bygger og tester hele projektet
+          run: mvn -B clean verify #Renser, bygger og tester hele projektet
