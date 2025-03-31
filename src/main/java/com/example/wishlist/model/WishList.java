@@ -3,15 +3,16 @@ import java.util.List;
 
 public class WishList {
 
-    private String name; // description
+    private String name, description;
     private int id;
     private List<Wish> wishes;
 
 
-    public WishList(List<Wish> wishes, int id, String name) {
+    public WishList(List<Wish> wishes, int id, String name, String description) {
         this.wishes = wishes;
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
     public String getName() {
@@ -36,6 +37,13 @@ public class WishList {
 
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

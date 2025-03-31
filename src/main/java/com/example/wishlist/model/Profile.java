@@ -12,7 +12,8 @@ public class Profile {
     private int id;
     private List<WishList> wishLists;
 
-    public Profile(String name, String email, String userName, String password, LocalDate birthday, int id, List<WishList> wishLists) {
+    public Profile(String name, String email, String userName, String password,
+                   LocalDate birthday, int id, List<WishList> wishLists) {
         this.name = name;
         this.email = email;
         this.userName = userName;
