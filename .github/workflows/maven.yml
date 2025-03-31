@@ -4,7 +4,7 @@
     push:
       branches: [main, development] #pusher direkte til main el. development
     pull_request:
-      branches: [main] #laver pr til main
+      branches: [main, development] #laver pr til main
 
   jobs:
     build:
