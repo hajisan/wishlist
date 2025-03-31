@@ -12,14 +12,13 @@ public class Profile {
     private int id;
     private List<WishList> wishLists;
 
-    public Profile(String name, String email, String userName, String password,
-                   LocalDate birthday, int id, List<WishList> wishLists) {
+    public Profile(int id, String name, LocalDate birthday, String email, String userName, String password, List<WishList> wishLists) {
+        this.id = id;
         this.name = name;
+        this.birthday = birthday;
         this.email = email;
         this.userName = userName;
         this.password = password;
-        this.birthday = birthday;
-        this.id = id;
         this.wishLists = wishLists;
     }
     public Profile() {}
