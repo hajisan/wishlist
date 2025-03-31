@@ -1,6 +1,6 @@
 package com.example.wishlist.model;
 
-
+import java.util.List;
 
 import java.time.LocalDate;
 
@@ -10,14 +10,16 @@ public class Profile {
     private String name, email, userName, password;
     private LocalDate birthday;
     private int id;
+    private List<WishList> wishLists;
 
-    public Profile(String name, String email, String userName, String password, LocalDate birthday, int id) {
+    public Profile(String name, String email, String userName, String password, LocalDate birthday, int id, List<WishList> wishLists) {
         this.name = name;
         this.email = email;
         this.userName = userName;
         this.password = password;
         this.birthday = birthday;
         this.id = id;
+        this.wishLists = wishLists;
     }
     public Profile() {}
 
@@ -67,6 +69,14 @@ public class Profile {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<WishList> getWishLists() {
+        return wishLists;
+    }
+
+    public void setWishLists(List<WishList> wishLists) {
+        this.wishLists = wishLists;
     }
 
     @Override

@@ -6,7 +6,7 @@ public class WishList {
     private String name; // description
     private int id;
     private List<Wish> wishes;
-    // Profile profile??
+
 
     public WishList(List<Wish> wishes, int id, String name) {
         this.wishes = wishes;
