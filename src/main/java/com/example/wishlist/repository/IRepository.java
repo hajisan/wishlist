@@ -1,6 +1,6 @@
 package com.example.wishlist.repository;
 
-public interface IRepository<T, ID> {
+public interface IRepository<T, Integer> {
 
 
 }
