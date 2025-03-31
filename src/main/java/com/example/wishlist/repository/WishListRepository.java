@@ -13,7 +13,7 @@ public class WishListRepository implements IRepository<WishList, Integer> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public WishListRepository(JdbcTemplate jdbcTemplate) {
+    public WishListRepository(JdbcTemplate jdbcTemplate) { //Injector data source
         this.jdbcTemplate = jdbcTemplate;
     }
 
