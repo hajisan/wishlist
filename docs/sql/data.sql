@@ -2,7 +2,7 @@
 -- INSERT INTO profile
 -- ========================
 INSERT INTO profile (id, name, birthday, email, user_name, password) VALUES
-(6000, 'Nima Salami', '1992-06-30', 'nima.salami@example.com', 'nima75', 'NU2LMStf(S'),
+(6000, 'Nimaa Salami', '1992-06-30', 'nima.salami@example.com', 'nima75', 'NU2LMStf(S'),
 (6001, 'Sofie Rytter', '1996-05-22', 'sofie.rytter@example.com', 'sofie48', '7WTXQmJf&A'),
 (6002, 'Joakim Severinsen', '1999-11-26', 'joakim.severinsen@example.com', 'joakim65', '&8hWxSrphx');
 
