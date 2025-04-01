@@ -15,11 +15,7 @@ public class WishRowMapper implements RowMapper<Wish> {
         return new Wish(
                 rs.getString("name"),        // Henter navnet fra kolonnen "name"
                 rs.getString("description"), // Henter beskrivelsen fra kolonnen "description"
-
-                // Da kolonnen "link" ikke findes i databasen, sættes feltet til null midlertidigt
-                // På et senere tidspunkt kan man hente det, hvis det bliver tilføjet i databasen
-                null,
-
+                rs.getString("link"),
                 rs.getInt("id"),             // Henter id-værdien fra kolonnen "id"
                 rs.getInt("quantity"),       // Henter mængden fra kolonnen "quantity"
                 rs.getDouble("price")        // Henter prisen fra kolonnen "price"

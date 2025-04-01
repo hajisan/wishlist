@@ -5,6 +5,7 @@ import com.example.wishlist.model.WishList;
 
 import java.util.List;
 
+//Returnerer én ønskeliste med alle dens ønsker i et samlet JSON-respons = Separation of Concerns
 public class WishWishListDTO {
 
     private List<Wish> wishes;
