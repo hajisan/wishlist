@@ -37,7 +37,7 @@ public class WishRepository implements IRepository<Wish, Integer> {
     @Override
     public void create(Wish wish) {
         // SQL-kommandoen til at indsætte et nyt ønske i databasen
-        String sql = "INSERT INTO Wish (name, description, link, quantity, price) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Wish (name, description, link, quantity, price, wish_list_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         // Brug jdbcTemplate til at udføre insert kommandoen
@@ -48,6 +48,7 @@ public class WishRepository implements IRepository<Wish, Integer> {
             ps.setString(3, wish.getLink());
             ps.setInt(4, wish.getQuantity());
             ps.setDouble(5, wish.getPrice());
+            ps.setInt(6, wish.getWishListId());
             return ps;
         }, keyHolder);
         wish.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());

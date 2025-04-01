@@ -24,7 +24,7 @@ public class WishListRepository implements IRepository<WishList, Integer> {
 
     @Override
     public void create(WishList wishList) {
-        String sql = "INSERT INTO wish_list";
+        String sql = "INSERT INTO wish_list(name, description)"
 
 
     }

@@ -3,17 +3,18 @@ package com.example.wishlist.model;
 public class Wish {
 
     private String name, description, link;
-    private int id, quantity;
+    private int id, quantity, wishListId;
     private double price;
     private boolean isReserved; // konstruktør mangler stadig denne parameter
 
-    public Wish(String name, String description, String link, int id, int quantity, double price) {
+    public Wish(String name, String description, String link, int id, int quantity, double price, int wishListId) {
         this.name = name;
         this.description = description;
         this.link = link; // mangler en kolonne i tabellen i databasen
         this.id = id;
         this.quantity = quantity;
         this.price = price;
+        this.wishListId = wishListId;
     }
 
     public Wish() {}
@@ -73,6 +74,14 @@ public class Wish {
     public void setPrice(double price) {
         this.price = price;
     }
+    public int getWishListId() {
+        return wishListId;
+    }
+
+    public void setWishListId(int wishListId) {
+        this.wishListId = wishListId;
+    }
+
 
     @Override
     public String toString() {
