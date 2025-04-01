@@ -1,15 +1,14 @@
 package com.example.wishlist.service;
 
 import com.example.wishlist.repository.ProfileRepository;
-import org.springframework.stereotype.Service;
 
-@Service
+@org.springframework.stereotype.Service
 
-public class ProfileService {
+public class Service {
 
     private final ProfileRepository profileRepository;
 
-    public ProfileService(ProfileRepository profileRepository) {
+    public Service(ProfileRepository profileRepository) {
         this.profileRepository = profileRepository;
     }
 }

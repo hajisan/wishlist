@@ -5,6 +5,7 @@ import com.example.wishlist.model.WishList;
 
 import java.util.*;
 
+//For at returnere én profil + alle dens ønskelister i ét samlet JSON-respons = Separation of Concerns
 
 public class ProfileWishListDTO {
 
