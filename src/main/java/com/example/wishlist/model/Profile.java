@@ -10,25 +10,16 @@ public class Profile {
     private String name, email, userName, password;
     private LocalDate birthday;
     private int id;
-    private List<WishList> wishLists;
 
-    public Profile(int id, String name, LocalDate birthday, String email, String userName, String password, List<WishList> wishLists) {
+
+    public Profile(int id, String name, LocalDate birthday, String email, String userName, String password) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.email = email;
         this.userName = userName;
         this.password = password;
-        this.wishLists = wishLists;
-    }
 
-    public Profile(String name, LocalDate birthday, String email, String userName, String password, List<WishList> wishLists) {
-        this.name = name;
-        this.birthday = birthday;
-        this.email = email;
-        this.userName = userName;
-        this.password = password;
-        this.wishLists = wishLists;
     }
 
     public Profile(String name, LocalDate birthday, String email, String userName, String password) {
@@ -37,6 +28,7 @@ public class Profile {
         this.email = email;
         this.userName = userName;
         this.password = password;
+
     }
 
     public Profile() {}
@@ -89,13 +81,7 @@ public class Profile {
         this.id = id;
     }
 
-    public List<WishList> getWishLists() {
-        return wishLists;
-    }
 
-    public void setWishLists(List<WishList> wishLists) {
-        this.wishLists = wishLists;
-    }
 
     @Override
     public String toString() {
