@@ -3,18 +3,28 @@ package com.example.wishlist.model;
 public class Wish {
 
     private String name, description, link;
-    private int id; // quantity;
+    private int id, quantity;
     private double price;
-    // private boolean isReserved;
+    private boolean isReserved; // konstruktør mangler stadig denne parameter
 
-    public Wish(String name, String description, String link, int id, double price) {
+    public Wish(String name, String description, String link, int id, int quantity, double price) {
         this.name = name;
         this.description = description;
-        this.link = link;
+        this.link = link; // mangler en kolonne i tabellen i databasen
         this.id = id;
+        this.quantity = quantity;
         this.price = price;
     }
+
     public Wish() {}
+
+    // Konstuktør uden id, da id'et bliver auto generet af databasen
+    public Wish(String name, String description, int quantity, double price) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
     public String getName() {
         return name;
@@ -46,6 +56,14 @@ public class Wish {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
