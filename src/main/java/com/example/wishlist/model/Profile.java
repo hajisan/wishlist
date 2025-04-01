@@ -21,6 +21,24 @@ public class Profile {
         this.password = password;
         this.wishLists = wishLists;
     }
+
+    public Profile(String name, LocalDate birthday, String email, String userName, String password, List<WishList> wishLists) {
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.wishLists = wishLists;
+    }
+
+    public Profile(String name, LocalDate birthday, String email, String userName, String password) {
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Profile() {}
 
     public String getName() {
