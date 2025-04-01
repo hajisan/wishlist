@@ -18,7 +18,8 @@ public class WishRowMapper implements RowMapper<Wish> {
                 rs.getString("link"),
                 rs.getInt("id"),             // Henter id-værdien fra kolonnen "id"
                 rs.getInt("quantity"),       // Henter mængden fra kolonnen "quantity"
-                rs.getDouble("price")        // Henter prisen fra kolonnen "price"
+                rs.getDouble("price"),        // Henter prisen fra kolonnen "price"
+                rs.getInt("wish_list_id")
         );
     }
 }

@@ -12,7 +12,8 @@ public class WishListRowMapper implements RowMapper<WishList> {
         return new WishList(
                 rs.getInt("id"),
                 rs.getString("name"),
-                rs.getString("description")
+                rs.getString("description"),
+                rs.getInt("profile_id")
         );
     }
 }

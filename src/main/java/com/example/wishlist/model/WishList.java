@@ -4,13 +4,13 @@ package com.example.wishlist.model;
 public class WishList {
 
     private String name, description;
-    private int id;
+    private int id, profileId;
 
-
-    public WishList(int id, String name, String description) {
+    public WishList(int id, String name, String description, int profileId) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.profileId = profileId;
     }
 
     public String getName() {
@@ -36,6 +36,13 @@ public class WishList {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
 
     @Override
