@@ -60,7 +60,7 @@ public class ProfileService implements IProfileService {
     public void update(Profile profile) {
 
         if (profile == null) {
-            throw new ResourceNotFoundException("Profilen findes ikke:");
+            throw new ResourceNotFoundException("Profilen findes ikke");
         }
         iProfileRepository.update(profile);
     }
