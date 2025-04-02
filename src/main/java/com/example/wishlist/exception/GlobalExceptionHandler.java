@@ -1,6 +1,4 @@
-package com.example.wishlist.controller;
-
-import com.example.wishlist.exception.ResourceNotFoundException;
+package com.example.wishlist.exception;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

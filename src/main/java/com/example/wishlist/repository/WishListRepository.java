@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Repository
 
-public class WishListRepository implements IRepository<WishList, Integer> {
+public class WishListRepository implements IWishListRepository<WishList, Integer> {
 
     private final JdbcTemplate jdbcTemplate;
 
