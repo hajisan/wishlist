@@ -16,8 +16,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
     }
-    //Client får denne besked:
-    // HTTP/1.1 404 Not Found
+    //Client får eks. denne besked:
     //"WishList with ID 'eks.12' not found."
 
     //Fejlbesked om foreign key violations

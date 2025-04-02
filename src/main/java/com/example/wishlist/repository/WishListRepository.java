@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Repository
 
-public class WishListRepository implements IWishListRepository<WishList, Integer> {
+public class WishListRepository implements IWishListRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -59,13 +59,7 @@ public class WishListRepository implements IWishListRepository<WishList, Integer
     public WishList findById(Integer id) {
         String sql = "SELECT id, name, description FROM wish_list WHERE id = ?";
 
-        try {
             return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), id); //Returnerer wishList-objekt
-        }
-        catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("WishList with ID " + id + " not found.");
-        }
-
     }
 
     @Override

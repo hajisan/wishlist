@@ -1,6 +1,6 @@
 package com.example.wishlist.repository;
 
-import java.util.*;
+import java.util.List;
 
 public interface IRepository<T, Integer> {
 
