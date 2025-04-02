@@ -27,7 +27,7 @@ public class ProfileWishListService {
             throw new ResourceNotFoundException("Profile with ID: " + profileId + " not found.");
 
         }
-        List<WishList> wishLists = iWishListRepository.findById()
+        List<WishList> wishLists = iWishListRepository.findByProfileId(profileId);
 
         return new ProfileWishListDTO(profile, wishLists);
     }

@@ -70,4 +70,5 @@ public class WishService implements IWishService {
         iWishRepository.update(wish);
 
     }
+
 }

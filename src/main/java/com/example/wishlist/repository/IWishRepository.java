@@ -11,4 +11,5 @@ public interface IWishRepository extends IRepository<Wish, Integer> {
     List<Wish> findAll();
     void deleteById(Integer id);
     void update(Wish t);
+    List<Wish> findByWishListId(Integer wishListId);
 }

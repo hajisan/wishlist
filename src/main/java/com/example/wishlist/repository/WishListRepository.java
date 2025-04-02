@@ -91,7 +91,7 @@ public class WishListRepository implements IWishListRepository {
 
     }
 
-    @Override
+    @Override //Finder ønskelister til specifik profil
     public List<WishList> findByProfileId(Integer profileId) {
 
         String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE profile_id = ?";
