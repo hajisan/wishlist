@@ -1,19 +1,19 @@
 package com.example.wishlist.repository;
 
-import java.util.*;
+import java.util.List;
 
 public interface IRepository<T, Integer> {
 
-    public void save(T t);
+    void save(T t);
 
-    public void create(T t);
+    void create(T t);
 
-    public T findById(Integer id);
+    T findById(Integer id);
 
-    public List<T> findAll();
+    List<T> findAll();
 
-    public void deleteById(Integer id);
+    void deleteById(Integer id);
 
-    public void update(T t);
+    void update(T t);
 
 }

@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
-public class ProfileRepository implements IRepository<Profile, Integer> {
+public class ProfileRepository implements IProfileRepository {
 
     private JdbcTemplate jdbcTemplate;
 
