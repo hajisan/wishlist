@@ -13,6 +13,8 @@ public class WishList {
         this.profileId = profileId;
     }
 
+    public WishList() {}
+
     public String getName() {
         return name;
     }
