@@ -5,9 +5,9 @@ import com.example.wishlist.model.Wish;
 import java.util.List;
 
 public interface IWishService extends IService<Wish, Integer> {
-    void save(Wish t);
+    void save(Wish wish);
 
-    void create(Wish t);
+    void create(Wish wish);
 
     Wish findById(Integer id);
 
@@ -15,5 +15,6 @@ public interface IWishService extends IService<Wish, Integer> {
 
     void deleteById(Integer id);
 
-    void update(Wish t);
+    void update(Wish wish);
+
 }
