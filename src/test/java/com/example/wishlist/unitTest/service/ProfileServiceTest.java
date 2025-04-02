@@ -58,6 +58,8 @@ public class ProfileServiceTest {
         assertEquals("test@example.com", result.getEmail());
         assertEquals("secret123", result.getPassword());
         assertEquals(LocalDate.of(1990, 1, 1), result.getBirthday());
+
+        verify(iProfileRepository, times(1)).findById(anyInt());
     }
 
     @Test

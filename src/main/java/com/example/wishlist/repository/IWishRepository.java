@@ -1,8 +1,10 @@
 package com.example.wishlist.repository;
 
+import com.example.wishlist.model.Wish;
+
 import java.util.List;
 
-public interface IWishRepository<Wish, Integer> extends IRepository<Wish, Integer> {
+public interface IWishRepository extends IRepository<Wish, Integer> {
     void save(Wish t);
     void create(Wish t);
     Wish findById(Integer id);
