@@ -106,8 +106,8 @@ public class WishRepository implements IWishRepository {
 
     @Override
     public List<Wish> findByWishListId(Integer wishListId) {
-
-        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id WHERE wish_List_id = ?";
+        // SQL-kommandoen til at finde et wish ud fra wishId
+        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_List_id = ?";
 
         return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);
     }

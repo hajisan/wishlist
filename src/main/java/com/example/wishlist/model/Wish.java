@@ -10,7 +10,7 @@ public class Wish {
     public Wish(String name, String description, String link, int id, int quantity, double price, int wishListId) {
         this.name = name;
         this.description = description;
-        this.link = link; // mangler en kolonne i tabellen i databasen
+        this.link = link;
         this.id = id;
         this.quantity = quantity;
         this.price = price;
@@ -74,6 +74,7 @@ public class Wish {
     public void setPrice(double price) {
         this.price = price;
     }
+
     public int getWishListId() {
         return wishListId;
     }
@@ -82,6 +83,13 @@ public class Wish {
         this.wishListId = wishListId;
     }
 
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.isReserved = reserved;
+    }
 
     @Override
     public String toString() {
