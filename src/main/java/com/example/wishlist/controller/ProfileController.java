@@ -1,6 +1,7 @@
 package com.example.wishlist.controller;
 
 import com.example.wishlist.model.Profile;
+import com.example.wishlist.service.IProfileService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ public class ProfileController {
     private IProfileService profileService;
 
     public ProfileController(IProfileService profileService) {
-        this.profileRepository = profileService;
+        this.profileService = profileService; // der stod this.profileRepository
     }
 
     public static boolean isLoggedIn(HttpSession session) {

@@ -1,6 +1,7 @@
 package com.example.wishlist.controller;
 
 
+import com.example.wishlist.service.IWishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
