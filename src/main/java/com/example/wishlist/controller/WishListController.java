@@ -1,7 +1,10 @@
 package com.example.wishlist.controller;
 
 
+import com.example.wishlist.model.Profile;
+import com.example.wishlist.model.WishList;
 import com.example.wishlist.service.IWishListService;
+import com.example.wishlist.service.ProfileWishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,30 +16,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 
 public class WishListController {
-    private IWishListService wishListService;
+    private IWishListService iWishListService;
+    private ProfileWishListService profileWishListService;
 
-    public WishListController(IWishListService wishListService) {
-        this.wishListService = wishListService;
+    public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService) {
+        this.iWishListService = iWishListService;
+        this.profileWishListService = profileWishListService;
     }
+
+    // ------------- Henter brugerens ønskelister --------------------
 
     @GetMapping("{username}/wishlists")
     public String getWishLists(@PathVariable String username, HttpSession session, Model model) {
-        // @TODO Brug Model til at håndtere @PathVariables
 
-        // @TODO Indhold
+        Profile profile = (Profile) session.getAttribute("profile");
+        int profileId = profile.getId();
 
-        return ProfileController.isLoggedIn(session) ? "wishlists" : "login";
+        model.addAttribute("username", username);
+        model.addAttribute("wishlists", profileWishListService.findProfileWithWishLists(profileId));
+
+        return ProfileController.loginTernary(session, "wishlists"); //Redirecter hvis bruger ikke er logget ind
 
     }
+
+    // ----------- Henter formular til at oprette en ønskeliste --------------
 
     @GetMapping("{username}/wishlists/createnewlist")
     public String getCreateWishList(@PathVariable String username, HttpSession session, Model model) {
-        // @TODO Brug Model til at håndtere @PathVariables
 
-        // @TODO Indhold
+        model.addAttribute("username", username);
 
         return ProfileController.loginTernary(session, "create-wishlist");
     }
+
+    // ----------- Opretter ønskelisten med formular -------------------------
 
     @PostMapping("{username}/wishlists/createnewlist")
     public String postCreateWishList(
@@ -45,23 +58,77 @@ public class WishListController {
             @RequestParam String description,
             HttpSession session, Model model
     ) {
-        // @TODO Brug Model til at håndtere @PathVariables
+        Profile profile = (Profile) session.getAttribute("profile");
+        int profileId = profile.getId();
 
-        // @TODO Indhold
+        model.addAttribute("username", username);
+
+        WishList wishList = new WishList();
+        wishList.setName(name);
+        wishList.setDescription(description);
+        wishList.setProfileId(profileId);
+
+        iWishListService.create(wishList);
 
         return ProfileController.loginTernary(session, "create-wishlist");
     }
 
+    // -------- Henter specifik ønskeliste ud fra ønskelistenavn og profilID ---------
+
     @GetMapping("{username}/wishlists/{wishlist}")
     public String getSpecificWishList(
             @PathVariable String username,
-            @PathVariable String wishlistName,
+            @PathVariable String wishlist,
             HttpSession session, Model model
     ) {
-        // @TODO Brug Model til at håndtere @PathVariables
 
-        // @TODO Indhold
+        Profile profile = (Profile) session.getAttribute("profile");
+
+        int profileId = profile.getId();
+
+        model.addAttribute("username", username);
+        model.addAttribute("wishlist", profileWishListService.findSpecificWishListByProfileId(wishlist, profileId));
 
         return ProfileController.loginTernary(session, "wishlist");
     }
+
+    // ----------- Henter specifik ønskeliste så den kan redigeres --------------------
+
+    @GetMapping("{username}/wishlists/{wishlist}/edit")
+    public String getEditWishList(@PathVariable String username, @PathVariable String wishlist, HttpSession session, Model model) {
+
+        Profile profile = (Profile) session.getAttribute("profile");
+        int profileId = profile.getId();
+
+        WishList excistingWishList = profileWishListService.findSpecificWishListByProfileId(wishlist, profileId);
+
+        model.addAttribute("username", username);
+        model.addAttribute("wishlist", excistingWishList);
+
+        return ProfileController.loginTernary(session, "edit-wishlist"); //EKSTRA HTML-SIDE
+    }
+
+    // ----------- Formular til at kunne ændre ønskelisten --------------
+
+    @PostMapping("{username}/wishlists/{oldname}/edit")
+    public String postEditWishList(@PathVariable String username, @PathVariable String oldname,
+                                   @RequestParam String name, @RequestParam String description, HttpSession session, Model model) {
+
+        Profile profile = (Profile) session.getAttribute("profile");
+
+        int profileId = profile.getId();
+
+        model.addAttribute("username", username);
+        model.addAttribute("oldname", oldname);
+
+        WishList excistingWishList = profileWishListService.findSpecificWishListByProfileId(oldname, profileId);
+
+        excistingWishList.setName(name);
+        excistingWishList.setDescription(description);
+
+        iWishListService.update(excistingWishList);
+
+        return ProfileController.loginTernary(session, "wishlist");
+    }
+
 }

@@ -49,7 +49,6 @@ public class WishListService implements IWishListService {
             throw new ResourceNotFoundException("You cannot delete a non-existing wish list with ID: " + id);
         }
         iWishListRepository.deleteById(id); // Sletter hvis det findes
-
     }
 
     @Override
@@ -59,4 +58,7 @@ public class WishListService implements IWishListService {
         }
         iWishListRepository.update(wishList);
     }
+
+
+
 }
