@@ -32,4 +32,17 @@ public class ProfileWishListService {
         return new ProfileWishListDTO(profile, wishLists);
     }
 
+
+    public WishList findSpecificWishListByProfileId(String name, int profileId) {
+        for (WishList wishList : findProfileWithWishLists(profileId).wishLists()) {
+            if (name.equals(wishList.getName())) {
+                return wishList;
+            }
+        }
+
+        throw new ResourceNotFoundException("No wish list found by that name.");
+    }
+
 }
+
+

@@ -25,6 +25,7 @@ public class ProfileController {
     public static String loginTernary(HttpSession session, String htmlPage) {
         return isLoggedIn(session) ? htmlPage : "login";
     }
+}
 
     //---------------------------------------------------------------------------------------------------
     //----------------------------------     Application Mappings     -----------------------------------
