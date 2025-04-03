@@ -18,6 +18,8 @@ public class WishList {
         this.description = description;
     }
 
+    public WishList() {}
+
     public String getName() {
         return name;
     }

@@ -1,6 +1,4 @@
-package com.example.wishlist.controller;
-
-import com.example.wishlist.exception.ResourceNotFoundException;
+package com.example.wishlist.exception;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,8 +16,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
     }
-    //Client får denne besked:
-    // HTTP/1.1 404 Not Found
+    //Client får eks. denne besked:
     //"WishList with ID 'eks.12' not found."
 
     //Fejlbesked om foreign key violations

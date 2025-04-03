@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class WishRepository implements IRepository<Wish, Integer> {
+public class WishRepository implements IWishRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
