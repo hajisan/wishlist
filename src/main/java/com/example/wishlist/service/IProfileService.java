@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IProfileService extends IService<Profile, Integer> {
 
-    void save(Profile t);
+    void save(Profile profile);
 
-    void create(Profile t);
+    void create(Profile profile);
 
     Profile findById(Integer id);
 
@@ -16,5 +16,5 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     void deleteById(Integer id);
 
-    void update(Profile t);
+    void update(Profile profile);
 }

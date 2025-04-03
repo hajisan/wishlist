@@ -1,6 +1,7 @@
 package com.example.wishlist.repository;
 
 import com.example.wishlist.model.Wish;
+import com.example.wishlist.model.WishList;
 import com.example.wishlist.rowMapper.WishRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -101,5 +102,13 @@ public class WishRepository implements IWishRepository {
                 wish.getId()
         );
 
+    }
+
+    @Override
+    public List<Wish> findByWishListId(Integer wishListId) {
+
+        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id WHERE wish_List_id = ?";
+
+        return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);
     }
 }

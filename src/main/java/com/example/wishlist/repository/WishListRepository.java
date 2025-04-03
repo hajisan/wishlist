@@ -55,7 +55,7 @@ public class WishListRepository implements IWishListRepository {
 
     }
 
-    @Override //EXCEPTION SKAL EKSPEDERES TIL @SERVICE
+    @Override
     public WishList findById(Integer id) {
         String sql = "SELECT id, name, description FROM wish_list WHERE id = ?";
 
@@ -90,4 +90,13 @@ public class WishListRepository implements IWishListRepository {
         );
 
     }
+
+    @Override //Finder ønskelister til specifik profil
+    public List<WishList> findByProfileId(Integer profileId) {
+
+        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE profile_id = ?";
+        return jdbcTemplate.query(sql, new WishListRowMapper(), profileId);
+    }
+
+
 }
