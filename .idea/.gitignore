@@ -2,9 +2,6 @@
 /shelf/
 /workspace.xml
 
-# Ignore IntelliJ misc.xml to avoid local JDK conflict
-.idea/misc.xml
-
 # Editor-based HTTP Client requests
 /httpRequests/
 
