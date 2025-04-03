@@ -1,5 +1,7 @@
 package com.example.wishlist.model;
 
+import org.springframework.cglib.core.Local;
+
 import java.util.List;
 
 import java.time.LocalDate;
@@ -31,7 +33,13 @@ public class Profile {
 
     }
 
-    public Profile() {}
+    public Profile(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public Profile() {
+    }
 
     public String getName() {
         return name;
@@ -69,6 +77,14 @@ public class Profile {
         return birthday;
     }
 
+    public static LocalDate getStringAsLocalDate(String date) {
+        return LocalDate.of(
+                Integer.parseInt(date.split("-")[0]),
+                Integer.parseInt(date.split("-")[1]),
+                Integer.parseInt(date.split("-")[2])
+        );
+    }
+
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
@@ -80,7 +96,6 @@ public class Profile {
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     @Override
