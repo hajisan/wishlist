@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @Controller
 @RequestMapping("")
 public class ProfileController {
@@ -130,7 +128,7 @@ public class ProfileController {
             @PathVariable String username,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.getUserByUserName(username));
+        model.addAttribute("profile", profileService.findProfileByUserName(username));
         return loginTernary(session, "profile-page");
     }
 
@@ -139,7 +137,7 @@ public class ProfileController {
             @PathVariable String username,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.getUserByUsername(username));
+        model.addAttribute("profile", profileService.findProfileByUserName(username));
         return loginTernary(session, "edit-profile-page");
     }
 
@@ -152,12 +150,12 @@ public class ProfileController {
             @RequestParam("birthday") String birthday,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.getUserByUsername(username));
+        model.addAttribute("profile", profileService.findProfileByUserName(username));
         // Opret en Profile med både de uændrede (fra HttpSession) og de ændrede data (fra parametre)
         Profile uneditedProfile = (Profile) session.getAttribute("profile");
         Profile editedProfile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
         // Edit profilen ved at finde den vha. det gamle username i det tilfælde at det er blevet opdateret
-        profileService.editProfile(uneditedProfile.getUserName(), editedProfile);
+        profileService.editProfile(uneditedProfile, editedProfile);
         return loginTernary(session, "redirect:/{username}/profile");
     }
 }
