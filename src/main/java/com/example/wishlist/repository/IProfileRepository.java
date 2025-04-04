@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProfileRepository extends IRepository<Profile, Integer> {
     void save(Profile t);
 
-    void create(Profile t);
+    Profile create(Profile t);
 
     Profile findById(Integer id);
 

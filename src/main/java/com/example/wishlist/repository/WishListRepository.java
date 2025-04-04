@@ -37,7 +37,7 @@ public class WishListRepository implements IWishListRepository {
 
     //Opretter
     @Override
-    public void create(WishList wishList) {
+    public WishList create(WishList wishList) {
         System.out.println("Creating wishlist with name: " + wishList.getName()); //Logs
 
         String sql = "INSERT INTO wish_list(name, description, profile_id) VALUES (?, ?, ?)";
@@ -52,6 +52,8 @@ public class WishListRepository implements IWishListRepository {
             return ps;
         }, keyHolder);
         wishList.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
+
+        return wishList;
 
     }
 

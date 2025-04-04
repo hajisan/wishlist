@@ -23,9 +23,9 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public void create(Profile profile) {
+    public Profile create(Profile profile) {
 
-        iProfileRepository.create(profile);
+        return iProfileRepository.create(profile);
     }
 
     @Override
@@ -88,10 +88,10 @@ public class ProfileService implements IProfileService {
         iProfileRepository.editProfile(uneditedProfile, editedProfile);
     }
 
-    @Override
-    public void createProfile(Profile profile) {
-        iProfileRepository.create(profile);
-    }
+//    @Override
+//    public void createProfile(Profile profile) {
+//        iProfileRepository.create(profile);
+//    }
 
     @Override
     public boolean profileAlreadyExists(String username) {
@@ -99,8 +99,12 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public Profile login(String username, String password) {
         Profile profile = iProfileRepository.findProfileByUserName(username);
-        return profile.getPassword().equals(password);
+
+        if (profile.getPassword().equals(password)) {
+            return profile;
+        }
+        return null;
     }
 }

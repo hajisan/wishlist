@@ -30,7 +30,7 @@ public class ProfileRepository implements IProfileRepository {
     }
 
     @Override
-    public void create(Profile profile) {
+    public Profile create(Profile profile) {
         String sql = "INSERT INTO profile (name, birthday, email, username, password) VALUES (?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -49,6 +49,8 @@ public class ProfileRepository implements IProfileRepository {
         int id = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
         // Sætter profilens id til KeyHolderens værdi, hvis den ikke var null
         if (id != -1) profile.setId(id);
+
+        return profile;
 
     }
 

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("")
@@ -90,17 +91,29 @@ public class ProfileController {
     public String postLogin(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            HttpSession session, Model model
-    ) {
+            HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
         // Brug en metode i IProfileService til at tjekke login-informationer
+
+        Profile profile1 = profileService.login(username, password);
+
+        if (profile1 != null) {
+            session.setAttribute("profile", profile1);
+            session.setMaxInactiveInterval(120);
+            redirectAttributes.addAttribute("profile", profile1.getId());
+            return "redirect:/{profile}/wishlists";
+        }
+
+        /*
         if (profileService.login(username, password)) {
             // Hent profiloplysninger og opret nyt Profile-objekt ud fra dem
-            Profile profile = new Profile(username, password);
+            Profile profile = profileService.findProfileByUserName(username);
             // Indsæt evt. data her
             session.setAttribute("profile", profile);
             session.setMaxInactiveInterval(120);
+            redirectAttributes.addAttribute("profile", profile.getId());
             return "redirect:/{profile}/wishlists";
-        }
+        }*/
         model.addAttribute("wrongCredentials", true);
         return "login";
     }
@@ -123,7 +136,7 @@ public class ProfileController {
         // Tjek om profilen allerede findes i databasen ved hjælp af username, da det er unikt
         if (!profileService.profileAlreadyExists(username)) {
             // Tilføj profilen til databasen over eksisterende profiler
-            profileService.createProfile(profile);
+            profileService.create(profile);
             // Redirect til login-siden
             return "redirect:/login";
         }

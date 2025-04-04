@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IWishListRepository extends IRepository<WishList, Integer> {
     void save(WishList wishList);
-    void create(WishList wishList);
+    WishList create(WishList wishList);
     WishList findById(Integer id);
     List<WishList> findAll();
     void deleteById(Integer id);

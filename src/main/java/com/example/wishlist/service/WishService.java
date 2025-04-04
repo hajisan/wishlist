@@ -26,9 +26,9 @@ public class WishService implements IWishService {
     }
 
     @Override
-    public void create(Wish wish) {
+    public Wish create(Wish wish) {
 
-        iWishRepository.create(wish);
+        return iWishRepository.create(wish);
 
     }
 

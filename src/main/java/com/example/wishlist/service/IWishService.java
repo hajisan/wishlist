@@ -7,7 +7,7 @@ import java.util.List;
 public interface IWishService extends IService<Wish, Integer> {
     void save(Wish wish);
 
-    void create(Wish wish);
+    Wish create(Wish wish);
 
     Wish findById(Integer id);
 

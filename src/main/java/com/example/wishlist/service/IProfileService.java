@@ -8,7 +8,7 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     void save(Profile profile);
 
-    void create(Profile profile);
+    Profile create(Profile profile);
 
     Profile findById(Integer id);
 
@@ -24,9 +24,9 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     void editProfile(Profile uneditedProfile, Profile editedProfile);
 
-    void createProfile(Profile profile);
+    //void createProfile(Profile profile);
 
     boolean profileAlreadyExists(String username);
 
-    boolean login(String username, String password);
+    Profile login(String username, String password);
 }

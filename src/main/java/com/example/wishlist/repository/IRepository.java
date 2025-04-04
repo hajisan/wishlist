@@ -6,7 +6,7 @@ public interface IRepository<T, Integer> {
 
     void save(T t);
 
-    void create(T t);
+    T create(T t);
 
     T findById(Integer id);
 

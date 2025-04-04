@@ -36,7 +36,7 @@ public class WishRepository implements IWishRepository {
     }
 
     @Override
-    public void create(Wish wish) {
+    public Wish create(Wish wish) {
         // SQL-kommandoen til at indsætte et nyt ønske i databasen
         String sql = "INSERT INTO Wish (name, description, link, quantity, price, wish_list_id) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -53,6 +53,8 @@ public class WishRepository implements IWishRepository {
             return ps;
         }, keyHolder);
         wish.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
+
+        return wish;
 
     }
 
