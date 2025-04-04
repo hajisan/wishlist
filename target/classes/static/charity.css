@@ -1,0 +1,45 @@
+.charity-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.charity-intro h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #0077ff;
+}
+
+.charity-intro p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.charity-links {
+    margin-top: 60px;
+}
+
+.charity-links h2 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    color: #0077ff;
+}
+
+.charity-links ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.charity-links li {
+    margin-bottom: 10px;
+}
+
+.charity-links a {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.charity-links a:hover {
+    text-decoration: underline;
+}

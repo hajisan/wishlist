@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Velgørenhed – Wishlist</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/charity.css}">
+</head>
+<body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{/login}" class="btn secondary">Log ind</a>
+        <a th:href="@{/signup}" class="btn primary">Opret</a>
+    </nav>
+</header>
+
+<main class="charity-container">
+    <section class="charity-intro">
+        <h1>Gaver med mening</h1>
+        <p>
+            Med Wishlist kan du tilføje ønsker, der støtter en god sag. Det kan være alt fra donationer i dit navn,
+            til produkter hvor en del af beløbet går til velgørenhed.
+        </p>
+        <p>
+            Ønsk dig gaver, der gør en forskel – både for dig og for andre. Vis dine gæster, at omtanke og fællesskab betyder noget.
+        </p>
+    </section>
+
+    <section class="charity-links">
+        <h2>Støt gennem disse organisationer</h2>
+        <ul>
+            <li><a href="https://www.rodekors.dk/giv-en-gave" target="_blank">Røde Kors – Giv en symbolsk gave</a></li>
+            <li><a href="https://shop.redbarnet.dk" target="_blank">Red Barnet – Gavebutik med nødhjælp</a></li>
+            <li><a href="https://folkekirkensnodhjaelp.dk/gavebutik" target="_blank">Folkekirkens Nødhjælp – Gaver med værdi</a></li>
+            <li><a href="https://www.danmission.dk/giv-en-gave" target="_blank">Danmission – Bæredygtige gaver</a></li>
+        </ul>
+    </section>
+</main>
+
+<footer class="footer">
+    <a th:href="@{'/information#about'}">Om os</a>
+    <a th:href="@{'/information#cookies'}">Cookies</a>
+    <a th:href="@{'/information#faq'}">FAQ</a>
+    <a th:href="@{'/information#privacy'}">Privatliv</a>
+    <a th:href="@{'/information#contact'}">Kontakt</a>
+</footer>
+
+</body>
+</html>

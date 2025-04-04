@@ -48,7 +48,7 @@ public class WishController {
 
         // Tjek at ønsket faktisk tilhører ønskelisten (sikkerhed)
         if (wish.getWishListId() != expectedWishListId) {
-            return "redirect:/access-denied";
+            return "redirect:/error";
         }
 
         // Tilføj ønsket og info til modellen
@@ -112,7 +112,7 @@ public class WishController {
     }
 
     // Vis alle ønsker for én ønskeliste (bruger DTO)
-    @GetMapping("{username}/wishlists/{wishlist}")
+    @GetMapping("{username}/wishlists/{wishlist}/wishes")
     public String getAllWishesForWishlist(
             @PathVariable String username,
             @PathVariable String wishlist,
@@ -151,11 +151,6 @@ public class WishController {
                 .findFirst()
                 .orElse(null);
 
-        // Hvis ønsket ikke blev fundet (eller ikke tilhører ønskelisten), nægt adgang
-        if (wish == null) {
-            return "redirect:/access-denied";
-        }
-
         model.addAttribute("username", username);
         model.addAttribute("dto", dto);
         model.addAttribute("wish", wish);
@@ -185,10 +180,6 @@ public class WishController {
                 .filter(w -> w.getId() == wishId)
                 .findFirst()
                 .orElse(null);
-
-        if (wish == null) {
-            return "redirect:/access-denied";
-        }
 
         // Opdater ønskets værdier
         wish.setName(name);

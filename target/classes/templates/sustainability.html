@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bæredygtighed – Wishlist</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/sustainability.css}">
+</head>
+<body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{/login}" class="btn secondary">Log ind</a>
+        <a th:href="@{/signup}" class="btn primary">Opret</a>
+    </nav>
+</header>
+
+<main class="sustainability-container">
+    <section class="sustainability-intro">
+        <h1>Bæredygtige ønsker</h1>
+        <p>
+            Når du vælger bæredygtige ønsker, gør du en forskel for både miljøet og fremtidige generationer.
+            Det handler om at ønske sig ting, der holder længere, er produceret ansvarligt eller har lavere klimaaftryk.
+        </p>
+        <p>
+            Du kan fx ønske dig oplevelser frem for ting, produkter med certificeringer som GOTS, FSC eller Ø-mærket,
+            eller støtte lokale virksomheder og genbrug.
+        </p>
+    </section>
+
+    <section class="sustainability-links">
+        <h2>Læs mere hos andre</h2>
+        <ul>
+            <li><a href="https://www.fairtrade.dk/" target="_blank">Fairtrade Danmark</a></li>
+            <li><a href="https://www.miljoevenligpakning.dk/" target="_blank">Miljøvenlig Pakning</a></li>
+            <li><a href="https://fridafriday.dk" target="_blank">Frida Friday – bæredygtige brands</a></li>
+            <li><a href="https://genbrugsen.dk" target="_blank">Genbrugsen – for mere cirkulært forbrug</a></li>
+        </ul>
+    </section>
+</main>
+
+<footer class="footer">
+    <a th:href="@{'/information#about'}">Om os</a>
+    <a th:href="@{'/information#cookies'}">Cookies</a>
+    <a th:href="@{'/information#faq'}">FAQ</a>
+    <a th:href="@{'/information#privacy'}">Privatliv</a>
+    <a th:href="@{'/information#contact'}">Kontakt</a>
+</footer>
+
+</body>
+</html>

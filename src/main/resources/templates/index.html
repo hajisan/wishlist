@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wishlist – Alle dine ønsker ét sted</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{/login}" class="btn secondary">Log ind</a>
+        <a th:href="@{/signup}" class="btn primary">Opret</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Alle dine ønsker<br>samlet ét sted</h1>
+        <p>Wishlist gør det nemt at gemme og dele alle dine ønsker med venner og familie.</p>
+        <a th:href="@{/signup}" class="btn big primary">Opret en profil</a>
+    </div>
+    <div class="hero-image">
+        <img src="/images/mockup-placeholder.png" alt="App preview" />
+    </div>
+</section>
+
+<section class="info-boxes">
+    <a th:href="@{/sustainability}" class="info-box">
+        <h2>Bæredygtighed</h2>
+        <p>Læs hvordan Wishlist støtter op om en mere bæredygtig fremtid og hjælper med bevidst forbrug.</p>
+    </a>
+    <a th:href="@{/charity}" class="info-box">
+        <h2>Velgørenhed</h2>
+        <p>Se hvordan vi samarbejder med velgørende organisationer for at gøre en forskel.</p>
+    </a>
+</section>
+
+<section class="brand-logos">
+    <div class="brand-grid">
+    </div>
+</section>
+
+<footer class="footer">
+    <a th:href="@{'/information#about'}">Om os</a>
+    <a th:href="@{'/information#cookies'}">Cookies</a>
+    <a th:href="@{'/information#faq'}">FAQ</a>
+    <a th:href="@{'/information#privacy'}">Privatliv</a>
+    <a th:href="@{'/information#contact'}">Kontakt</a>
+</footer>
 
 </body>
 </html>

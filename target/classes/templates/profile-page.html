@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Min profil – Wishlist</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
+    </nav>
+</header>
+
+<section class="profile-header">
+    <div class="profile-cover"></div>
+    <div class="profile-info">
+        <div class="profile-img">
+            <img src="/images/default-profile.png" alt="Profilbillede">
+        </div>
+        <div>
+            <h2 th:text="${profile.name}">Brugernavn</h2>
+            <p><span th:text="${profile.email}">email@eksempel.dk</span></p>
+        </div>
+    </div>
+</section>
+
+<section class="wishlist-section">
+    <div class="wishlist-header">
+        <h3>Mine ønskelister</h3>
+        <a th:href="@{/{username}/wishlists/createnewlist(username=${profile.username})}" class="btn primary">+ Opret ønskeliste</a>
+    </div>
+
+    <div class="wishlist-grid">
+        <div th:each="wishlist : ${profile.wishLists}">
+            <a th:href="@{/{username}/wishlists/{name}(username=${profile.username}, name=${wishlist.name})}" class="wishlist-card">
+                <h4 th:text="${wishlist.name}">Min ønskeliste</h4>
+                <p th:text="${wishlist.description}">Beskrivelse</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <a th:href="@{/information}">Om os</a>
+    <a th:href="@{/information}">Cookies</a>
+    <a th:href="@{/information}">FAQ</a>
+    <a th:href="@{/information}">Privatliv</a>
+    <a th:href="@{/information}">Kontakt</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Information – Wishlist</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/information.css}">
+</head>
+<body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{/login}" class="btn secondary">Log ind</a>
+        <a th:href="@{/signup}" class="btn primary">Opret</a>
+    </nav>
+</header>
+
+<main class="info-container">
+
+    <!-- Section 1: Indholdsfortegnelse -->
+    <section class="toc">
+        <h3>Indhold</h3>
+        <ul>
+            <li><a href="#about">Om os</a></li>
+            <li><a href="#cookies">Cookies</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#privacy">Privatliv</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+    </section>
+
+    <!-- Section 2–6 -->
+    <section id="about" class="info-section">
+        <h2>Om os</h2>
+        <p>Wishlist er en platform, der gør det nemt at samle og dele dine ønsker med venner og familie.</p>
+    </section>
+
+    <section id="cookies" class="info-section">
+        <h2>Cookies</h2>
+        <p>Vi bruger cookies til at forbedre brugeroplevelsen. Du kan ændre dine indstillinger i din browser.</p>
+    </section>
+
+    <section id="faq" class="info-section">
+        <h2>FAQ</h2>
+        <p><strong>Hvordan opretter jeg en ønskeliste?</strong><br>Gå til din profil og klik på "Opret ønskeliste".</p>
+        <p><strong>Skal jeg have en profil?</strong><br>Ja, du skal oprette en profil for at kunne gemme og dele ønskelister.</p>
+    </section>
+
+    <section id="privacy" class="info-section">
+        <h2>Privatliv</h2>
+        <p>Vi passer godt på dine data og deler dem ikke med tredjepart uden dit samtykke.</p>
+    </section>
+
+    <section id="contact" class="info-section">
+        <h2>Kontakt</h2>
+        <p>Har du spørgsmål?<br>Skriv til os på <a href="mailto:support@wishlist.dk">support@wishlist.dk</a></p>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <a th:href="@{/information}">Om os</a>
+    <a th:href="@{/information}">Cookies</a>
+    <a th:href="@{/information}">FAQ</a>
+    <a th:href="@{/information}">Privatliv</a>
+    <a th:href="@{/information}">Kontakt</a>
+</footer>
+
+</body>
+</html>
