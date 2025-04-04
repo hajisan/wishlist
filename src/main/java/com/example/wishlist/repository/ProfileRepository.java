@@ -31,7 +31,7 @@ public class ProfileRepository implements IProfileRepository {
 
     @Override
     public void create(Profile profile) {
-        String sql = "INSERT INTO profile (name, birthday, email, user_name, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO profile (name, birthday, email, username, password) VALUES (?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -54,9 +54,7 @@ public class ProfileRepository implements IProfileRepository {
 
     @Override
     public Profile findById(Integer id) {
-        String sql = "SELECT *" +
-                "FROM profile" +
-                "WHERE id = ?";
+        String sql = "SELECT * FROM profile WHERE id = ?";
         List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), id);
         if (oneProfileAsList.isEmpty()) throw new ResourceNotFoundException("Profile not found");
         else return oneProfileAsList.get(0);
@@ -64,8 +62,7 @@ public class ProfileRepository implements IProfileRepository {
 
     @Override
     public List<Profile> findAll() {
-        String sql = "SELECT *" +
-                "FROM profile";
+        String sql = "SELECT * FROM profile";
         return jdbcTemplate.query(sql, new ProfileRowMapper());
     }
 
@@ -78,7 +75,7 @@ public class ProfileRepository implements IProfileRepository {
     @Override
     public void update(Profile profile) {
         // Gemmer SQL-kommandoen i en String
-        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, user_name = ?, password = ?";
+        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ?";
 
         //
         jdbcTemplate.update(
@@ -93,9 +90,7 @@ public class ProfileRepository implements IProfileRepository {
 
     @Override
     public Profile findProfileByUserName(String username) {
-        String sql = "SELECT *" +
-                "FROM profile" +
-                "WHERE username = ?";
+        String sql = "SELECT * FROM profile WHERE username = ?";
         List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
         if (oneProfileAsList.isEmpty()) throw new ResourceNotFoundException("Profile not found");
         else return oneProfileAsList.get(0);
@@ -103,9 +98,7 @@ public class ProfileRepository implements IProfileRepository {
 
     @Override
     public void editProfile(Profile uneditedProfile, Profile editedProfile) {
-        String sql = "UPDATE profile" +
-                "SET name = ?, birthday = ?, email = ?, user_name = ?, password = ?" +
-                "WHERE id = ?";
+        String sql = "UPDATE  profile SET name = ?, birthday = ?, email = ?, username = ?, password = ? WHERE id = ?";
         jdbcTemplate.update(
                 sql,
                 editedProfile.getName(),
