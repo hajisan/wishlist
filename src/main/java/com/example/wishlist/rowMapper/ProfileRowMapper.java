@@ -21,7 +21,7 @@ public class ProfileRowMapper implements RowMapper<Profile> {
                 Integer.parseInt(rs.getString("birthday").split("-")[2])) // Splitter result settet og tager dagen
         );
         profile.setEmail(rs.getString("email"));
-        profile.setUserName(rs.getString("user_name")); // Midlertidig indtil vi får sat vores environment variables op
+        profile.setUserName(rs.getString("username")); // Midlertidig indtil vi får sat vores environment variables op
         profile.setPassword(rs.getString("password")); // Midlertidig indtil vi får sat vores environment variables op
         return profile;
     }
