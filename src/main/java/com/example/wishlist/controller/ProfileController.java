@@ -101,7 +101,7 @@ public class ProfileController {
             session.setAttribute("profile", profile1);
             session.setMaxInactiveInterval(120);
             redirectAttributes.addAttribute("profile", profile1.getId());
-            return "redirect:/{profile}/wishlists";
+            return "redirect:/{profile}/profile-page";
         }
 
         /*

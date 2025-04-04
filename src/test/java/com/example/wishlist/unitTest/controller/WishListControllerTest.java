@@ -66,7 +66,7 @@ public class WishListControllerTest {
         when(profileWishListService.findProfileWithWishLists(testProfile.getId())).thenReturn(dto);
 
         // Act
-        String viewName = controller.getWishLists("testuser", session, model);
+        String viewName = controller.getWishLists(testProfile.getId(), session, model);
 
         // Assert
         verify(model).addAttribute("username", "testuser");

@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<h1>Ønskeliste for <span th:text="${profile.username}">Brugernavn</span></h1>
+<h1>Ønskeliste for <span th:text="${dto.profile.userName}">Brugernavn</span></h1>
 
-<div th:if="${#lists.isEmpty(wishlist)}">
+<div th:if="${#lists.isEmpty(dto.wishLists)}">
     <p>Din ønskeliste er tom.</p>
 </div>
 
-<ul th:if="${!#lists.isEmpty(wishlist)}">
-    <li th:each="wish : ${wishlist}">
-        <strong th:text="${wish.title}">Ønske titel</strong> -
-        <span th:text="${wish.description}">Beskrivelse</span>
+<ul th:if="${!#lists.isEmpty(dto.wishLists)}">
+    <li th:each="wishlist : ${dto.wishLists}">
+        <strong th:text="${wishlist.name}">Navn på ønskeliste</strong> -
+        <span th:text="${wishlist.description}">Beskrivelse</span>
     </li>
 </ul>
 
 <hr>
 
-<form th:action="@{/addWish}" method="post">
+<form th:action="@{/create-wish}" method="post">
     <label for="title">Titel:</label>
     <input type="text" id="title" name="title" required><br>
 

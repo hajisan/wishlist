@@ -1,6 +1,7 @@
 package com.example.wishlist.controller;
 
 
+import com.example.wishlist.dto.ProfileWishListDTO;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.WishList;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Controller
 
@@ -32,16 +34,28 @@ public class WishListController {
 
     // ------------- Henter brugerens ønskelister --------------------
 
-    @GetMapping("{username}/wishlists")
-    public String getWishLists(@PathVariable String username, HttpSession session, Model model) {
+    @GetMapping("{profileId}/wishlists")
+    public String getWishLists(@PathVariable Integer profileId, HttpSession session, Model model) {
+
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
 
         Profile profile = (Profile) session.getAttribute("profile");
-        int profileId = profile.getId();
 
-        model.addAttribute("username", username);
-        model.addAttribute("wishlists", profileWishListService.findProfileWithWishLists(profileId));
+        //int profileId = profile.getId();
+//
+//        model.addAttribute("username", username);
+//        model.addAttribute("wishlists", profileWishListService.findProfileWithWishLists(profileId));
+        ProfileWishListDTO profileWishListDTO = profileWishListService.findProfileWithWishLists(profileId);
+        model.addAttribute("dto", profileWishListDTO);
 
-        return ProfileController.loginTernary(session, "wishlists"); //Redirecter hvis bruger ikke er logget ind
+
+
+
+        return "wishlists";
+
+        //return ProfileController.loginTernary(session, "wishlists"); //Redirecter hvis bruger ikke er logget ind
+        // = den returnerer kun view-navne og indeholder IKKE ID. Ovenstående er børnemetode, måske vi skal have en
+        // ternary mere?
 
     }
 
@@ -51,6 +65,8 @@ public class WishListController {
     public String getCreateWishList(@PathVariable String username, HttpSession session, Model model) {
 
         model.addAttribute("username", username);
+
+
 
         return ProfileController.loginTernary(session, "create-wishlist");
     }

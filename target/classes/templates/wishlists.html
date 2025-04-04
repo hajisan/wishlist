@@ -1,66 +1,36 @@
 <!DOCTYPE html>
-<html lang="da">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Min Ønskeliste</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        ul {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            list-style-type: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        li {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        li:last-child {
-            border-bottom: none;
-        }
-        .add-form {
-            margin-top: 30px;
-        }
-        .add-form input {
-            padding: 8px;
-            margin: 5px 0;
-            width: 300px;
-        }
-        .add-form button {
-            padding: 10px 20px;
-            background-color: #2d89ef;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
+    <title>Ønskeliste</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<h1>Ønskeliste for <span th:text="${dto.profile.userName}">Brugernavn</span></h1>
 
-<h1>Min Ønskeliste</h1>
-
-<ul>
-    <li><strong>Airfryer</strong> – Jeg har ønsket mig én længe!</li>
-    <li><strong>Trådløse høretelefoner</strong> – Helst dem med støjreduktion.</li>
-    <li><strong>Harry Potter-bogsamling</strong> – På dansk!</li>
-</ul>
-
-<div class="add-form">
-    <h2>Tilføj nyt ønske</h2>
-    <form>
-        <input type="text" placeholder="Titel på ønsket" required><br>
-        <input type="text" placeholder="Beskrivelse (valgfri)"><br>
-        <button type="submit">Tilføj</button>
-    </form>
+<div th:if="${#lists.isEmpty(dto.wishLists)}">
+    <p>Din ønskeliste er tom.</p>
 </div>
 
+<ul th:if="${!#lists.isEmpty(dto.wishLists)}">
+    <li th:each="wishlist : ${dto.wishLists}">
+        <strong th:text="${wishlist.name}">Navn på ønskeliste</strong> -
+        <span th:text="${wishlist.description}">Beskrivelse</span>
+    </li>
+</ul>
+
+<hr>
+
+<form th:action="@{/create-wish}" method="post">
+    <label for="title">Titel:</label>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="description">Beskrivelse:</label>
+    <input type="text" id="description" name="description"><br>
+
+    <button type="submit">Tilføj ønske</button>
+</form>
+
+<p><a th:href="@{/logout}">Log ud</a></p>
 </body>
 </html>
