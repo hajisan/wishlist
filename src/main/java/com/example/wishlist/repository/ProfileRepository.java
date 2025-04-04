@@ -75,7 +75,7 @@ public class ProfileRepository implements IProfileRepository {
     }
 
     @Override
-    public void update(Profile profile) {
+    public Profile update(Profile profile) {
         // Gemmer SQL-kommandoen i en String
         String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ?";
 
@@ -88,6 +88,7 @@ public class ProfileRepository implements IProfileRepository {
                 profile.getUserName(),
                 profile.getPassword()
         );
+        return profile;
     }
 
     @Override

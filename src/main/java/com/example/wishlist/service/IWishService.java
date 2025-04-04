@@ -15,6 +15,6 @@ public interface IWishService extends IService<Wish, Integer> {
 
     void deleteById(Integer id);
 
-    void update(Wish wish);
+    Wish update(Wish wish);
 
 }

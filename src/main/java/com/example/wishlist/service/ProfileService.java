@@ -67,12 +67,12 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public void update(Profile profile) {
+    public Profile update(Profile profile) {
 
         if (profile == null) {
             throw new ResourceNotFoundException("Profile not found");
         }
-        iProfileRepository.update(profile);
+        return iProfileRepository.update(profile);
     }
 
     @Override

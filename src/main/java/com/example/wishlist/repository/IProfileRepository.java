@@ -16,7 +16,7 @@ public interface IProfileRepository extends IRepository<Profile, Integer> {
 
     void deleteById(Integer id);
 
-    void update(Profile t);
+    Profile update(Profile t);
 
     Profile findProfileByUserName(String username);
 

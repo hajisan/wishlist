@@ -18,7 +18,7 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     void deleteById(Integer id);
 
-    void update(Profile profile);
+    Profile update(Profile profile);
 
     Profile findProfileByUserName(String username);
 

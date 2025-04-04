@@ -80,7 +80,7 @@ public class WishListRepository implements IWishListRepository {
     }
 
     @Override
-    public void update(WishList wishList) {
+    public WishList update(WishList wishList) {
 
         String sql = "UPDATE wish_list SET name = ?, description = ? WHERE id = ?";
 
@@ -90,6 +90,8 @@ public class WishListRepository implements IWishListRepository {
                 wishList.getDescription(),
                 wishList.getId() //Parameter -> id til WHERE
         );
+
+        return wishList;
 
     }
 

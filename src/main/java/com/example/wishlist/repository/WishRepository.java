@@ -89,7 +89,7 @@ public class WishRepository implements IWishRepository {
     }
 
     @Override
-    public void update(Wish wish) {
+    public Wish update(Wish wish) {
         // SQL-kommandoen til at opdatere et ønske
         String sql = "UPDATE Wish SET name = ?, description = ?, link = ?, quantity = ?, price = ? WHERE id = ?";
 
@@ -103,6 +103,7 @@ public class WishRepository implements IWishRepository {
                 wish.getPrice(),
                 wish.getId()
         );
+        return wish;
 
     }
 
