@@ -1,6 +1,7 @@
 package com.example.wishlist.service;
 
 import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.IWishListRepository;
 import org.springframework.stereotype.Service;
@@ -52,11 +53,11 @@ public class WishListService implements IWishListService {
     }
 
     @Override
-    public void update(WishList wishList) {
+    public WishList update(WishList wishList) {
         if (wishList == null) {
             throw new ResourceNotFoundException("Wish list does not exist");
         }
-        iWishListRepository.update(wishList);
+        return iWishListRepository.update(wishList);
     }
 
 

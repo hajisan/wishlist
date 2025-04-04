@@ -13,7 +13,7 @@ public interface IService<T, Integer> {
 
     void deleteById(Integer id);
 
-    void update(T t);
+    T update(T t);
 
 }
 
