@@ -61,13 +61,13 @@ public class WishService implements IWishService {
    }
 
     @Override
-    public void update(Wish wish) {
+    public Wish update(Wish wish) {
 
         if (wish == null) {
             throw new ResourceNotFoundException("Wish does not exist");
         }
 
-        iWishRepository.update(wish);
+        return iWishRepository.update(wish);
 
     }
 
