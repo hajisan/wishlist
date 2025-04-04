@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hølløjsov</title>
+    <title>Ønskeliste</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<h1>Ønskeliste for <span th:text="${profile.username}">Brugernavn</span></h1>
 
+<div th:if="${#lists.isEmpty(wishlist)}">
+    <p>Din ønskeliste er tom.</p>
+</div>
+
+<ul th:if="${!#lists.isEmpty(wishlist)}">
+    <li th:each="wish : ${wishlist}">
+        <strong th:text="${wish.title}">Ønske titel</strong> -
+        <span th:text="${wish.description}">Beskrivelse</span>
+    </li>
+</ul>
+
+<hr>
+
+<form th:action="@{/addWish}" method="post">
+    <label for="title">Titel:</label>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="description">Beskrivelse:</label>
+    <input type="text" id="description" name="description"><br>
+
+    <button type="submit">Tilføj ønske</button>
+</form>
+
+<p><a th:href="@{/logout}">Log ud</a></p>
 </body>
 </html>
