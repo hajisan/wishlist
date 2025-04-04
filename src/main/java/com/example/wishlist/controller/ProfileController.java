@@ -1,5 +1,6 @@
 package com.example.wishlist.controller;
 
+import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,13 @@ public class ProfileController {
         this.profileService = profileService; // der stod this.profileRepository
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleNotFound(Model model, ResourceNotFoundException e) {
+
+        model.addAttribute("message", e.getMessage());
+        return "error"; // thymeleaf skabelon i templates/error/
+    }
+
     public static boolean isLoggedIn(HttpSession session) {
         return session.getAttribute("profile") != null;
     }
@@ -23,7 +31,6 @@ public class ProfileController {
     public static String loginTernary(HttpSession session, String htmlPage) {
         return isLoggedIn(session) ? htmlPage : "login";
     }
-}
 
     //---------------------------------------------------------------------------------------------------
     //----------------------------------     Application Mappings     -----------------------------------

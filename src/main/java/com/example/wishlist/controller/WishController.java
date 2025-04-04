@@ -1,6 +1,7 @@
 package com.example.wishlist.controller;
 
 import com.example.wishlist.dto.WishWishListDTO;
+import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.Wish;
 import com.example.wishlist.service.IWishService;
@@ -8,10 +9,7 @@ import com.example.wishlist.service.WishWishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WishController {
@@ -21,6 +19,13 @@ public class WishController {
     public WishController(IWishService wishService, WishWishListService wishWishListService) {
         this.wishService = wishService;
         this.wishWishListService = wishWishListService;
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleNotFound(Model model, ResourceNotFoundException e) {
+
+        model.addAttribute("message", e.getMessage());
+        return "error"; // thymeleaf skabelon i templates/error/
     }
 
     // Vis ét enkelt ønske fra en ønskeliste, som tilhører den aktuelle bruger

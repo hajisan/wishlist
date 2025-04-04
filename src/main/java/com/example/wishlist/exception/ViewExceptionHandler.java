@@ -17,8 +17,9 @@ public class ViewExceptionHandler {
         model.addAttribute("message", e.getMessage());
         return "error/404"; // thymeleaf skabelon i templates/error/404.html
     }
-    //Client får eks. denne besked:
-    //"WishList with ID 'eks.12' not found."
+
+
+    // ------------ Buffer exceptions fra CHATTEN --------------------
 
     // Fejlbesked om foreign key violations (eller anden database-relateret fejl)
     @ExceptionHandler(DataIntegrityViolationException.class)
