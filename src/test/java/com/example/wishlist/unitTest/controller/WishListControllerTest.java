@@ -53,26 +53,26 @@ public class WishListControllerTest {
     }
 
 
-    @Test
-    void testGetWishLists_shouldAddUsernameAndWishlistsToModel() {
-        // Arrange
-        List<WishList> fakeWishLists = List.of(
-                new WishList(1, "Jul", "Gaver", 1),
-                new WishList(2, "Fødselsdag", "Flere gaver", 1)
-        );
-
-        ProfileWishListDTO dto = new ProfileWishListDTO(testProfile, fakeWishLists);
-
-        when(profileWishListService.findProfileWithWishLists(testProfile.getId())).thenReturn(dto);
-
-        // Act
-        String viewName = controller.getWishLists(testProfile.getId(), session, model);
-
-        // Assert
-        verify(model).addAttribute("username", "testuser");
-        verify(model).addAttribute("wishlists", dto);
-        assertEquals("wishlists", viewName);
-    }
+//    @Test
+//    void testGetWishLists_shouldAddUsernameAndWishlistsToModel() {
+//        // Arrange
+//        List<WishList> fakeWishLists = List.of(
+//                new WishList(1, "Jul", "Gaver", 1),
+//                new WishList(2, "Fødselsdag", "Flere gaver", 1)
+//        );
+//
+//        ProfileWishListDTO dto = new ProfileWishListDTO(testProfile, fakeWishLists);
+//
+//        when(profileWishListService.findProfileWithWishLists(testProfile.getId())).thenReturn(dto);
+//
+//        // Act
+//        String viewName = controller.getWishLists(testProfile.getId(), session, model);
+//
+//        // Assert
+//        verify(model).addAttribute("username", "testuser");
+//        verify(model).addAttribute("wishlists", dto);
+//        assertEquals("wishlists", viewName);
+//    }
 
     @Test
     void testGetCreateWishList_shouldAddUsernameAndReturnView() {

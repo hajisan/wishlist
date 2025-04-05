@@ -21,14 +21,14 @@
 
 <hr>
 
-<form th:action="@{/create-wish}" method="post">
+<form th:action="@{/create-wishlist}" method="post">
     <label for="title">Titel:</label>
     <input type="text" id="title" name="title" required><br>
 
     <label for="description">Beskrivelse:</label>
     <input type="text" id="description" name="description"><br>
 
-    <button type="submit">Tilføj ønske</button>
+    <button type="submit">Tilføj ønskeliste</button>
 </form>
 
 <p><a th:href="@{/logout}">Log ud</a></p>

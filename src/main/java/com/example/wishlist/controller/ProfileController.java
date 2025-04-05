@@ -1,5 +1,6 @@
 package com.example.wishlist.controller;
 
+import com.example.wishlist.exception.DateTimeFormatException;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
@@ -8,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("")
@@ -23,6 +28,12 @@ public class ProfileController {
 
         model.addAttribute("message", e.getMessage());
         return "error"; // thymeleaf skabelon i templates/error/
+    }
+
+    @ExceptionHandler(DateTimeFormatException.class)
+    public String handleDateParseError(Model model, DateTimeFormatException e) {
+        model.addAttribute("dateErrorMessage", e.getMessage());
+        return "signup";
     }
 
     public static boolean isLoggedIn(HttpSession session) {
@@ -95,25 +106,15 @@ public class ProfileController {
             RedirectAttributes redirectAttributes) {
         // Brug en metode i IProfileService til at tjekke login-informationer
 
-        Profile profile1 = profileService.login(username, password);
+        Profile profile = profileService.login(username, password);
 
-        if (profile1 != null) {
-            session.setAttribute("profile", profile1);
-            session.setMaxInactiveInterval(120);
-            redirectAttributes.addAttribute("profile", profile1.getId());
-            return "redirect:/{profile}/profile-page";
-        }
-
-        /*
-        if (profileService.login(username, password)) {
-            // Hent profiloplysninger og opret nyt Profile-objekt ud fra dem
-            Profile profile = profileService.findProfileByUserName(username);
-            // Indsæt evt. data her
+        if (profile != null) {
             session.setAttribute("profile", profile);
-            session.setMaxInactiveInterval(120);
+            session.setMaxInactiveInterval(1000);
             redirectAttributes.addAttribute("profile", profile.getId());
             return "redirect:/{profile}/wishlists";
-        }*/
+        }
+
         model.addAttribute("wrongCredentials", true);
         return "login";
     }
@@ -123,36 +124,57 @@ public class ProfileController {
         return "signup";
     }
 
+
     @PostMapping("/signup")
     public String postSignUp(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
+            @RequestParam("repeatPassword") String repeatPassword,
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("birthday") String birthday,
             Model model
     ) {
-        Profile profile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
-        // Tjek om profilen allerede findes i databasen ved hjælp af username, da det er unikt
-        if (!profileService.profileAlreadyExists(username)) {
-            // Tilføj profilen til databasen over eksisterende profiler
-            profileService.create(profile);
-            // Redirect til login-siden
-            return "redirect:/login";
+        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+            model.addAttribute("passwordMismatch", true);
+            return "signup";
         }
-        // Tilføj attribute til model, så vi kan vise det på vores HTML-side
-        model.addAttribute("profileAlreadyExists", true);
-        return "signup";
-    }
 
-    @GetMapping("/{username}/profile")
+        if (profileService.profileAlreadyExists(username)) { //Tjekker om bruger findes
+            model.addAttribute("profileAlreadyExists", true);
+            return "signup";
+
+        }
+        LocalDate parsedDate; //gemmer parsed dato
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            parsedDate = LocalDate.parse(birthday, formatter);
+        }
+        catch (DateTimeFormatException e) {
+            throw new DateTimeFormatException(); //Kaster brugerdefineret fejl
+        }
+
+        Profile profile = new Profile(name, parsedDate, email, username, password);
+        profileService.create(profile);
+
+        return "redirect:/login";
+        }
+
+
+    @GetMapping("/{profileId}/profile")
     public String getProfilePage(
-            @PathVariable String username,
+            @PathVariable int profileId,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.findProfileByUserName(username));
-        return loginTernary(session, "profile-page");
+
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+
+        model.addAttribute("profile", profileService.findById(profileId));
+
+        return "profile-page";
     }
+
 
     @GetMapping("/{username}/profile/edit")
     public String getProfileEditPage(

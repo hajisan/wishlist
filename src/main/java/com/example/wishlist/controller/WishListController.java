@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 
 @Controller
 
@@ -34,28 +34,20 @@ public class WishListController {
 
     // ------------- Henter brugerens ønskelister --------------------
 
+
     @GetMapping("{profileId}/wishlists")
     public String getWishLists(@PathVariable Integer profileId, HttpSession session, Model model) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
-        Profile profile = (Profile) session.getAttribute("profile");
+        Profile sessionProfile = (Profile) session.getAttribute("profile");
 
-        //int profileId = profile.getId();
-//
-//        model.addAttribute("username", username);
-//        model.addAttribute("wishlists", profileWishListService.findProfileWithWishLists(profileId));
+        if (sessionProfile.getId() != profileId) { return "redirect:/login"; } //Tjekker om id matcher profilId på wishList
+
         ProfileWishListDTO profileWishListDTO = profileWishListService.findProfileWithWishLists(profileId);
         model.addAttribute("dto", profileWishListDTO);
 
-
-
-
         return "wishlists";
-
-        //return ProfileController.loginTernary(session, "wishlists"); //Redirecter hvis bruger ikke er logget ind
-        // = den returnerer kun view-navne og indeholder IKKE ID. Ovenstående er børnemetode, måske vi skal have en
-        // ternary mere?
 
     }
 
@@ -65,8 +57,6 @@ public class WishListController {
     public String getCreateWishList(@PathVariable String username, HttpSession session, Model model) {
 
         model.addAttribute("username", username);
-
-
 
         return ProfileController.loginTernary(session, "create-wishlist");
     }
