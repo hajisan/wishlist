@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Min profil – Wishlist</title>
@@ -10,6 +10,7 @@
 <header class="topbar">
     <a th:href="@{/}" class="logo">🎁 Wishlist</a>
     <nav class="nav-links">
+        <a th:href="@{/{profileId}/profile/edit(profileId=${profileId})}" class="btn secondary">Opdater profil</a>
         <a th:href="@{/logout}" class="btn secondary">Log ud</a>
     </nav>
 </header>

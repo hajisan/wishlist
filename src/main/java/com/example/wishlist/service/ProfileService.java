@@ -84,10 +84,10 @@ public class ProfileService implements IProfileService {
         return iProfileRepository.findProfileByUserName(username);
     }
 
-    @Override
-    public void editProfile(Profile uneditedProfile, Profile editedProfile) {
-        iProfileRepository.editProfile(uneditedProfile, editedProfile);
-    }
+//    @Override
+//    public void editProfile(Profile uneditedProfile, Profile editedProfile) {
+//        iProfileRepository.editProfile(uneditedProfile, editedProfile);
+//    }
 
 //    @Override
 //    public void createProfile(Profile profile) {

@@ -59,14 +59,16 @@ public class WishListRepository implements IWishListRepository {
 
     @Override
     public WishList findById(Integer id) {
-        String sql = "SELECT id, name, description FROM wish_list WHERE id = ?";
+        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE id = ?";
 
             return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), id); //Returnerer wishList-objekt
+
+
     }
 
     @Override
     public List<WishList> findAll() {
-        String sql = "SELECT id, name, description FROM wish_list";
+        String sql = "SELECT id, name, description, profile_id FROM wish_list";
         return jdbcTemplate.query(sql, new WishListRowMapper());
     }
 

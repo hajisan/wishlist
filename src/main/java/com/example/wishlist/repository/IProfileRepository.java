@@ -20,5 +20,5 @@ public interface IProfileRepository extends IRepository<Profile, Integer> {
 
     Profile findProfileByUserName(String username);
 
-    void editProfile(Profile uneditedProfile, Profile editedProfile);
+
 }
