@@ -38,7 +38,7 @@ public class ProfileRepository implements IProfileRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, profile.getName());
-            ps.setString(2, profile.getBirthday().format(DateTimeFormatter.ISO_LOCAL_DATE));
+            ps.setString(2, profile.getBirthday().format(DateTimeFormatter.ISO_LOCAL_DATE)); //MySQL time-format
             ps.setString(3, profile.getEmail());
             ps.setString(4, profile.getUserName());
             ps.setString(5, profile.getPassword());
@@ -95,8 +95,9 @@ public class ProfileRepository implements IProfileRepository {
     public Profile findProfileByUserName(String username) {
         String sql = "SELECT * FROM profile WHERE username = ?";
         List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
-        if (oneProfileAsList.isEmpty()) throw new ResourceNotFoundException("Profile not found");
-        else return oneProfileAsList.get(0);
+
+        if (oneProfileAsList.isEmpty()) { return null; }
+        return oneProfileAsList.get(0);
     }
 
     @Override

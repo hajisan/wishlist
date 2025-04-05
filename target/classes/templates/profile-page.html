@@ -22,26 +22,24 @@
         </div>
         <div>
             <h2 th:text="${profile.name}">Brugernavn</h2>
-            <p><span th:text="${profile.email}">email@eksempel.dk</span></p>
+            <ol>
+                <li>
+                    <p th:text="${profile.userName}">email@eksempel.dk</p>
+                </li>
+                <li>
+                    <p th:text="${profile.email}">brugernavn</p>
+                </li>
+                <li>
+                    <p th:text="${profile.getBirthday()}">fødselsdag</p>
+                </li>
+
+            </ol>
+
         </div>
     </div>
 </section>
 
-<section class="wishlist-section">
-    <div class="wishlist-header">
-        <h3>Mine ønskelister</h3>
-        <a th:href="@{/{username}/wishlists/createnewlist(username=${profile.username})}" class="btn primary">+ Opret ønskeliste</a>
-    </div>
 
-    <div class="wishlist-grid">
-        <div th:each="wishlist : ${profile.wishLists}">
-            <a th:href="@{/{username}/wishlists/{name}(username=${profile.username}, name=${wishlist.name})}" class="wishlist-card">
-                <h4 th:text="${wishlist.name}">Min ønskeliste</h4>
-                <p th:text="${wishlist.description}">Beskrivelse</p>
-            </a>
-        </div>
-    </div>
-</section>
 
 <footer class="footer">
     <a th:href="@{/information}">Om os</a>

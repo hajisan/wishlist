@@ -24,12 +24,15 @@
             <input type="email" name="email" placeholder="Email" required>
             <input type="text" name="username" placeholder="Brugernavn" required>
             <input type="password" name="password" placeholder="Adgangskode" required>
-            <input type="password" name="password" placeholder="Gentag adgangskode" required>
+            <input type="password" name="repeatPassword" placeholder="Gentag adgangskode" required>
             <input type="date" name="birthday" placeholder="Fødselsdag" required>
             <button type="submit" class="btn primary full-width">Opret profil</button>
         </form>
 
+        <p class="error" th:if="${passwordMismatch}">Adgangskoderne matcher ikke</p>
         <p class="error" th:if="${profileAlreadyExists}">Brugernavnet er allerede i brug</p>
+        <p class="error" th:if="${dateErrorMessage}" th:text="${dateErrorMessage}"></p>
+
 
         <p class="signup-link">Har du allerede en profil? <a th:href="@{/login}">Log ind her</a></p>
     </div>

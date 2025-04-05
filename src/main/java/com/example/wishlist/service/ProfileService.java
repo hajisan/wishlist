@@ -77,9 +77,10 @@ public class ProfileService implements IProfileService {
 
     @Override
     public Profile findProfileByUserName(String username) {
-        if (iProfileRepository.findProfileByUserName(username) == null) {
-            throw new ResourceNotFoundException("Profile not found");
-        }
+
+//        if (iProfileRepository.findProfileByUserName(username) == null) {
+//            throw new ResourceNotFoundException("Profile not found");
+//        }
         return iProfileRepository.findProfileByUserName(username);
     }
 
