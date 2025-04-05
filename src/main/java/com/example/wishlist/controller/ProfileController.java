@@ -170,6 +170,7 @@ public class ProfileController {
 
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
+        model.addAttribute("profileId", profileId);
         model.addAttribute("profile", profileService.findById(profileId));
 
         return "profile-page";
