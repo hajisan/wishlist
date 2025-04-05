@@ -98,6 +98,12 @@ public class ProfileController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
+
     @PostMapping("/login")
     public String postLogin(
             @RequestParam("username") String username,
@@ -123,7 +129,6 @@ public class ProfileController {
     public String getSignUp() {
         return "signup";
     }
-
 
     @PostMapping("/signup")
     public String postSignUp(
