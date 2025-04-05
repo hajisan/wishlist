@@ -14,12 +14,12 @@ import java.util.List;
 public class WishWishListService {
     private final IWishListRepository iWishListRepository;
     private final IWishRepository iWishRepository;
-    private final WishRepository wishRepository;
 
-    public WishWishListService(IWishListRepository iWishListRepository, IWishRepository iWishRepository, WishRepository wishRepository) {
+
+    public WishWishListService(IWishListRepository iWishListRepository, IWishRepository iWishRepository) {
         this.iWishListRepository = iWishListRepository;
         this.iWishRepository = iWishRepository;
-        this.wishRepository = wishRepository;
+
     }
 
     public WishWishListDTO findWishWithWishList(Integer wishListId) {
@@ -34,21 +34,21 @@ public class WishWishListService {
     }
 
 
-    public int findWishListIdByNameAndProfile(String wishlistName, int profileId) {
-        WishList wishlist = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
-
-        if (wishlist == null) {
-            throw new ResourceNotFoundException("Wishlist with name '" + wishlistName + "' for profile ID " + profileId + " not found.");
-        }
-
-        return wishlist.getId();
-    }
+//    public int findWishListIdByNameAndProfile(String wishlistName, int profileId) {
+//        WishList wishlist = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
+//
+//        if (wishlist == null) {
+//            throw new ResourceNotFoundException("Wishlist with name '" + wishlistName + "' for profile ID " + profileId + " not found.");
+//        }
+//
+//        return wishlist.getId();
+//    }
 
 
     public WishWishListDTO getWishListWithWishes(String wishlistName, int profileId) {
         WishList wishList = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
 
-        List<Wish> wishes = wishRepository.findByWishListId(wishList.getId());
+        List<Wish> wishes = iWishRepository.findByWishListId(wishList.getId());
 
         return new WishWishListDTO(wishes, wishList);
     }

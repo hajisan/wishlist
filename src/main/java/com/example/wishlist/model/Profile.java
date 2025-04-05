@@ -24,6 +24,7 @@ public class Profile {
 
     }
 
+    //MÅ KUN BRUGES TIL CREATE, ELLERS KOMMER ID IKKE MED
     public Profile(String name, LocalDate birthday, String email, String userName, String password) {
         this.name = name;
         this.birthday = birthday;

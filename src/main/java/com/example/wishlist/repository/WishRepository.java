@@ -3,6 +3,7 @@ package com.example.wishlist.repository;
 import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.rowMapper.WishRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -61,22 +62,29 @@ public class WishRepository implements IWishRepository {
     @Override
     public Wish findById(Integer id) {
         // SQL-kommandoen til at hente et ønske baseret på id
-        String sql = "SELECT id, name, description, link, quantity, price FROM Wish WHERE id = ?";
 
-        // Brug jdbcTemplate til at finde objektet og returnere det som et Wish-objekt
-        Wish wish = jdbcTemplate.queryForObject(sql, new WishRowMapper(), id);
-        return wish;
+//        String sql = "SELECT id, name, description, link, quantity, price FROM Wish WHERE id = ?";
+//
+//        // Brug jdbcTemplate til at finde objektet og returnere det som et Wish-objekt
+//        return jdbcTemplate.queryForObject(sql, new WishRowMapper(), id);
+//        return wish;
+        try {
+            String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM Wish WHERE id = ?";
+            return jdbcTemplate.queryForObject(sql, new WishRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     // Metode til at finde alle ønsker
     @Override
     public List<Wish> findAll() {
         // SQL-kommandoen til at hente alle ønsker fra databasen
-        String sql = "SELECT id, name, description, link, quantity, price FROM Wish";
+        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM Wish";
 
         // Brug jdbcTemplate til at udføre query og returnere en liste af Wish-objekter
-        List<Wish> wishes = jdbcTemplate.query(sql, new WishRowMapper());
-        return wishes;
+        return jdbcTemplate.query(sql, new WishRowMapper());
+
     }
 
     @Override
@@ -110,7 +118,7 @@ public class WishRepository implements IWishRepository {
     @Override
     public List<Wish> findByWishListId(Integer wishListId) {
         // SQL-kommandoen til at finde et wish ud fra wishId
-        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_List_id = ?";
+        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_list_id = ?";
 
         return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);
     }

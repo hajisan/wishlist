@@ -22,7 +22,7 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     Profile findProfileByUserName(String username);
 
-    void editProfile(Profile uneditedProfile, Profile editedProfile);
+    //void editProfile(Profile uneditedProfile, Profile editedProfile);
 
     //void createProfile(Profile profile);
 

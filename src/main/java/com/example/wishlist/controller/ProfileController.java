@@ -182,30 +182,49 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/{username}/profile/edit")
+    @GetMapping("/{profileId}/profile/edit")
     public String getProfileEditPage(
-            @PathVariable String username,
+            @PathVariable int profileId,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.findProfileByUserName(username));
-        return loginTernary(session, "edit-profile-page");
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        model.addAttribute("profile", profileService.findById(profileId));
+
+
+        return "edit-profile-page";
     }
 
-    @PostMapping("/{username}/profile/edit")
+    @PostMapping("/{profileId}/profile/edit")
     public String postProfileEditPage(
-            @PathVariable @RequestParam("username") String username,
+            @PathVariable int profileId,
+            @RequestParam("username") String username,
             @RequestParam("password") String password,
+            @RequestParam("repeatPassword") String repeatPassword,
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("birthday") String birthday,
             HttpSession session, Model model
     ) {
-        model.addAttribute("profile", profileService.findProfileByUserName(username));
-        // Opret en Profile med både de uændrede (fra HttpSession) og de ændrede data (fra parametre)
-        Profile uneditedProfile = (Profile) session.getAttribute("profile");
-        Profile editedProfile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
-        // Edit profilen ved at finde den vha. det gamle username i det tilfælde at det er blevet opdateret
-        profileService.editProfile(uneditedProfile, editedProfile);
-        return loginTernary(session, "redirect:/{username}/profile");
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        model.addAttribute("profile", profileService.findById(profileId));
+//        // Opret en Profile med både de uændrede (fra HttpSession) og de ændrede data (fra parametre)
+//        Profile uneditedProfile = (Profile) session.getAttribute("profile");
+//        Profile editedProfile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
+//        // Edit profilen ved at finde den vha. det gamle username i det tilfælde at det er blevet opdateret
+
+        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+            model.addAttribute("passwordMismatch", true);
+            return "signup";
+        }
+
+        LocalDate parsedDate; //gemmer parsed dato
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
+        parsedDate = LocalDate.parse(birthday, formatter);
+
+        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
+
+        profileService.update(profile);
+        return "redirect:/{profileId}/profile";
     }
 }
