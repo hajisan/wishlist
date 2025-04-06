@@ -26,7 +26,7 @@ CREATE TABLE wish_list (
   description VARCHAR(225),
   profile_id INT,
   PRIMARY KEY (id),
-  FOREIGN KEY (profile_id) REFERENCES profile(id)
+  FOREIGN KEY (profile_id) REFERENCES profile(id) ON DELETE CASCADE
 ) AUTO_INCREMENT = 500;
 
 -- ========================
@@ -43,6 +43,7 @@ CREATE TABLE wish (
   reserved TINYINT(1), -- 0 = ikke reserveret, 1 = reserveret
   wish_list_id INT,
   PRIMARY KEY (id),
-  FOREIGN KEY (wish_list_id) REFERENCES wish_list(id)
+  FOREIGN KEY (wish_list_id) REFERENCES wish_list(id) ON DELETE CASCADE
 ) AUTO_INCREMENT = 1000;
+
 

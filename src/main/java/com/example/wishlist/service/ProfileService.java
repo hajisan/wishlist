@@ -18,11 +18,6 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public void save(Profile profile) {
-        iProfileRepository.save(profile);
-    }
-
-    @Override
     public Profile create(Profile profile) {
 
         return iProfileRepository.create(profile);
@@ -48,7 +43,6 @@ public class ProfileService implements IProfileService {
         return profile;
     }
 
-
     @Override
     public List<Profile> findAll() {
         return iProfileRepository.findAll();
@@ -57,12 +51,12 @@ public class ProfileService implements IProfileService {
 
     @Override
     public void deleteById(Integer id) {
-        Profile profile = iProfileRepository.findById(id); //Finder id
+        Profile profile = iProfileRepository.findById(id);
 
         if (profile == null) {
             throw new ResourceNotFoundException("Profile with ID: " + id + " not found.");
         }
-        iProfileRepository.deleteById(id); //Sletter id
+        iProfileRepository.deleteById(id);
 
     }
 
@@ -78,21 +72,9 @@ public class ProfileService implements IProfileService {
     @Override
     public Profile findProfileByUserName(String username) {
 
-//        if (iProfileRepository.findProfileByUserName(username) == null) {
-//            throw new ResourceNotFoundException("Profile not found");
-//        }
         return iProfileRepository.findProfileByUserName(username);
     }
 
-//    @Override
-//    public void editProfile(Profile uneditedProfile, Profile editedProfile) {
-//        iProfileRepository.editProfile(uneditedProfile, editedProfile);
-//    }
-
-//    @Override
-//    public void createProfile(Profile profile) {
-//        iProfileRepository.create(profile);
-//    }
 
     @Override
     public boolean profileAlreadyExists(String username) {

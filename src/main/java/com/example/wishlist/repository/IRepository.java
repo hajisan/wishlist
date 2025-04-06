@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface IRepository<T, Integer> {
 
-    void save(T t);
-
     T create(T t);
 
     T findById(Integer id);
