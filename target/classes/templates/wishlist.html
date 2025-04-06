@@ -17,20 +17,22 @@
 
 <h2 th:text="${dto.wishList.name}">Ønskeliste-navn</h2>
 <p th:text="${dto.wishList.description}">Beskrivelse</p>
+<!-- Rediger ønskeliste-knap -->
+<a th:href="@{|/${profileId}/wishlists/${dto.wishList.id}/edit|}" class="btn">✏️ Rediger ønskeliste</a>
+
 
 <!-- Hvis listen er tom -->
 <div th:if="${#lists.isEmpty(dto.wishes)}">
     <p>Ønskelisten er tom.</p>
-    <a th:href="@{|/${profileId}/wishlists/${dto.wishList.id}/createnewwish|}"></a>
 </div>
 
 <!-- Hvis der er ønsker -->
 <ul th:if="${!#lists.isEmpty(dto.wishes)}">
     <li th:each="wish : ${dto.wishes}">
-        <a th:href="@{|/${profileId}/wishlists/${dto.wishList.id}/wish/${wish.id}|}">
+        <a th:href="@{|/${profileId}/wishlist/${dto.wishList.id}/wish/${wish.id}|}">
             <strong th:text="${wish.name}">Ønske navn</strong>
         </a>
-        <p th:text="${wish.description}">Beskrivelse</p>
+        <p th:text="${wish.price}">Beskrivelse</p>
     </li>
 </ul>
 

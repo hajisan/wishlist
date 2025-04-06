@@ -25,7 +25,11 @@
             <input type="password" name="password" placeholder="Adgangskode" required>
             <input type="password" name="repeatPassword" placeholder="Gentag adgangskode" required>
             <input type="date" name="birthday" placeholder="Fødselsdag" required>
-            <button type="submit" class="btn primary full-width">Opret profil</button>
+            <button type="submit" class="btn primary full-width">Opdater Profil</button>
+        </form>
+        <form th:action="@{/{profileId}/profile/delete(profileId=${profileId})}" method="post"
+              onsubmit="return confirm('Er du sikker på, at du vil slette din profil? Dette kan ikke fortrydes!');">
+            <button type="submit" class="btn danger full-width">🗑️ Slet Profil</button>
         </form>
 
         <p class="error" th:if="${passwordMismatch}">Adgangskoderne matcher ikke</p>

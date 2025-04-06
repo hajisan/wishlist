@@ -44,7 +44,6 @@ public class ProfileController {
         return isLoggedIn(session) ? htmlPage : "login";
     }
 
-
 //---------------------------------------------------------------------------------------------------
 //----------------------------------     Application Mappings     -----------------------------------
 //---------------------------------------------------------------------------------------------------
@@ -125,10 +124,14 @@ public class ProfileController {
         return "login";
     }
 
+    // --------------------------- Hent Create() -------------------------------------
+
     @GetMapping("/signup")
     public String getSignUp() {
         return "signup";
     }
+
+    // ----------------------------- Create() -------------------------------------
 
     @PostMapping("/signup")
     public String postSignUp(
@@ -166,6 +169,7 @@ public class ProfileController {
         return "redirect:/login";
         }
 
+    // ----------------------------- Read() -------------------------------------
 
     @GetMapping("/{profileId}/profile")
     public String getProfilePage(
@@ -181,6 +185,7 @@ public class ProfileController {
         return "profile-page";
     }
 
+    // ----------------------------- Hent Update() -----------------------------------
 
     @GetMapping("/{profileId}/profile/edit")
     public String getProfileEditPage(
@@ -188,11 +193,13 @@ public class ProfileController {
             HttpSession session, Model model
     ) {
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
-        model.addAttribute("profile", profileService.findById(profileId));
 
+        model.addAttribute("profile", profileService.findById(profileId)); //Sender hele objektet med til redigering
 
         return "edit-profile-page";
     }
+
+    // ----------------------------- Update() -------------------------------------
 
     @PostMapping("/{profileId}/profile/edit")
     public String postProfileEditPage(
@@ -206,25 +213,37 @@ public class ProfileController {
             HttpSession session, Model model
     ) {
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
-        model.addAttribute("profile", profileService.findById(profileId));
-//        // Opret en Profile med både de uændrede (fra HttpSession) og de ændrede data (fra parametre)
-//        Profile uneditedProfile = (Profile) session.getAttribute("profile");
-//        Profile editedProfile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
-//        // Edit profilen ved at finde den vha. det gamle username i det tilfælde at det er blevet opdateret
+
 
         if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
 
-        LocalDate parsedDate; //gemmer parsed dato
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
-        parsedDate = LocalDate.parse(birthday, formatter);
+        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
 
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
         return "redirect:/{profileId}/profile";
     }
+
+    // ----------------------------- Delete() -------------------------------------
+
+    @PostMapping("/{profileId}/profile/delete")
+    public String deleteProfile(
+            @PathVariable int profileId,
+            HttpSession session) {
+
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+
+        profileService.deleteById(profileId);
+
+        session.invalidate();
+
+        return "index";
+    }
+
+
 }

@@ -72,14 +72,35 @@ public class WishListRepository implements IWishListRepository {
         return jdbcTemplate.query(sql, new WishListRowMapper());
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        String sql = "DELETE FROM wish_list WHERE id = ?";
+//    @Override
+//    public void deleteById(Integer id) {
+//        String sql = "DELETE FROM wish_list WHERE id = ?";
+//
+//            jdbcTemplate.update(sql, id);
+//
+//
+//    }
+@Override
+public void deleteById(Integer id) {
+    try {
+        // Tjek om ønskelisten findes først
+        String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
 
-            jdbcTemplate.update(sql, id);
+        if (count == null || count == 0) {
+            throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
+        }
 
+        // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
+        String deleteSql = "DELETE FROM wish_list WHERE id = ?";
+        jdbcTemplate.update(deleteSql, id);
 
+    } catch (Exception e) {
+        // Du kan bruge en tilpasset fejlskabelon her (f.eks. error/database), eller logge fejl
+        throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
     }
+}
+
 
     @Override
     public WishList update(WishList wishList) {
