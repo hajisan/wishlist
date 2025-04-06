@@ -18,11 +18,6 @@ public class WishListService implements IWishListService {
     }
 
     @Override
-    public void save(WishList wishList) {
-        iWishListRepository.save(wishList);
-    }
-
-    @Override
     public WishList create(WishList wishList) {
         return iWishListRepository.create(wishList);
     }

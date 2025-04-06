@@ -1,33 +1,35 @@
 package com.example.wishlist.controller;
 
-
 import com.example.wishlist.dto.ProfileWishListDTO;
+import com.example.wishlist.dto.WishWishListDTO;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.service.IWishListService;
 import com.example.wishlist.service.ProfileWishListService;
 import com.example.wishlist.service.WishListService;
+import com.example.wishlist.service.WishWishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 
 public class WishListController {
     private final WishListService wishListService;
+    private final WishWishListService wishWishListService;
     private IWishListService iWishListService;
     private ProfileWishListService profileWishListService;
 
-    public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService, WishListService wishListService) {
+    public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService, WishListService wishListService, WishWishListService wishWishListService) {
         this.iWishListService = iWishListService;
         this.profileWishListService = profileWishListService;
         this.wishListService = wishListService;
+        this.wishWishListService = wishWishListService;
     }
 
-    // ------------ Klarer vores exceptions -------------------------
+    // -------------------------- Klarer vores exceptions -------------------------
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleNotFound(Model model, ResourceNotFoundException e) {
 
@@ -35,17 +37,52 @@ public class WishListController {
         return "error"; // thymeleaf skabelon i templates/error/
     }
 
-    // ------------- Henter brugerens ønskelister --------------------
 
+    // ----------------------------- Hent Create() --------------------------------
+    @GetMapping("{profileId}/wishlists/createnewlist")
+    public String getCreateWishList(@PathVariable int profileId, HttpSession session, Model model) {
+
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } //Tjekker om bruger er logget ind
+
+        model.addAttribute("profileId", profileId);
+
+        return "create-wishlist";
+    }
+
+    // ----------------------------- Create() -------------------------------------
+
+    @PostMapping("{profileId}/wishlists/createnewlist")
+    public String postCreateWishList(
+            @PathVariable int profileId,
+            @RequestParam String name,
+            @RequestParam String description,
+            HttpSession session
+    ) {
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+
+        WishList wishList = new WishList(name, description, profileId);
+
+        iWishListService.create(wishList);
+
+        return "redirect:/" + profileId + "/wishlists";
+    }
+
+    // ----------------------------- ReadAll() -------------------------------------
 
     @GetMapping("{profileId}/wishlists")
     public String getWishLists(@PathVariable Integer profileId, HttpSession session, Model model) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } //Tjekker om bruger er logget ind
 
         Profile sessionProfile = (Profile) session.getAttribute("profile");
 
-        if (sessionProfile.getId() != profileId) { return "redirect:/login"; } //Tjekker om id matcher profilId på wishList
+        if (sessionProfile.getId() != profileId) {
+            return "redirect:/login";
+        } //Tjekker om id matcher profilId på wishList
 
         ProfileWishListDTO profileWishListDTO = profileWishListService.findProfileWithWishLists(profileId);
         model.addAttribute("dto", profileWishListDTO);
@@ -55,40 +92,7 @@ public class WishListController {
 
     }
 
-    // ----------- Henter formular til at oprette en ønskeliste --------------
-
-    @GetMapping("{profileId}/wishlists/createnewlist")
-    public String getCreateWishList(@PathVariable int profileId, HttpSession session, Model model) {
-
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
-
-        model.addAttribute("profileId", profileId);
-
-        return "create-wishlist";
-    }
-
-    // ----------- Opretter ønskelisten med formular -------------------------
-
-    @PostMapping("{profileId}/wishlists/createnewlist")
-    public String postCreateWishList(
-            @PathVariable int profileId,
-            @RequestParam String name,
-            @RequestParam String description,
-            HttpSession session, Model model
-    ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
-
-
-        model.addAttribute("profileId", profileId);
-
-        WishList wishList = new WishList(name, description, profileId);
-
-        iWishListService.create(wishList);
-
-        return "redirect:/" + profileId + "/wishlists";
-    }
-
-    // -------- Henter specifik ønskeliste ud fra ønskelistenavn og profilID ---------
+    // ----------------------------- ReadOne() -------------------------------------
 
     @GetMapping("{profileId}/wishlists/{wishlistId}")
     public String getSpecificWishList(
@@ -96,22 +100,24 @@ public class WishListController {
             @PathVariable int wishlistId,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {return "redirect:/login"; } //Tjekker om bruger er logget ind
 
-        model.addAttribute("profileId", profileId);
-        model.addAttribute("wishlistId", wishlistId);
+        WishWishListDTO dto = wishWishListService.findWishWithWishList(wishlistId);
 
-        iWishListService.findById(wishlistId);
+        model.addAttribute("profileId", profileId); //Sender id med til frontend
+        model.addAttribute("dto", dto);
 
         return "wishlist";
     }
 
-    // ----------- Henter specifik ønskeliste så den kan redigeres --------------------
+    // ----------------------------- Hent Update() -------------------------------------
 
     @GetMapping("{profileId}/wishlists/{wishlistId}/edit")
     public String getEditWishList(@PathVariable int profileId, @PathVariable int wishlistId, HttpSession session, Model model) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } //Tjekker om bruger er logget ind
 
         model.addAttribute("profileId", profileId);
         model.addAttribute("wishlistId", wishlistId);
@@ -119,23 +125,36 @@ public class WishListController {
         return "edit-wishlist";
     }
 
-    // ----------- Formular til at kunne ændre ønskelisten --------------
+    // ----------------------------- Update() -------------------------------------
 
-    @PostMapping("{profileId}/wishlists/{oldWishlistId}/edit")
-    public String postEditWishList(@PathVariable int profileId, @PathVariable int oldWishlistId,
-                                   @RequestParam String name, @RequestParam String description, HttpSession session, Model model) {
+    @PostMapping("{profileId}/wishlists/{wishlistId}/edit")
+    public String postEditWishList(@PathVariable int profileId, @PathVariable int wishlistId,
+                                   @RequestParam String name, @RequestParam String description, HttpSession session) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
-
-        model.addAttribute("profileId", profileId);
-        model.addAttribute("wishlistId", oldWishlistId);
+        if (session.getAttribute("profile") == null) {return "redirect:/login"; } //Tjekker om bruger er logget ind
 
 
-        WishList newWishList = new WishList(oldWishlistId, name, description, profileId);
+        WishList newWishList = new WishList(wishlistId, name, description, profileId);
 
         iWishListService.update(newWishList);
 
-        return "redirect:/wishlists";
+        return "redirect:/" + profileId + "/wishlists";
+    }
+
+    // ----------------------------- Delete() -------------------------------------
+
+
+    @PostMapping("{profileId}/wishlists/{wishlistId}/delete")
+    public String deleteWishList(@PathVariable int profileId,
+                                 @PathVariable int wishlistId,
+                                 HttpSession session) {
+
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+
+            iWishListService.deleteById(wishlistId);
+
+        return "redirect:/" + profileId + "/wishlists";
+
     }
 
 }

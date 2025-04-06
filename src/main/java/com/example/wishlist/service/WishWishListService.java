@@ -15,7 +15,6 @@ public class WishWishListService {
     private final IWishListRepository iWishListRepository;
     private final IWishRepository iWishRepository;
 
-
     public WishWishListService(IWishListRepository iWishListRepository, IWishRepository iWishRepository) {
         this.iWishListRepository = iWishListRepository;
         this.iWishRepository = iWishRepository;
@@ -45,13 +44,13 @@ public class WishWishListService {
 //    }
 
 
-    public WishWishListDTO getWishListWithWishes(String wishlistName, int profileId) {
-        WishList wishList = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
-
-        List<Wish> wishes = iWishRepository.findByWishListId(wishList.getId());
-
-        return new WishWishListDTO(wishes, wishList);
-    }
+//    public WishWishListDTO getWishListWithWishes(String wishlistName, int profileId) {
+//        WishList wishList = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
+//
+//        List<Wish> wishes = iWishRepository.findByWishListId(wishList.getId());
+//
+//        return new WishWishListDTO(wishes, wishList);
+//    }
 
 
 }

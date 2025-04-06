@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface IProfileService extends IService<Profile, Integer> {
 
-    void save(Profile profile);
-
     Profile create(Profile profile);
 
     Profile findById(Integer id);
@@ -21,10 +19,6 @@ public interface IProfileService extends IService<Profile, Integer> {
     Profile update(Profile profile);
 
     Profile findProfileByUserName(String username);
-
-    //void editProfile(Profile uneditedProfile, Profile editedProfile);
-
-    //void createProfile(Profile profile);
 
     boolean profileAlreadyExists(String username);
 

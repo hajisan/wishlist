@@ -24,11 +24,6 @@ public class ProfileRepository implements IProfileRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    // Hvad er forskellen på save() og update()?
-    public void save(Profile profile) {
-
-    }
 
     @Override
     public Profile create(Profile profile) {
@@ -76,10 +71,8 @@ public class ProfileRepository implements IProfileRepository {
     }
     @Override
     public Profile update(Profile profile) {
-        // Gemmer SQL-kommandoen i en String
-        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ? WHERE id = ?";
 
-        //
+        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ? WHERE id = ?";
 
         jdbcTemplate.update(
                 sql,
@@ -93,7 +86,6 @@ public class ProfileRepository implements IProfileRepository {
 
         return profile;
     }
-
 
     @Override
     public Profile findProfileByUserName(String username) {
