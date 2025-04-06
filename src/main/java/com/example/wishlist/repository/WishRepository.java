@@ -18,31 +18,30 @@ public class WishRepository implements IWishRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    // Konstruktør, som initialiserer JdbcTemplate
     public WishRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public void save(Wish wish) {
-        // Forsøger at finde objektet via dets id
+
         Wish excistingWish = findById(wish.getId());
 
-        // Hvis objektet findes, opdater det, ellers opret et nyt
+        //Hvis objektet findes, opdater det, ellers opret et nyt
         if (excistingWish != null) {
-            update(wish); // Opdater eksisterende objekt
+            update(wish); //
         } else {
-            create(wish); // Opret nyt objekt
+            create(wish);
         }
     }
 
     @Override
     public Wish create(Wish wish) {
-        // SQL-kommandoen til at indsætte et nyt ønske i databasen
+
         String sql = "INSERT INTO Wish (name, description, link, quantity, price, wish_list_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        // Brug jdbcTemplate til at udføre insert kommandoen
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, wish.getName());
@@ -56,18 +55,11 @@ public class WishRepository implements IWishRepository {
         wish.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
 
         return wish;
-
     }
 
     @Override
     public Wish findById(Integer id) {
-        // SQL-kommandoen til at hente et ønske baseret på id
 
-//        String sql = "SELECT id, name, description, link, quantity, price FROM Wish WHERE id = ?";
-//
-//        // Brug jdbcTemplate til at finde objektet og returnere det som et Wish-objekt
-//        return jdbcTemplate.queryForObject(sql, new WishRowMapper(), id);
-//        return wish;
         try {
             String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM Wish WHERE id = ?";
             return jdbcTemplate.queryForObject(sql, new WishRowMapper(), id);
@@ -76,32 +68,30 @@ public class WishRepository implements IWishRepository {
         }
     }
 
-    // Metode til at finde alle ønsker
+
     @Override
     public List<Wish> findAll() {
-        // SQL-kommandoen til at hente alle ønsker fra databasen
+
         String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM Wish";
 
-        // Brug jdbcTemplate til at udføre query og returnere en liste af Wish-objekter
         return jdbcTemplate.query(sql, new WishRowMapper());
 
     }
 
     @Override
     public void deleteById(Integer id) {
-        // SQL-kommandoen til at slette et ønske baseret på id
+
         String sql = "DELETE FROM Wish WHERE id = ?";
 
-        // Brug jdbcTemplate til at udføre delete-kommandoen
+
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public Wish update(Wish wish) {
-        // SQL-kommandoen til at opdatere et ønske
+
         String sql = "UPDATE Wish SET name = ?, description = ?, link = ?, quantity = ?, price = ? WHERE id = ?";
 
-        // Brug jdbcTemplate til at udføre update-kommandoen
         jdbcTemplate.update(
                 sql,
                 wish.getName(),
@@ -117,7 +107,7 @@ public class WishRepository implements IWishRepository {
 
     @Override
     public List<Wish> findByWishListId(Integer wishListId) {
-        // SQL-kommandoen til at finde et wish ud fra wishId
+
         String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_list_id = ?";
 
         return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);

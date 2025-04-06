@@ -32,26 +32,26 @@ public class ProfileWishListService {
         return new ProfileWishListDTO(profile, wishLists);
     }
 
-    public int findWishListIdByNameAndProfile(String wishlistName, int profileId) {
-        WishList wishlist = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
+//    public int findWishListIdByNameAndProfile(String wishlistName, int profileId) {
+//        WishList wishlist = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
+//
+//        if (wishlist == null) {
+//            throw new ResourceNotFoundException("Wishlist with name '" + wishlistName + "' for profile ID " + profileId + " not found.");
+//        }
+//
+//        return wishlist.getId();
+//    }
 
-        if (wishlist == null) {
-            throw new ResourceNotFoundException("Wishlist with name '" + wishlistName + "' for profile ID " + profileId + " not found.");
-        }
 
-        return wishlist.getId();
-    }
-
-
-    public WishList findSpecificWishListByProfileId(int wishlistId, int profileId) {
-        for (WishList wishList : findProfileWithWishLists(profileId).wishLists()) {
-            if (wishlistId == wishList.getId()) {
-                return wishList;
-            }
-        }
-
-        throw new ResourceNotFoundException("No wish list found by that name.");
-    }
+//    public WishList findSpecificWishListByProfileId(int wishlistId, int profileId) {
+//        for (WishList wishList : findProfileWithWishLists(profileId).wishLists()) {
+//            if (wishlistId == wishList.getId()) {
+//                return wishList;
+//            }
+//        }
+//
+//        throw new ResourceNotFoundException("No wish list found by that name.");
+//    }
 
 }
 

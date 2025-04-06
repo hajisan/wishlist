@@ -11,18 +11,10 @@ import java.util.List;
 
 public class WishService implements IWishService {
 
-    private IWishRepository iWishRepository;
+    private final IWishRepository iWishRepository;
 
     public WishService(IWishRepository iWishRepository) {
         this.iWishRepository = iWishRepository;
-    }
-
-
-    @Override
-    public void save(Wish wish) {
-
-        iWishRepository.save(wish);
-
     }
 
     @Override

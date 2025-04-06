@@ -6,7 +6,6 @@ import com.example.wishlist.model.Profile;
 import java.util.List;
 
 public interface IProfileRepository extends IRepository<Profile, Integer> {
-    void save(Profile t);
 
     Profile create(Profile t);
 
