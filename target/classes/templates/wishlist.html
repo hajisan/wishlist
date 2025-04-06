@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/stylesgamle.css}">
 
 </head>
 <body>
@@ -21,7 +21,6 @@
 <!-- Hvis listen er tom -->
 <div th:if="${#lists.isEmpty(dto.wishes)}">
     <p>Ønskelisten er tom.</p>
-    <a th:href="@{|/${profileId}/wishlists/${dto.wishList.id}/createnewwish|}"></a>
 </div>
 
 <!-- Hvis der er ønsker -->
