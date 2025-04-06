@@ -2,8 +2,8 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Information – Wishlist</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <title>Om os – Wishlist</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     <link rel="stylesheet" th:href="@{/information.css}">
 </head>
 <body>
@@ -16,55 +16,44 @@
     </nav>
 </header>
 
-<main class="info-container">
-
-    <!-- Section 1: Indholdsfortegnelse -->
-    <section class="toc">
-        <h3>Indhold</h3>
-        <ul>
-            <li><a href="#about">Om os</a></li>
-            <li><a href="#cookies">Cookies</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#privacy">Privatliv</a></li>
-            <li><a href="#contact">Kontakt</a></li>
-        </ul>
+<main class="page-container">
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Velkommen til Wishlist</h1>
+            <p>Din digitale ønskeliste – med fokus på bæredygtige valg og meningsfulde gaver.</p>
+            <a href="#about" class="btn primary big">Læs mere</a>
+        </div>
+        <div class="hero-image">
+            <img src="/images/gift-illustration.png" alt="Gaveillustration">
+        </div>
     </section>
 
-    <!-- Section 2–6 -->
     <section id="about" class="info-section">
-        <h2>Om os</h2>
-        <p>Wishlist er en platform, der gør det nemt at samle og dele dine ønsker med venner og familie.</p>
+        <div class="card">
+            <h2>Om os</h2>
+            <p><strong>Wishlist</strong> gør det nemt at samle dine gaveønsker ét sted og dele dem med dem, du holder af. Vi tror på, at ønskelister kan være både praktiske og inspirerende.</p>
+            <p>Vi opfordrer til mere bæredygtige gavevalg: <strong>oplevelser, genbrug, hjemmelavede gaver og donationer</strong> – små skridt, der gør en stor forskel for både mennesker og planet.</p>
+        </div>
     </section>
 
-    <section id="cookies" class="info-section">
-        <h2>Cookies</h2>
-        <p>Vi bruger cookies til at forbedre brugeroplevelsen. Du kan ændre dine indstillinger i din browser.</p>
+    <section class="info-boxes">
+        <div class="info-box">
+            <h2>Giv grønt</h2>
+            <p>Tilføj oplevelser, hjemmelavede ting eller donationer til velgørenhed direkte på din ønskeliste.</p>
+        </div>
+        <div class="info-box">
+            <h2>Del nemt</h2>
+            <p>Send dine lister til venner og familie med et enkelt link – så de aldrig er i tvivl om, hvad du ønsker dig.</p>
+        </div>
     </section>
-
-    <section id="faq" class="info-section">
-        <h2>FAQ</h2>
-        <p><strong>Hvordan opretter jeg en ønskeliste?</strong><br>Gå til din profil og klik på "Opret ønskeliste".</p>
-        <p><strong>Skal jeg have en profil?</strong><br>Ja, du skal oprette en profil for at kunne gemme og dele ønskelister.</p>
-    </section>
-
-    <section id="privacy" class="info-section">
-        <h2>Privatliv</h2>
-        <p>Vi passer godt på dine data og deler dem ikke med tredjepart uden dit samtykke.</p>
-    </section>
-
-    <section id="contact" class="info-section">
-        <h2>Kontakt</h2>
-        <p>Har du spørgsmål?<br>Skriv til os på <a href="mailto:support@wishlist.dk">support@wishlist.dk</a></p>
-    </section>
-
 </main>
 
 <footer class="footer">
-    <a th:href="@{/information}">Om os</a>
-    <a th:href="@{/information}">Cookies</a>
-    <a th:href="@{/information}">FAQ</a>
-    <a th:href="@{/information}">Privatliv</a>
-    <a th:href="@{/information}">Kontakt</a>
+    <a th:href="@{'/information#about'}">Om os</a>
+    <a th:href="@{'/information#cookies'}">Cookies</a>
+    <a th:href="@{'/information#faq'}">FAQ</a>
+    <a th:href="@{'/information#privacy'}">Privatliv</a>
+    <a th:href="@{'/information#contact'}">Kontakt</a>
 </footer>
 
 </body>
