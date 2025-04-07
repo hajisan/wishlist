@@ -11,7 +11,15 @@
 </head>
 <body>
 
-<div th:replace="fragments/layout :: header"></div>
+<header class="topbar">
+    <a th:href="@{/}" class="logo">Presently</a>
+    <nav class="nav-links">
+      <!--  <a th:href="@{/login}" class="btn secondary">Log ind</a> -->
+        <a href="javascript:void(0);" class="btn secondary" onclick="openModal()">Log ind</a>
+
+        <a th:href="@{/signup}" class="btn primary">Opret</a>
+    </nav>
+</header>
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -126,8 +134,36 @@
     </div>
 </section>
 
-<div th:replace="fragments/layout :: footer"></div>
-<div th:replace="fragments/modals :: modals"></div>
+<!-- FOOTER -->
+<footer class="footer">
+    <a th:href="@{'/information#about'}">Om os</a>
+    <a th:href="@{'/information#cookies'}">Cookies</a>
+    <a th:href="@{'/information#faq'}">FAQ</a>
+    <a th:href="@{'/information#privacy'}">Privatliv</a>
+    <a th:href="@{'/information#contact'}">Kontakt</a>
+</footer>
+
+<!-- LOG IND  -->
+<span id="loginErrorFlag" th:if="${wrongCredentials}" style="display: none;"></span>
+
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+        <button class="close-btn" onclick="closeModal()">×</button>
+        <h2>Log ind</h2>
+
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="username" placeholder="Brugernavn" required>
+            <input type="password" name="password" placeholder="Adgangskode" required>
+            <button type="submit" class="btn primary full-width">Log ind</button>
+        </form>
+
+        <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
+        <p class="signup-link">Har du ikke en profil? <a th:href="@{/signup}">Opret en her</a></p>
+    </div>
+</div>
+
+<!-- OPRET -->
+
 
 <!-- SCRIPT -->
 
