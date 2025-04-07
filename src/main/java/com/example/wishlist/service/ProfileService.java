@@ -16,11 +16,15 @@ public class ProfileService implements IProfileService {
         this.iProfileRepository = iProfileRepository;
     }
 
+    // --------------------------- Create() -------------------------------------
+
     @Override
     public Profile create(Profile profile) {
 
         return iProfileRepository.create(profile);
     }
+
+    // --------------------------- Read() -------------------------------------
 
     @Override
     public Profile findById(Integer id) {
@@ -37,6 +41,20 @@ public class ProfileService implements IProfileService {
         return iProfileRepository.findAll();
     }
 
+    // --------------------------- Update() -------------------------------------
+
+    @Override
+    public Profile update(Profile profile) {
+
+        if (profile == null) {
+            throw new ResourceNotFoundException("Profile not found");
+        }
+        return iProfileRepository.update(profile);
+    }
+
+
+    // --------------------------- Delete() -------------------------------------
+
 
     @Override
     public void deleteById(Integer id) {
@@ -49,19 +67,15 @@ public class ProfileService implements IProfileService {
 
     }
 
-    @Override
-    public Profile update(Profile profile) {
+    // --------------------------- Profil-tjek() -----------------------------------
 
-        if (profile == null) {
-            throw new ResourceNotFoundException("Profile not found");
-        }
-        return iProfileRepository.update(profile);
-    }
+
 
     @Override
     public boolean profileAlreadyExists(String username) {
         return iProfileRepository.findProfileByUserName(username) != null;
     }
+
 
     @Override
     public Profile login(String username, String password) {

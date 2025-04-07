@@ -20,6 +20,7 @@ public class WishWishListService {
         this.iWishRepository = iWishRepository;
 
     }
+    // ------------------------- Read Wishes fra en WishList() -------------------------------
 
     public WishWishListDTO findWishWithWishList(Integer wishListId) {
         WishList wishList = iWishListRepository.findById(wishListId);

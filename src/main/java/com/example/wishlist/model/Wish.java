@@ -19,7 +19,7 @@ public class Wish {
 
     public Wish() {}
 
-    // Konstuktør uden id, da id'et bliver auto generet af databasen
+    // Konstruktør uden id, da id'et bliver autogenereret af databasen
     public Wish(String name, String description, String link, int quantity, double price, int wishListId) {
         this.name = name;
         this.description = description;
