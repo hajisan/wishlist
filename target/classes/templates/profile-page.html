@@ -21,16 +21,16 @@
             <img th:src="@{/images/mockup-placeholder.png}" alt="Profilbillede">
         </div>
         <div>
-            <h2 th:text="${profile.name}">Brugernavn</h2>
+            <h2 th:text="${profile.name}">name</h2>
             <ol>
                 <li>
-                    <p th:text="${profile.userName}">email@eksempel.dk</p>
+                    <p th:text="${profile.userName}">email@example.com</p>
                 </li>
                 <li>
-                    <p th:text="${profile.email}">brugernavn</p>
+                    <p th:text="${profile.email}">username</p>
                 </li>
                 <li>
-                    <p th:text="${profile.getBirthday()}">fødselsdag</p>
+                    <p th:text="${profile.getBirthday()}">birthday</p>
                 </li>
 
             </ol>
