@@ -24,18 +24,7 @@ public class WishListRepository implements IWishListRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    @Override
-//    public void save(WishList wishList) {
-//
-//        WishList excistingWishes = findById(wishList.getId());
-//
-//        if (excistingWishes != null) {
-//            update(wishList);
-//        } create(wishList);
-//
-//    }
 
-    //Opretter
     @Override
     public WishList create(WishList wishList) {
         System.out.println("Creating wishlist with name: " + wishList.getName()); //Logs

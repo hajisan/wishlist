@@ -32,25 +32,4 @@ public class WishWishListService {
         return new WishWishListDTO(wishes, wishList);
     }
 
-
-//    public int findWishListIdByNameAndProfile(String wishlistName, int profileId) {
-//        WishList wishlist = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
-//
-//        if (wishlist == null) {
-//            throw new ResourceNotFoundException("Wishlist with name '" + wishlistName + "' for profile ID " + profileId + " not found.");
-//        }
-//
-//        return wishlist.getId();
-//    }
-
-
-//    public WishWishListDTO getWishListWithWishes(String wishlistName, int profileId) {
-//        WishList wishList = iWishListRepository.findByNameAndProfile(wishlistName, profileId);
-//
-//        List<Wish> wishes = iWishRepository.findByWishListId(wishList.getId());
-//
-//        return new WishWishListDTO(wishes, wishList);
-//    }
-
-
 }
