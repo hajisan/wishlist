@@ -33,16 +33,6 @@ public class ProfileService implements IProfileService {
         return profile;
     }
 
-//    @Override
-//    public Profile findByUserName(String userName) {
-//        Profile profile = iProfileRepository.findProfileByUserName(userName);
-//
-//        if (profile == null) {
-//            throw new ResourceNotFoundException("Profile with ID: " + userName + " not found.");
-//        }
-//        return profile;
-//    }
-
     @Override
     public List<Profile> findAll() {
         return iProfileRepository.findAll();

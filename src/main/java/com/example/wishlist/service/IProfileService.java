@@ -10,15 +10,11 @@ public interface IProfileService extends IService<Profile, Integer> {
 
     Profile findById(Integer id);
 
-    Profile findByUserName(String userName);
-
     List<Profile> findAll();
 
     void deleteById(Integer id);
 
     Profile update(Profile profile);
-
-    Profile findProfileByUserName(String username);
 
     boolean profileAlreadyExists(String username);
 
