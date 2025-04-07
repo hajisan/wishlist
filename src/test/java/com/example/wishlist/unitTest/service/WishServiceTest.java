@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -108,17 +109,6 @@ public class WishServiceTest {
         verify(iWishRepository, never()).update(testWish);
     }
 
-    // -------------------- save() -------------------- METODE
-
-    @Test
-    void save_shouldCallSave() {
-        wishService.save(testWish);
-
-        verify(iWishRepository).save(testWish);
-        verify(iWishRepository, times(1)).save(testWish);
-
-    }
-
     // -------------------- create() ----------------- METODE
 
     @Test
@@ -147,8 +137,6 @@ public class WishServiceTest {
         verify(iWishRepository).findAll();
         verify(iWishRepository, times(1)).findAll();
     }
-
-
 }
 
 

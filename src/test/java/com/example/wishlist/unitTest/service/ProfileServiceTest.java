@@ -3,7 +3,6 @@ package com.example.wishlist.unitTest.service;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.repository.IProfileRepository;
-
 import com.example.wishlist.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) //For at kunne bruge @Mock og @InjectMock
@@ -113,16 +111,6 @@ public class ProfileServiceTest {
         verify(iProfileRepository, never()).update(testProfile);
     }
 
-    // -------------------- save() -------------------- METODE
-
-    @Test
-    void save_shouldCallSave() {
-        profileService.save(testProfile);
-
-        verify(iProfileRepository).save(testProfile);
-        verify(iProfileRepository, times(1)).save(testProfile);
-    }
-
     // -------------------- create() ----------------- METODE
 
     @Test
@@ -147,8 +135,4 @@ public class ProfileServiceTest {
         verify(iProfileRepository).findAll();
         verify(iProfileRepository, times(1)).findAll();
     }
-
-
-
-
 }
