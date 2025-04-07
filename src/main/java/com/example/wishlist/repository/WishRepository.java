@@ -22,19 +22,6 @@ public class WishRepository implements IWishRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    @Override
-//    public void save(Wish wish) {
-//
-//        Wish excistingWish = findById(wish.getId());
-//
-//        //Hvis objektet findes, opdater det, ellers opret et nyt
-//        if (excistingWish != null) {
-//            update(wish); //
-//        } else {
-//            create(wish);
-//        }
-//    }
-
     @Override
     public Wish create(Wish wish) {
 

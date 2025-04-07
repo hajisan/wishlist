@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 
 public class WishListController {
-    private final WishListService wishListService;
+
     private final WishWishListService wishWishListService;
     private IWishListService iWishListService;
     private ProfileWishListService profileWishListService;
 
-    public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService, WishListService wishListService, WishWishListService wishWishListService) {
+    public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService, WishWishListService wishWishListService) {
         this.iWishListService = iWishListService;
         this.profileWishListService = profileWishListService;
-        this.wishListService = wishListService;
+
         this.wishWishListService = wishWishListService;
     }
 
@@ -100,7 +100,7 @@ public class WishListController {
             @PathVariable int wishlistId,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) {return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {return "redirect:/login"; }
 
         WishWishListDTO dto = wishWishListService.findWishWithWishList(wishlistId);
 
@@ -115,9 +115,7 @@ public class WishListController {
     @GetMapping("{profileId}/wishlists/{wishlistId}/edit")
     public String getEditWishList(@PathVariable int profileId, @PathVariable int wishlistId, HttpSession session, Model model) {
 
-        if (session.getAttribute("profile") == null) {
-            return "redirect:/login";
-        } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
         model.addAttribute("profileId", profileId);
         model.addAttribute("wishlistId", wishlistId);
