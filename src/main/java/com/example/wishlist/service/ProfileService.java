@@ -3,7 +3,6 @@ package com.example.wishlist.service;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.repository.IProfileRepository;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,13 +57,6 @@ public class ProfileService implements IProfileService {
         }
         return iProfileRepository.update(profile);
     }
-
-    @Override
-    public Profile findProfileByUserName(String username) {
-
-        return iProfileRepository.findProfileByUserName(username);
-    }
-
 
     @Override
     public boolean profileAlreadyExists(String username) {
