@@ -1,4 +1,4 @@
-/* ========== GLOBAL ========== */
+/* ========== ROOT COLORS ========== */
 :root {
     --color-primary: #573F32;
     --color-secondary: #826251;
@@ -8,17 +8,20 @@
     --color-muted-text: #96928F;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
+/* ========== BASE ========== */
+html, body {
+    height: 100%;
     margin: 0;
+    scroll-behavior: smooth;
     background: linear-gradient(145deg, #ebe1d8, #d8c7bc);
     color: var(--color-text);
     line-height: 1.6;
     letter-spacing: 0.03em;
     animation: fadeInBody 1s ease-in-out;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
 }
 
 @keyframes fadeInBody {
@@ -29,13 +32,6 @@ body {
 img {
     max-width: 100%;
     display: block;
-}
-
-/* ========== LAYOUT ========== */
-.page-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
 }
 
 /* ========== HEADER ========== */
@@ -69,6 +65,7 @@ img {
     font-weight: bold;
     color: var(--color-primary);
     text-decoration: none;
+    font-family: 'Boldonse', serif;
 }
 
 .nav-links {
@@ -81,6 +78,9 @@ img {
     color: var(--color-primary);
     text-decoration: none;
     transition: transform 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .nav-links a:hover {
@@ -97,6 +97,7 @@ img {
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn.primary {
@@ -131,6 +132,11 @@ img {
     margin-top: 30px;
 }
 
+.btn.full-width {
+    width: 100%;
+    margin-top: 10px;
+}
+
 /* ========== HERO SECTION ========== */
 .hero {
     background: linear-gradient(145deg, #ebe1d8, #d8c7bc);
@@ -150,11 +156,12 @@ img {
 }
 
 .hero h1 {
+    font-family: 'Boldonse', serif;
     font-size: 3rem;
     margin-bottom: 20px;
 }
 
-/* ========== INSPIRATION BANNER SECTION ========== */
+/* ========== INSPIRATION BANNER ========== */
 .inspiration-banner {
     background-color: var(--color-bg);
     overflow: hidden;
@@ -193,18 +200,17 @@ img {
 
 .logo-wrapper img:hover {
     opacity: 1;
-    transform: scale(1.08); /* Giv lidt pop ved hover */
+    transform: scale(1.08);
 }
 
-/* ========== SCROLL DOWN SECTION ========== */
+/* ========== SCROLL DOWN ========== */
 .scroll-down {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 150px 0 100px;
-    font-family: 'Inter', sans-serif;
+    margin: 130px 0 100px;
     font-size: 0.9rem;
     color: var(--color-secondary);
     text-transform: uppercase;
@@ -253,7 +259,6 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: box-shadow 0.3s ease;
     transition: box-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -263,6 +268,7 @@ img {
 }
 
 .info-box h2 {
+    font-family: 'Boldonse', serif;
     font-size: 1.8rem;
     margin-top: 0;
     margin-bottom: 20px;
@@ -272,7 +278,6 @@ img {
 .info-box p {
     flex-grow: 1;
     line-height: 1.6;
-    color: var(--color-text);
 }
 
 .info-box .read-more {
@@ -287,6 +292,229 @@ img {
     text-decoration: underline;
 }
 
+/* ========== LOGIN MODAL ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-box {
+    background-color: var(--color-bg);
+    padding: 50px 40px 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.modal-overlay.visible .modal-box {
+    transform: scale(1);
+}
+
+.modal-box h2 {
+    font-family: 'Boldonse', serif;
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+}
+
+.modal-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.modal-box input::placeholder {
+    color: #999;
+    text-align: center;
+}
+
+.modal-box input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(87, 63, 50, 0.2);
+}
+
+.modal-box button.btn.full-width {
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.modal-box .error {
+    color: red;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}
+
+.modal-box .signup-link {
+    margin-top: 25px;
+    font-size: 0.95rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+/* Ryst-effekt ved fejl */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+.modal-box.shake {
+    animation: shake 0.5s ease;
+}
+
+/* ========== SIGNUP MODAL ========== */
+.signup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.signup-overlay.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.signup-box {
+    background-color: var(--color-bg);
+    padding: 50px 40px 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.signup-overlay.visible .signup-box {
+    transform: scale(1);
+}
+
+.signup-box h2 {
+    font-family: 'Boldonse', serif;
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+}
+
+.signup-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.signup-box input::placeholder {
+    color: #999;
+    text-align: center;
+}
+
+.signup-box input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(87, 63, 50, 0.2);
+}
+
+.signup-box .btn.full-width {
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px;
+    border-radius: 12px;
+}
+
+.signup-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.signup-box .error {
+    color: red;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}
+
+.signup-box .login-link {
+    margin-top: 25px;
+    font-size: 0.95rem;
+}
+
 /* ========== FOOTER ========== */
 .footer {
     padding: 40px 20px;
@@ -295,6 +523,7 @@ img {
     border-top: 1px solid #ccc;
     font-size: 0.95em;
     animation: fadeInFooter 1s ease-in-out;
+    margin-top: auto;
 }
 
 @keyframes fadeInFooter {

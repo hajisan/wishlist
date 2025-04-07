@@ -121,7 +121,8 @@ public class ProfileController {
         }
 
         model.addAttribute("wrongCredentials", true);
-        return "login";
+        return "index"; // <- viser forsiden igen, men med fejl
+
     }
 
     // --------------------------- Hent Create() -------------------------------------

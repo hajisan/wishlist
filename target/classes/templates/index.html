@@ -11,13 +11,7 @@
 </head>
 <body>
 
-<header class="topbar">
-    <a th:href="@{/}" class="logo">Presently</a>
-    <nav class="nav-links">
-        <a th:href="@{/login}" class="btn secondary">Log ind</a>
-        <a th:href="@{/signup}" class="btn primary">Opret</a>
-    </nav>
-</header>
+<div th:replace="fragments/layout :: header"></div>
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -111,7 +105,7 @@
     </a>
 </section>
 
-<!-- Info Section -->
+<!-- INFO SECTION -->
 <section id="inspiration" class="info-boxes">
     <div class="info-box">
         <h2><a th:href="@{/sustainability}">Bæredygtighed</a></h2>
@@ -132,15 +126,17 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <a th:href="@{'/information#about'}">Om os</a>
-    <a th:href="@{'/information#cookies'}">Cookies</a>
-    <a th:href="@{'/information#faq'}">FAQ</a>
-    <a th:href="@{'/information#privacy'}">Privatliv</a>
-    <a th:href="@{'/information#contact'}">Kontakt</a>
-</footer>
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/modals :: modals"></div>
+
+<!-- SCRIPT -->
 
 <script th:src="@{/ui-effects.js}"></script>
+<script type="module">
+    import { openModal, closeModal } from '/ui-effects.js';
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+</script>
+
 </body>
 </html>
