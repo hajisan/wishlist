@@ -18,6 +18,4 @@ public interface IProfileRepository extends IRepository<Profile, Integer> {
     Profile update(Profile t);
 
     Profile findProfileByUserName(String username);
-
-
 }
