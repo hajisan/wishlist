@@ -5,11 +5,17 @@ import com.example.wishlist.model.WishList;
 import java.util.List;
 
 public interface IWishListRepository extends IRepository<WishList, Integer> {
+
     WishList create(WishList wishList);
-    WishList findById(Integer id);
+
     List<WishList> findAll();
-    void deleteById(Integer id);
+
+    WishList findById(Integer id);
+
     WishList update(WishList wishList);
+
+    void deleteById(Integer id);
+
     List<WishList> findByProfileId(Integer profileId);
     WishList findByNameAndProfile(String name, Integer id);
 

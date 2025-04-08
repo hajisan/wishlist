@@ -9,13 +9,13 @@ public interface IProfileRepository extends IRepository<Profile, Integer> {
 
     Profile create(Profile t);
 
-    Profile findById(Integer id);
-
     List<Profile> findAll();
 
-    void deleteById(Integer id);
+    Profile findById(Integer id);
 
     Profile update(Profile t);
+
+    void deleteById(Integer id);
 
     Profile findProfileByUserName(String username);
 }

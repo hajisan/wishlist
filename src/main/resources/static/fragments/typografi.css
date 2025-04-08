@@ -33,7 +33,7 @@ h3 {
     font-size: 1.6rem;
 }
 
-/* Sikrer at links inde i overskrifter også bruger Boldonse */
+/* Links i overskrifter */
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     font-family: 'Boldonse', serif;
     color: var(--color-primary);

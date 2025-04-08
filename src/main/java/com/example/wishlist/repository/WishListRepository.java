@@ -105,6 +105,8 @@ public class WishListRepository implements IWishListRepository {
         return jdbcTemplate.query(sql, new WishListRowMapper(), profileId);
     }
 
+    // -----------BRUGES DENNE METODE? ------------------------------ kh Sofie -------------------
+
     @Override // Finder ønskeliste til specifikt ønskeliste navn og profil
     public WishList findByNameAndProfile(String name, Integer profileId) {
         String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE name = ? AND profile_id = ?";

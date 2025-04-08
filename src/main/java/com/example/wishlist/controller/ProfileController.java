@@ -9,18 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("")
 public class ProfileController {
-    private IProfileService profileService;
+    private final IProfileService profileService;
 
     public ProfileController(IProfileService profileService) {
-        this.profileService = profileService; // der stod this.profileRepository
+        this.profileService = profileService;
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -36,13 +34,6 @@ public class ProfileController {
         return "signup";
     }
 
-    public static boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("profile") != null;
-    }
-
-    public static String loginTernary(HttpSession session, String htmlPage) {
-        return isLoggedIn(session) ? htmlPage : "login";
-    }
 
 //---------------------------------------------------------------------------------------------------
 //----------------------------------     Application Mappings     -----------------------------------
@@ -211,8 +202,8 @@ public class ProfileController {
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("birthday") String birthday,
-            HttpSession session, Model model
-    ) {
+            HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
 
@@ -227,7 +218,7 @@ public class ProfileController {
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
-        return "redirect:/{profileId}/profile";
+        return "redirect:/{profileId}/wishlists";
     }
 
     // ----------------------------- Delete() -------------------------------------
