@@ -18,6 +18,7 @@ public class ProfileRepository implements IProfileRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
+
     public ProfileRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

@@ -7,7 +7,6 @@ import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.service.IWishListService;
 import com.example.wishlist.service.ProfileWishListService;
-import com.example.wishlist.service.WishListService;
 import com.example.wishlist.service.WishWishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ public class WishListController {
     public WishListController(IWishListService iWishListService, ProfileWishListService profileWishListService, WishWishListService wishWishListService) {
         this.iWishListService = iWishListService;
         this.profileWishListService = profileWishListService;
-
         this.wishWishListService = wishWishListService;
     }
 
