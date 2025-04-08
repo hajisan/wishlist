@@ -211,8 +211,8 @@ public class ProfileController {
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("birthday") String birthday,
-            HttpSession session, Model model
-    ) {
+            HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
 
@@ -227,7 +227,7 @@ public class ProfileController {
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
-        return "redirect:/{profileId}/profile";
+        return "redirect:/{profileId}/wishlists";
     }
 
     // ----------------------------- Delete() -------------------------------------

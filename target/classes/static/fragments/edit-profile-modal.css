@@ -1,0 +1,126 @@
+/* ========== EDIT PROFILE MODAL ========== */
+.edit-profile-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-inline: 0.5rem;
+}
+
+.edit-profile-form input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: none;
+}
+
+.edit-profile-form label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+.edit-profile-form .btn {
+    margin-top: 1rem;
+}
+
+.edit-profile-form .btn.secondary {
+    background-color: #eee;
+    color: var(--color-text);
+}
+
+.edit-profile-form .btn.secondary:hover {
+    background-color: #ddd;
+}
+
+/* ========== BUTTON STYLES ========== */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn.full-width {
+    width: 100%;
+}
+
+.btn.primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.btn.danger {
+    background-color: #e74c3c;
+    color: white;
+    margin-top: 0.75rem;
+}
+
+.btn.danger:hover {
+    background-color: #c0392b;
+}
+
+/* ========== FORM GRID ========== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 16px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-box {
+    padding: 50px 32px 40px;
+    box-sizing: border-box;
+}
+
+/* ========== FORM STYLING FIXES ========== */
+
+.modal-box h2 {
+    white-space: nowrap;
+    margin-bottom: 2rem;
+}
+
+/* Forbedret spacing mellem grid og knapper */
+.form-grid {
+    margin-bottom: 1.5rem;
+}
+
+
+/* ========== RESPONSIV FORMULAR ========== */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    .edit-profile-form {
+        padding-inline: 0.5rem;
+    }
+
+    .modal-box {
+        max-width: 95%;
+        width: auto;
+        padding: 32px 20px;
+    }
+}

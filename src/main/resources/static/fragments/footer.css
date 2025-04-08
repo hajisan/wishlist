@@ -1,0 +1,25 @@
+/* ========== FOOTER ========== */
+.footer {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: var(--color-bg);
+    border-top: 1px solid #ccc;
+    font-size: 0.95em;
+    animation: fadeInFooter 1s ease-in-out;
+    margin-top: auto;
+}
+
+@keyframes fadeInFooter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.footer a {
+    margin: 0 15px;
+    color: var(--color-muted-text);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

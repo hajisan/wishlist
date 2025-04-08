@@ -1,0 +1,75 @@
+/* ========== PROFILE MODAL ========== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-box {
+    background-color: var(--color-bg);
+    padding: 50px 40px 40px;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centrér indholdet vandret */
+}
+
+.modal-overlay.visible .modal-box {
+    transform: scale(1);
+}
+
+.modal-box h2 {
+    font-family: 'Boldonse', serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    align-items: normal;
+    color: var(--color-primary);
+}
+
+.profile-details {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.profile-details p {
+    font-size: 0.95rem;
+    margin: 8px 0;
+    color: var(--color-text);
+}
+
+.profile-details img {
+    display: block;
+    margin: 0 auto 1rem auto;
+    max-width: 100px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+}

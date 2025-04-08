@@ -2,18 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${wish.name}">Ønske</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Presently'">Presently</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" th:href="@{/.....css}">
 </head>
 <body>
 
-<header class="topbar">
-    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
-    <nav class="nav-links">
-        <a th:href="@{|/${profileId}/profile|}" class="btn secondary">Se Profil</a>
-        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
-    </nav>
-</header>
+<header th:replace="~{fragments/header :: header}"></header>
 
 <main>
     <h1 th:text="${wish.name}">Ønske navn</h1>
@@ -27,7 +24,10 @@
     </p>
     <a th:href="@{|/${profileId}/wishlists/${wishlistId}/wish/${wish.id}/edit|}" class="btn">✏️ Rediger</a>
     <a th:href="@{|/${profileId}/wishlists/${wishlistId}|}" class="btn secondary">⬅️ Tilbage til ønskelisten</a>
-</main>{profileId}/wishlists/{wishlistId}
+</main>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

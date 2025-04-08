@@ -1,0 +1,17 @@
+/* ========== Basale farver og layout ========== */
+@import url('./fragments/base.css');
+
+/* ========== Typografi ========== */
+@import url('./fragments/typografi.css');
+
+/* ========== Struktur og layout ========== */
+@import url('./fragments/header.css');
+@import url('./fragments/hero.css');
+@import url('./fragments/inspiration-banner.css');
+@import url('./fragments/scroll-down.css');
+@import url('./fragments/info-boxes.css');
+@import url('./fragments/footer.css');
+
+/* ========== Modals ========== */
+@import url('./fragments/login-modal.css');
+@import url('./fragments/signup-modal.css');

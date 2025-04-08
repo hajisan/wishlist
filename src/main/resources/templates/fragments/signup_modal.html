@@ -1,0 +1,22 @@
+<!-- ========== SIGNUP MODAL ========== -->
+<div th:fragment="signup">
+    <div class="signup-overlay" id="signupModal">
+        <div class="signup-box">
+            <button class="signup-close-btn" onclick="closeSignup()">×</button>
+            <h2>Opret bruger</h2>
+            <form method="post" th:action="@{/signup}">
+                <input type="text" name="name" placeholder="Fulde navn" required>
+                <input type="text" name="username" placeholder="Brugernavn" required>
+                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="password" name="password" placeholder="Adgangskode" required>
+                <input type="password" name="repeatPassword" placeholder="Gentag adgangskode" required>
+                <input type="date" name="birthday" placeholder="Fødselsdato" required>
+                <button class="btn primary full-width" type="submit">Opret</button>
+            </form>
+
+            <p class="error" th:if="${signupError}">Noget gik galt – prøv igen</p>
+            <p class="error" th:if="${profileAlreadyExists}">Brugernavnet findes allerede</p>
+            <p class="error" th:if="${passwordMismatch}">Adgangskoderne matcher ikke</p>
+        </div>
+    </div>
+</div>

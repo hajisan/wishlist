@@ -1,16 +1,16 @@
-// ========== Topbar scroll-effekt ==========
+// ========== Scroll-effekt for topbar ==========
 window.addEventListener("scroll", () => {
     const topbar = document.querySelector(".topbar");
     if (!topbar) return;
 
-    if (window.scrollY > 10) {
+    if (window.scrollY > 20) {
         topbar.classList.add("scrolled");
     } else {
         topbar.classList.remove("scrolled");
     }
 });
 
-// ========== Info-box fade-in ved scroll ==========
+// ========== Fade-in effekt for info-boxes ved scroll ==========
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -24,7 +24,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.info-box').forEach(box => observer.observe(box));
 
-// ========== Smooth scroll til sektion ==========
+// ========== Smooth scroll ned til inspiration ==========
 document.querySelector('.arrow')?.addEventListener('click', function (e) {
     e.preventDefault();
 
@@ -33,7 +33,6 @@ document.querySelector('.arrow')?.addEventListener('click', function (e) {
     const end = target.getBoundingClientRect().top + start;
     const distance = end - start;
     const duration = 1500;
-
     let startTime = null;
 
     function animation(currentTime) {
@@ -54,7 +53,7 @@ document.querySelector('.arrow')?.addEventListener('click', function (e) {
     requestAnimationFrame(animation);
 });
 
-// ========== Logo-banner – smooth scroll og hover-pause ==========
+// ========== Logo-banner med automatisk og pausebar scroll ==========
 document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('scroll-track');
     if (!track) return;
@@ -66,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function loop() {
         speed += (targetSpeed - speed) * 0.08;
-
         position -= speed;
         if (position <= -track.scrollWidth / 2) {
             position = 0;
@@ -76,77 +74,151 @@ document.addEventListener('DOMContentLoaded', function () {
         animationFrame = requestAnimationFrame(loop);
     }
 
-    track.addEventListener('mouseenter', () => {
-        targetSpeed = 0;
-    });
-
-    track.addEventListener('mouseleave', () => {
-        targetSpeed = 1.2;
-    });
+    track.addEventListener('mouseenter', () => targetSpeed = 0);
+    track.addEventListener('mouseleave', () => targetSpeed = 1.2);
 
     loop();
 });
 
-// ========== LOGIN MODAL LOGIK ==========
+// ========== Login og Signup modal ==========
 document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("loginModal");
-    if (!modal) return;
+    const loginModal = document.getElementById("loginModal");
+    const signupModal = document.getElementById("signupModal");
 
-    // Åben
-    window.openModal = () => {
+    if (loginModal) {
+        window.openModal = () => {
+            loginModal.style.display = "flex";
+            setTimeout(() => loginModal.classList.add("visible"), 10);
+        };
+
+        window.closeModal = () => {
+            loginModal.classList.remove("visible");
+            setTimeout(() => (loginModal.style.display = "none"), 200);
+        };
+
+        loginModal.addEventListener("click", (e) => {
+            if (e.target === loginModal) closeModal();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+
+        const errorFlag = document.getElementById("loginErrorFlag");
+        if (errorFlag) {
+            loginModal.style.display = "flex";
+            setTimeout(() => {
+                loginModal.classList.add("visible");
+                const box = loginModal.querySelector(".modal-box");
+                if (box) {
+                    box.classList.add("shake");
+                    setTimeout(() => box.classList.remove("shake"), 600);
+                }
+            }, 10);
+        }
+    }
+
+    if (signupModal) {
+        window.openSignup = () => {
+            signupModal.style.display = "flex";
+            setTimeout(() => signupModal.classList.add("visible"), 10);
+        };
+
+        window.closeSignup = () => {
+            signupModal.classList.remove("visible");
+            setTimeout(() => (signupModal.style.display = "none"), 200);
+        };
+
+        signupModal.addEventListener("click", (e) => {
+            if (e.target === signupModal) closeSignup();
+        });
+    }
+});
+
+// ========== Profilmodal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    const profileModal = document.getElementById("profileModal");
+    if (!profileModal) return;
+
+    window.openProfileModal = () => {
+        profileModal.style.display = "flex";
+        setTimeout(() => profileModal.classList.add("visible"), 10);
+    };
+
+    window.closeProfileModal = () => {
+        profileModal.classList.remove("visible");
+        setTimeout(() => profileModal.style.display = "none", 200);
+    };
+
+    profileModal.addEventListener("click", (e) => {
+        if (e.target === profileModal) closeProfileModal();
+    });
+});
+
+// ========== Edit profilmodal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    const editProfileModal = document.getElementById("editProfileModal");
+    if (!editProfileModal) return;
+
+    window.openEditProfileModal = () => {
+        editProfileModal.style.display = "flex";
+        setTimeout(() => editProfileModal.classList.add("visible"), 10);
+    };
+
+    window.closeEditProfileModal = () => {
+        editProfileModal.classList.remove("visible");
+        setTimeout(() => editProfileModal.style.display = "none", 200);
+    };
+
+    editProfileModal.addEventListener("click", (e) => {
+        if (e.target === editProfileModal) closeEditProfileModal();
+    });
+});
+
+// ========== Create ønskeliste modal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    const createWishlistModal = document.getElementById("createWishlistModal");
+    if (!createWishlistModal) return;
+
+    window.openCreateWishlistModal = () => {
+        createWishlistModal.style.display = "flex";
+        setTimeout(() => createWishlistModal.classList.add("visible"), 10);
+    };
+
+    window.closeCreateWishlistModal = () => {
+        createWishlistModal.classList.remove("visible");
+        setTimeout(() => createWishlistModal.style.display = "none", 200);
+    };
+
+    createWishlistModal.addEventListener("click", (e) => {
+        if (e.target === createWishlistModal) closeCreateWishlistModal();
+    });
+});
+
+// ========== Edit ønskeliste modal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    window.openEditWishlistModal = (button) => {
+        const modal = document.getElementById("editWishlistModal");
+        const form = modal.querySelector("form");
+        const nameInput = modal.querySelector("#edit-name");
+        const descInput = modal.querySelector("#edit-description");
+
+        // Udfyld felter med data
+        nameInput.value = button.dataset.name;
+        descInput.value = button.dataset.description;
+
+        // Opdatér formens action
+        const wishlistId = button.dataset.id;
+        const profileId = form.getAttribute("data-profile-id");
+        form.action = `/${profileId}/wishlists/${wishlistId}/edit`;
+
         modal.style.display = "flex";
         setTimeout(() => modal.classList.add("visible"), 10);
     };
 
-    // Luk
-    window.closeModal = () => {
+    window.closeEditWishlistModal = () => {
+        const modal = document.getElementById("editWishlistModal");
         modal.classList.remove("visible");
-        setTimeout(() => (modal.style.display = "none"), 200);
+        setTimeout(() => modal.style.display = "none", 200);
     };
-
-    // Klik udenfor lukker
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    // ESC lukker
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-    });
-
-    // Hvis fejlflag er sat → vis modal automatisk
-    const errorFlag = document.getElementById("loginErrorFlag");
-    if (errorFlag) {
-        modal.style.display = "flex";
-        setTimeout(() => {
-            modal.classList.add("visible");
-
-            // Tilføj ryst-effekt
-            const box = modal.querySelector(".modal-box");
-            if (box) {
-                box.classList.add("shake");
-                setTimeout(() => box.classList.remove("shake"), 600);
-            }
-        }, 10);
-    }
-
-    // SIGNUP MODAL
-    const signupModal = document.getElementById("signupModal");
-
-    window.openSignup = () => {
-        if (!signupModal) return;
-        signupModal.style.display = "flex";
-        setTimeout(() => signupModal.classList.add("visible"), 10);
-    };
-
-    window.closeSignup = () => {
-        if (!signupModal) return;
-        signupModal.classList.remove("visible");
-        setTimeout(() => (signupModal.style.display = "none"), 200);
-    };
-
-    signupModal?.addEventListener("click", (e) => {
-        if (e.target === signupModal) closeSignup();
-    });
-
 });
