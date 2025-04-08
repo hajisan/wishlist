@@ -9,18 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("")
 public class ProfileController {
-    private IProfileService profileService;
+    private final IProfileService profileService;
 
     public ProfileController(IProfileService profileService) {
-        this.profileService = profileService; // der stod this.profileRepository
+        this.profileService = profileService;
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -36,13 +34,6 @@ public class ProfileController {
         return "signup";
     }
 
-    public static boolean isLoggedIn(HttpSession session) {
-        return session.getAttribute("profile") != null;
-    }
-
-    public static String loginTernary(HttpSession session, String htmlPage) {
-        return isLoggedIn(session) ? htmlPage : "login";
-    }
 
 //---------------------------------------------------------------------------------------------------
 //----------------------------------     Application Mappings     -----------------------------------

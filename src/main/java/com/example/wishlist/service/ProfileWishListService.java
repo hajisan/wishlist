@@ -20,6 +20,8 @@ public class ProfileWishListService {
         this.iWishListRepository = iWishListRepository;
     }
 
+    // --------------------------- Read WishList for Profile () -------------------------------------
+
     public ProfileWishListDTO findProfileWithWishLists(Integer profileId) {
         Profile profile = iProfileRepository.findById(profileId);
 

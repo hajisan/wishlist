@@ -17,9 +17,18 @@ public class WishListService implements IWishListService {
         this.iWishListRepository = iWishListRepository;
     }
 
+    // -------------------------- Create() -------------------------------------
+
     @Override
     public WishList create(WishList wishList) {
         return iWishListRepository.create(wishList);
+    }
+
+    // --------------------------- Read() -------------------------------------
+
+    @Override
+    public List<WishList> findAll() {
+        return iWishListRepository.findAll();
     }
 
     @Override
@@ -32,10 +41,18 @@ public class WishListService implements IWishListService {
         return wishList;
     }
 
+    // --------------------------- Update() -------------------------------------
+
+
     @Override
-    public List<WishList> findAll() {
-        return iWishListRepository.findAll();
+    public WishList update(WishList wishList) {
+        if (wishList == null) {
+            throw new ResourceNotFoundException("Wish list does not exist");
+        }
+        return iWishListRepository.update(wishList);
     }
+
+    // --------------------------- Delete() -------------------------------------
 
     @Override
     public void deleteById(Integer id) {
@@ -46,15 +63,6 @@ public class WishListService implements IWishListService {
         }
         iWishListRepository.deleteById(id); // Sletter hvis det findes
     }
-
-    @Override
-    public WishList update(WishList wishList) {
-        if (wishList == null) {
-            throw new ResourceNotFoundException("Wish list does not exist");
-        }
-        return iWishListRepository.update(wishList);
-    }
-
 
 
 }

@@ -20,7 +20,6 @@ public class WishController {
     public WishController(IWishService wishService, WishWishListService wishWishListService, IWishListService iWishListService) {
         this.wishService = wishService;
         this.wishWishListService = wishWishListService;
-
         this.iWishListService = iWishListService;
     }
 

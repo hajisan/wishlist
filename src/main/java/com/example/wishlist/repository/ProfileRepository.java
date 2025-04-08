@@ -4,13 +4,11 @@ import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.rowMapper.ProfileRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,7 +16,8 @@ import java.util.List;
 @Repository
 public class ProfileRepository implements IProfileRepository {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
 
     public ProfileRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -86,6 +85,7 @@ public class ProfileRepository implements IProfileRepository {
 
         return profile;
     }
+
 
     @Override
     public Profile findProfileByUserName(String username) {

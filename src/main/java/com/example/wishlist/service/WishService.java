@@ -17,12 +17,22 @@ public class WishService implements IWishService {
         this.iWishRepository = iWishRepository;
     }
 
+    // --------------------------- Create() -------------------------------------
+
     @Override
     public Wish create(Wish wish) {
 
         return iWishRepository.create(wish);
 
     }
+
+    // --------------------------- Read() -------------------------------------
+
+    @Override
+    public List<Wish> findAll() {
+        return iWishRepository.findAll();
+    }
+
 
     @Override
     public Wish findById(Integer id) {
@@ -35,10 +45,21 @@ public class WishService implements IWishService {
         return wish;
     }
 
+    // --------------------------- Update() -------------------------------------
+
+
     @Override
-    public List<Wish> findAll() {
-        return iWishRepository.findAll();
+    public Wish update(Wish wish) {
+
+        if (wish == null) {
+            throw new ResourceNotFoundException("Wish does not exist");
+        }
+
+        return iWishRepository.update(wish);
+
     }
+
+    // --------------------------- Delete() -------------------------------------
 
     @Override
     public void deleteById(Integer id) {
@@ -49,17 +70,6 @@ public class WishService implements IWishService {
             throw new ResourceNotFoundException("You cannot delete a non-existing wish with ID: " + id);
         }
         iWishRepository.deleteById(id); //Sletter hvis det findes
-
-   }
-
-    @Override
-    public Wish update(Wish wish) {
-
-        if (wish == null) {
-            throw new ResourceNotFoundException("Wish does not exist");
-        }
-
-        return iWishRepository.update(wish);
 
     }
 

@@ -6,12 +6,13 @@ public interface IRepository<T, Integer> {
 
     T create(T t);
 
+    List<T> findAll();
+
     T findById(Integer id);
 
-    List<T> findAll();
+    T update(T t);
 
     void deleteById(Integer id);
 
-    T update(T t);
 
 }
