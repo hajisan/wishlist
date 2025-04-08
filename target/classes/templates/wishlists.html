@@ -1,43 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ønskeliste</title>
-    <link rel="stylesheet" th:href="@{/stylesgamle.css}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Presently'">Presently</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" th:href="@{/wishlists.css}">
 </head>
+
 <body>
 
+<!-- Topbar -->
 <header class="topbar">
-    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <a th:href="@{/}" class="logo">Presently</a>
     <nav class="nav-links">
-        <a th:href="@{|/${profileId}/profile|}" class="btn secondary">Se Profil</a>
+        <a href="javascript:void(0);" class="btn secondary" onclick="openProfileModal()">Se Profil</a>
         <a th:href="@{/logout}" class="btn secondary">Log ud</a>
     </nav>
 </header>
 
+<!-- Main Content -->
 <main>
+    <section class="wishlist-section">
 
-<h1>Ønskelister for <span th:text="${dto.profile.userName}">username</span></h1>
+        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.userName}">username</span></h1>
 
-<div th:if="${#lists.isEmpty(dto.wishLists)}">
-    <p>Din ønskeliste er tom.</p>
-</div>
+        <!-- Hvis ingen ønskelister -->
+        <div th:if="${#lists.isEmpty(dto.wishLists)}" class="empty-message">
+            <p>Du har endnu ikke oprettet nogen ønskelister.</p>
+        </div>
 
-<!-- Liste over ønskelister -->
-<ul th:if="${!#lists.isEmpty(dto.wishLists)}">
-    <li th:each="wishlist : ${dto.wishLists}">
-        <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" th:text="${wishlist.name}"
-        style="text-decoration: underline; color: blue; cursor: pointer;">
-        <strong th:text="${wishlist.name}">wishlist name</strong>
-        </a>
-        <span th:text="${wishlist.description}">description</span>
-    </li>
-</ul>
+        <!-- Liste over ønskelister -->
+        <div th:if="${!#lists.isEmpty(dto.wishLists)}" class="wishlist-grid">
+            <div th:each="wishlist : ${dto.wishLists}" class="wishlist-card">
+                <h2 class="wishlist-title" th:text="${wishlist.name}">Ønskeliste Navn</h2>
+                <p class="wishlist-description" th:text="${wishlist.description}">Beskrivelse af ønskelisten</p>
+                <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" class="btn secondary small">Vis ønsker</a>
+                    <button type="button"
+                            class="btn secondary small"
+                            onclick="openEditWishlistModal(this)"
+                            th:attr="data-id=${wishlist.id}, data-name=${wishlist.name}, data-description=${wishlist.description}">
+                        ✏️ Rediger
+                    </button>
+            </div>
+        </div>
 
-    <a th:href="@{/{profileId}/wishlists/createnewlist(profileId=${profileId})}" class="btn primary">➕ Opret ny ønskeliste</a>
+        <!-- Opret ny ønskeliste -->
+        <div class="create-new-wrapper">
+            <a href="javascript:void(0);" class="btn primary" onclick="openCreateWishlistModal()">+ Opret ønskeliste</a>
+        </div>
 
+    </section>
 </main>
+
+<!-- Modal -->
+<div th:replace="~{fragments/profile_page_modal :: profile-page}"></div>
+<div th:replace="~{fragments/edit_profile_page_modal :: edit-profile}"></div>
+<div th:replace="~{fragments/create_wishlist_modal :: create-wishlist}"></div>
+<div th:replace="~{fragments/edit_wishlist_modal :: edit-wishlist}"></div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/ui-effects.js}" type="module"></script>
+<script th:src="@{/ui-effects.js}" type="module"></script>
+<script type="module">
+    import {
+        openProfileModal,
+        closeProfileModal,
+        openCreateWishlistModal,
+        closeCreateWishlistModal,
+        openEditWishlistModal,
+        closeEditWishlistModal
+    } from '/ui-effects.js';
+
+    window.openProfileModal = openProfileModal;
+    window.closeProfileModal = closeProfileModal;
+    window.openCreateWishlistModal = openCreateWishlistModal;
+    window.closeCreateWishlistModal = closeCreateWishlistModal;
+    window.openEditWishlistModal = openEditWishlistModal;
+    window.closeEditWishlistModal = closeEditWishlistModal;
+</script>
 
 
 </body>

@@ -1,0 +1,18 @@
+<!-- ========== LOGIN MODAL ========== -->
+<div th:fragment="login">
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2>Log ind</h2>
+
+            <form th:action="@{/login}" method="post">
+                <input type="text" name="username" placeholder="Brugernavn" required>
+                <input type="password" name="password" placeholder="Adgangskode" required>
+                <button type="submit" class="btn primary full-width">Log ind</button>
+            </form>
+
+            <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
+            <p class="signup-link">Har du ikke en profil? <a href="#" onclick="closeModal(); openSignup();">Opret en her</a></p>
+        </div>
+    </div>
+</div>

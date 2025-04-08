@@ -3,71 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist – Alle dine ønsker ét sted</title>
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="stylesheet" th:href="@{/typografi.css}">
+    <title th:text="${pageTitle} ?: 'Presently'">Presently</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" th:href="@{/index.css}">
 </head>
 <body>
 
-<header class="topbar">
-    <a th:href="@{/}" class="logo">Presently</a>
-    <nav class="nav-links">
-      <!--  <a th:href="@{/login}" class="btn secondary">Log ind</a> -->
-        <a href="javascript:void(0);" class="btn secondary" onclick="openModal()">Log ind</a>
-
-        <a th:href="@{/signup}" class="btn primary">Opret</a>
-    </nav>
-</header>
+<!-- HEADER -->
+<div th:replace="~{fragments/index_header :: header}"></div>
 
 <!-- HERO SECTION -->
 <section class="hero">
+    <video autoplay muted loop playsinline class="hero-video-bg">
+        <source th:src="@{/video/hero-video.mp4}" type="video/mp4">
+    </video>
     <div class="hero-content">
         <h1>ALLE DINE ØNSKER<br>SAMLET ÈT STED</h1>
-        <a th:href="@{/signup}" class="btn big primary">Opret en profil</a>
+        <a href="javascript:void(0);" class="btn big primary" onclick="openSignup()">Opret en profil</a>
     </div>
 </section>
 
 <!-- INSPIRATION BANNER SECTION -->
 <section class="inspiration-banner">
-    <div class="inspiration-track" id="scroll-track">
-        <!-- Original række -->
-        <div class="inspiration-logos">
-            <a th:href="@{'https://www.rodekors.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/rødekors.png}" alt="Røde Kors logo">
-            </a>
-            <a th:href="@{'https://hjerteforeningen.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/hjerteforeningen.png}" alt="Hjerteforeningen logo">
-            </a>
-            <a th:href="@{'https://www.noedhjaelp.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/folkekirkens-nødhjælp.png}" alt="Folkekirkens Nødhjælp logo">
-            </a>
-            <a th:href="@{'https://bornsvilkar.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/børns-vilkår.png}" alt="Børns Vilkår logo">
-            </a>
-            <a th:href="@{'https://moedrehjaelpen.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/mødrehjælpen.png}" alt="Mødrehjælpen logo">
-            </a>
-            <a th:href="@{'https://flygtning.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/drc_dansk_flygtningehjælp.png}" alt="Dansk Flygtningehjælp logo">
-            </a>
-            <a th:href="@{'https://psykiatrifonden.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/psykiatrifonden.svg}" alt="Psykiatrifonden logo">
-            </a>
-            <a th:href="@{'https://duf.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/duf.svg}" alt="DUF logo">
-            </a>
-            <a th:href="@{'https://redbarnet.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/redbarnet.png}" alt="Red Barnet logo">
-            </a>
-            <a th:href="@{'https://www.cancer.dk'}" target="_blank" class="logo-wrapper">
-                <img th:src="@{/images/banner-logo/kræftens-bekæmpelse.svg}" alt="Kræftens Bekæmpelse logo">
-            </a>
-        </div>
 
-        <!-- Duplikér til seamless loop -->
-        <div class="inspiration-logos">
+    <div class="inspiration-track" id="scroll-track">
+        <div class="inspiration-logos" th:each="i : ${#numbers.sequence(1,2)}">
             <a th:href="@{'https://www.rodekors.dk'}" target="_blank" class="logo-wrapper">
                 <img th:src="@{/images/banner-logo/rødekors.png}" alt="Røde Kors logo">
             </a>
@@ -135,43 +96,20 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-    <a th:href="@{'/information#about'}">Om os</a>
-    <a th:href="@{'/information#cookies'}">Cookies</a>
-    <a th:href="@{'/information#faq'}">FAQ</a>
-    <a th:href="@{'/information#privacy'}">Privatliv</a>
-    <a th:href="@{'/information#contact'}">Kontakt</a>
-</footer>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- LOG IND  -->
-<span id="loginErrorFlag" th:if="${wrongCredentials}" style="display: none;"></span>
+<!-- MODAL FOR LOGIN & SIGNUP -->
+<div th:replace="~{fragments/login_modal :: login}"></div>
+<div th:replace="~{fragments/signup_modal :: signup}"></div>
 
-<div class="modal-overlay" id="loginModal">
-    <div class="modal-box">
-        <button class="close-btn" onclick="closeModal()">×</button>
-        <h2>Log ind</h2>
-
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="Brugernavn" required>
-            <input type="password" name="password" placeholder="Adgangskode" required>
-            <button type="submit" class="btn primary full-width">Log ind</button>
-        </form>
-
-        <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
-        <p class="signup-link">Har du ikke en profil? <a th:href="@{/signup}">Opret en her</a></p>
-    </div>
-</div>
-
-<!-- OPRET -->
-
-
-<!-- SCRIPT -->
-
+<!-- SCRIPTS -->
 <script th:src="@{/ui-effects.js}"></script>
 <script type="module">
-    import { openModal, closeModal } from '/ui-effects.js';
+    import { openModal, closeModal, openSignup, closeSignup } from '/ui-effects.js';
     window.openModal = openModal;
     window.closeModal = closeModal;
+    window.openSignup = openSignup;
+    window.closeSignup = closeSignup;
 </script>
 
 </body>

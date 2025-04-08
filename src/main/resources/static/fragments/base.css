@@ -1,0 +1,92 @@
+/* ========== ROOT COLORS ========== */
+:root {
+    --color-primary: #573F32;
+    --color-primary-dark: #442a14;
+    --color-secondary: #826251;
+    --color-accent: #2D5A73;
+    --color-bg: #EBE1D8;
+    --color-text: #1a1a1a;
+    --color-muted-text: #96928F;
+    --color-bg-light: #fdfaf7;
+
+}
+
+/* ========== BASE STYLING ========== */
+html, body {
+    height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+    background: linear-gradient(145deg, #ebe1d8, #d8c7bc);
+    animation: fadeInBody 1s ease-in-out;
+}
+
+@keyframes fadeInBody {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn.primary {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    animation: fadeInBtn 1.5s ease-in-out;
+}
+
+@keyframes fadeInBtn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.btn.primary:hover {
+    background-color: var(--color-secondary);
+}
+
+.btn.secondary {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.btn.secondary:hover {
+    background-color: #f3ece7;
+}
+
+.btn.big {
+    font-size: 1.3em;
+    padding: 18px 36px;
+    margin-top: 30px;
+}
+
+.btn.full-width {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* ========== RESPONSIVE DEFAULTS ========== */
+@media (max-width: 768px) {
+    .btn.big {
+        width: 100%;
+    }
+
+    img {
+        height: auto;
+    }
+}

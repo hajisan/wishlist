@@ -1,0 +1,55 @@
+/* ========== INFO BOXES ========== */
+.info-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 120px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-box {
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    flex: 1 1 500px;
+    max-width: 500px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.info-box:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px);
+}
+
+.info-box h2 {
+    font-family: 'Boldonse', serif;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.info-box p {
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+.info-box .read-more {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.info-box .read-more:hover {
+    text-decoration: underline;
+}
