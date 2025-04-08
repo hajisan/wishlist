@@ -1,7 +1,5 @@
 package com.example.wishlist.integrationTest;
 
-import com.example.wishlist.model.Profile;
-import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.WishListRepository;
 import org.junit.jupiter.api.Test;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
         scripts = {"classpath:h2init.sql"}
 )
-
 class WishListRepositoryTest {
 
     @Autowired
@@ -47,7 +43,6 @@ class WishListRepositoryTest {
         assertEquals(wishList2Name, testWishListFromDatabase2.getName());
         assertEquals(newWishListName, testWishListFromDatabase3.getName());
         assertEquals(newWishListDescription, testWishListFromDatabase3.getDescription());
-
     }
 
     @Test
@@ -72,9 +67,6 @@ class WishListRepositoryTest {
 
         assertEquals(wishList2Name, testWishListFromDatabase2.getName());
         assertEquals(wishList2Description, testWishListFromDatabase2.getDescription());
-
-
-
     }
 
     @Test
@@ -100,12 +92,12 @@ class WishListRepositoryTest {
 
         // Act -
         wishListRepository.deleteById(1);
-        WishList testProfileFromDatabase = wishListRepository.findById(2);
+        WishList testWishListFromDatabase = wishListRepository.findById(2);
         List<WishList> testList = new ArrayList<>(wishListRepository.findAll());
 
         // Assert -
-        assertEquals(wishListName, testProfileFromDatabase.getName());
-        assertEquals(wishListDescription, testProfileFromDatabase.getDescription());
+        assertEquals(wishListName, testWishListFromDatabase.getName());
+        assertEquals(wishListDescription, testWishListFromDatabase.getDescription());
         assertNotEquals(wishListName, deletedWishListName);
         assertEquals(1, testList.size());
     }
