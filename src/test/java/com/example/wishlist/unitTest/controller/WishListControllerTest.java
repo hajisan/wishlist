@@ -60,7 +60,6 @@ public class WishListControllerTest {
     }
 
 
-
     // -------------------------------- Henter createWishList() ------------------------------
     @Test
     void testGetCreateWishList() {
