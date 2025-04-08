@@ -18,6 +18,4 @@ public interface IProfileRepository extends IRepository<Profile, Integer> {
     void deleteById(Integer id);
 
     Profile findProfileByUserName(String username);
-
-
 }

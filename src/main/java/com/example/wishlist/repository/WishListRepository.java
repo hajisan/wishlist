@@ -50,7 +50,7 @@ public class WishListRepository implements IWishListRepository {
     public WishList findById(Integer id) {
         String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE id = ?";
 
-            return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), id); //Returnerer wishList-objekt
+        return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), id); //Returnerer wishList-objekt
 
     }
 
@@ -61,25 +61,25 @@ public class WishListRepository implements IWishListRepository {
     }
 
 
-@Override
-public void deleteById(Integer id) {
-    try {
+    @Override
+    public void deleteById(Integer id) {
+        try {
 
-        String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
-        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
+            String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
+            Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
 
-        if (count == null || count == 0) {
-            throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
+            if (count == null || count == 0) {
+                throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
+            }
+            // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
+            String deleteSql = "DELETE FROM wish_list WHERE id = ?";
+            jdbcTemplate.update(deleteSql, id);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
         }
-        // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
-        String deleteSql = "DELETE FROM wish_list WHERE id = ?";
-        jdbcTemplate.update(deleteSql, id);
-
-    } catch (Exception e) {
-
-        throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
     }
-}
 
 
     @Override

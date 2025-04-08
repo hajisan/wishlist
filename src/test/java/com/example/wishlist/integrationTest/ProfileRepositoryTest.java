@@ -39,9 +39,9 @@ class ProfileRepositoryTest {
 
         // Act - Indsæt ny profil i databasen og gem personer fra deres ID (ikke muligt uden også at kalde andre metoder)
         profileRepository.create(new Profile("Charlie", Profile.getStringAsLocalDate("1967-11-12"), "Charlies@Angels.dk", "charchar", "angels4lyfe"));
-        Profile testProfileFromDatabase1 = profileRepository.findAll().get(0);
-        Profile testProfileFromDatabase2 = profileRepository.findAll().get(1);
-        Profile testProfileFromDatabase3 = profileRepository.findAll().get(2);
+        Profile testProfileFromDatabase1 = profileRepository.findById(1);
+        Profile testProfileFromDatabase2 = profileRepository.findById(2);
+        Profile testProfileFromDatabase3 = profileRepository.findById(3);
 
         // Assert - Tester om navn stemmer overens for både at teste om den nye person blev indsat
         //          og for at teste, om den blev indsat med det rigtige ID
@@ -78,7 +78,7 @@ class ProfileRepositoryTest {
     @Test
     void findAll() {
         // Arrange - Opretter en liste med profilernes navne
-        List<String> profileNames = new ArrayList<>(Arrays.asList( "Arne", "Birger"));
+        List<String> profileNames = new ArrayList<>(Arrays.asList("Arne", "Birger"));
 
         // Act
         List<Profile> testList = profileRepository.findAll();
@@ -108,34 +108,43 @@ class ProfileRepositoryTest {
         assertEquals(profileName, testProfileFromDatabase.getName());
         assertEquals(profileBirthday, testProfileFromDatabase.getBirthday());
         assertEquals(profileEmail, testProfileFromDatabase.getEmail());
-        assertFalse(profileName.equals(deletedProfileName));
+        assertNotEquals(profileName, deletedProfileName);
         assertEquals(1, testList.size());
     }
 
     @Test
     void update() {
-        // Arrange -
+        // Arrange
+        String profileNameBeforeUpdate = "Arne";
+        LocalDate profileBirthdayBeforeUpdate = LocalDate.of(1995, 12, 12);
+        String profileNameAfterUpdate = "Annika";
+        LocalDate profileBirthdayAfterUpdate = LocalDate.of(1999, 6, 26);
+        Profile updatedProfile = new Profile(1, profileNameAfterUpdate, profileBirthdayAfterUpdate, "Test1@example.com", "test1", "12345678");
 
-        // Act -
+        // Act
+        profileRepository.update(updatedProfile);
 
-        // Assert -
+        // Assert
+        assertNotEquals(profileNameBeforeUpdate, profileRepository.findById(1).getName());
+        assertNotEquals(profileBirthdayBeforeUpdate, profileRepository.findById(1).getBirthday());
+        assertEquals(profileNameAfterUpdate, profileRepository.findById(1).getName());
+        assertEquals(profileBirthdayAfterUpdate, profileRepository.findById(1).getBirthday());
     }
 
     @Test
     void findProfileByUserName() {
         // Arrange -
+        String desiredProfileName = "Arne";
+        String undesiredProfileName = "Birger";
+        int desiredId = 1;
+        String profileUserName = "test1";
 
         // Act -
+        Profile testProfileFromDatabase = profileRepository.findProfileByUserName(profileUserName);
 
         // Assert -
-    }
-
-    @Test
-    void editProfile() {
-        // Arrange -
-
-        // Act -
-
-        // Assert -
+        assertEquals(desiredId, testProfileFromDatabase.getId());
+        assertEquals(desiredProfileName, testProfileFromDatabase.getName());
+        assertNotEquals(undesiredProfileName, testProfileFromDatabase.getName());
     }
 }

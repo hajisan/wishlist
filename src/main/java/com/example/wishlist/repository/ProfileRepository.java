@@ -68,6 +68,7 @@ public class ProfileRepository implements IProfileRepository {
         String sql = "DELETE FROM profile WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
     @Override
     public Profile update(Profile profile) {
 
@@ -95,6 +96,7 @@ public class ProfileRepository implements IProfileRepository {
         if (oneProfileAsList.isEmpty()) { return null; }
         return oneProfileAsList.get(0);
     }
+
 
 
 }
