@@ -34,7 +34,6 @@ public class ProfileController {
         return "signup";
     }
 
-
 //---------------------------------------------------------------------------------------------------
 //----------------------------------     Application Mappings     -----------------------------------
 //---------------------------------------------------------------------------------------------------
@@ -202,8 +201,8 @@ public class ProfileController {
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("birthday") String birthday,
-            HttpSession session, Model model,
-            RedirectAttributes redirectAttributes) {
+            HttpSession session, Model model
+    ) {
         if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
 
 

@@ -5,7 +5,6 @@ public class Wish {
     private String name, description, link;
     private int id, quantity, wishListId;
     private double price;
-    private boolean isReserved; // konstruktør mangler stadig denne parameter
 
     public Wish(String name, String description, String link, int id, int quantity, double price, int wishListId) {
         this.name = name;
@@ -86,13 +85,6 @@ public class Wish {
         this.wishListId = wishListId;
     }
 
-    public boolean isReserved() {
-        return isReserved;
-    }
-
-    public void setReserved(boolean reserved) {
-        this.isReserved = reserved;
-    }
 
     @Override
     public String toString() {
