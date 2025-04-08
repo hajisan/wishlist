@@ -12,6 +12,13 @@ public class WishList {
         this.description = description;
         this.profileId = profileId;
     }
+    public WishList(String name, String description, int profileId) {
+        this.name = name;
+        this.description = description;
+        this.profileId = profileId;
+    }
+
+
 
     public WishList(String name, String description) {
         this.name = name;

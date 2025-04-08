@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,11 +24,6 @@ public class ProfileRepository implements IProfileRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    // Hvad er forskellen på save() og update()?
-    public void save(Profile profile) {
-
-    }
 
     @Override
     public Profile create(Profile profile) {
@@ -73,21 +69,21 @@ public class ProfileRepository implements IProfileRepository {
         String sql = "DELETE FROM profile WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
-
     @Override
     public Profile update(Profile profile) {
-        // Gemmer SQL-kommandoen i en String
-        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ?";
 
-        //
+        String sql = "UPDATE profile SET name = ?, birthday = ?, email = ?, username = ?, password = ? WHERE id = ?";
+
         jdbcTemplate.update(
                 sql,
                 profile.getName(),
-                profile.getBirthday(),
+                java.sql.Date.valueOf(profile.getBirthday()),
                 profile.getEmail(),
                 profile.getUserName(),
-                profile.getPassword()
+                profile.getPassword(),
+                profile.getId()
         );
+
         return profile;
     }
 
@@ -100,17 +96,5 @@ public class ProfileRepository implements IProfileRepository {
         return oneProfileAsList.get(0);
     }
 
-    @Override
-    public void editProfile(Profile uneditedProfile, Profile editedProfile) {
-        String sql = "UPDATE  profile SET name = ?, birthday = ?, email = ?, username = ?, password = ? WHERE id = ?";
-        jdbcTemplate.update(
-                sql,
-                editedProfile.getName(),
-                editedProfile.getBirthday(),
-                editedProfile.getEmail(),
-                editedProfile.getUserName(),
-                editedProfile.getPassword(),
-                uneditedProfile.getId()
-        );
-    }
+
 }

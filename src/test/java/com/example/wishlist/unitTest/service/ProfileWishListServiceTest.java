@@ -80,13 +80,6 @@ public class ProfileWishListServiceTest {
                 () -> profileWishListService.findProfileWithWishLists(profileId)
         );
 
-
         verify(iWishListRepository, never()).findByProfileId(anyInt());
-
-
-
-
-
     }
-
 }

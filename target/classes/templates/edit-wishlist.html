@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rediger Ønskeliste</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{|/${profileId}/profile|}" class="btn secondary">Se Profil</a>
+        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Rediger Ønskeliste</h1>
+
+    <form th:action="@{|/${profileId}/wishlists/${wishlistId}/edit|}" method="post">
+        <label for="name">Ny titel:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="description">Ny beskrivelse:</label>
+        <input type="text" id="description" name="description"><br>
+
+        <button type="submit" class="btn primary">Gem ændringer</button>
+    </form>
+
+    <form th:action="@{|/${profileId}/wishlists/${wishlistId}/delete|}" method="post" onsubmit="return confirm('Er du sikker på, at du vil slette ønskelisten?');">
+        <button type="submit" class="btn danger">🗑️ Slet ønskeliste</button>
+    </form>
+
+    <a th:href="@{|/${profileId}/wishlists/${wishlistId}/wishes|}" class="btn secondary">Tilbage til ønskelisten</a>
+</main>
+</body>
+</html>

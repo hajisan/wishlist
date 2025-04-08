@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Ønskeliste</title>
+    <link rel="stylesheet" th:href="@{/stylesgamle.css}">
+
 </head>
 <body>
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{|/${profileId}/profile|}" class="btn secondary">Se Profil</a>
+        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
+    </nav>
+</header>
 
+<form th:action="@{/{profileId}/wishlists/createnewlist(profileId=${profileId})}" method="post">
+
+    <label for="title">Titel:</label>
+    <input type="text" id="title" name="name" required><br>
+
+    <label for="description">Beskrivelse:</label>
+    <input type="text" id="description" name="description"><br>
+
+    <button type="submit">Tilføj ønskeliste</button>
+
+
+</form>
 </body>
 </html>

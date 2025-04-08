@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Redigér Ønske</title>
 </head>
 <body>
+<h2>Redigér Ønske</h2>
+
+<form th:action="@{|/${profileId}/wishlists/${wishlistId}/wish/${wish.id}/update|}" method="post">
+    <label>Navn:</label>
+    <input type="text" name="name" th:value="${wish.name}" required><br>
+
+    <label>Beskrivelse:</label>
+    <input type="text" name="description" th:value="${wish.description}"><br>
+
+    <label>Link:</label>
+    <input type="url" name="link" th:value="${wish.link}"><br>
+
+    <label>Antal:</label>
+    <input type="number" name="quantity" th:value="${wish.quantity}" min="1"><br>
+
+    <label>Pris:</label>
+    <input type="number" name="price" th:value="${wish.price}" step="0.01"><br>
+
+    <button type="submit">💾 Gem</button>
+</form>
+<form th:action="@{|/${profileId}/wishlists/${wishlistId}/wish/${wish.id}/delete|}" method="post">
+    <button type="submit" class="btn danger">🗑️ Slet Ønske</button>
+</form>
 
 </body>
 </html>

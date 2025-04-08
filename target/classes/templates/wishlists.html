@@ -1,36 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/stylesgamle.css}">
+
 </head>
 <body>
-<h1>Ønskeliste for <span th:text="${dto.profile.userName}">Brugernavn</span></h1>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
+    <nav class="nav-links">
+        <a th:href="@{|/${profileId}/profile|}" class="btn secondary">Se Profil</a>
+        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
+    </nav>
+</header>
+
+<main>
+
+<h1>Ønskelister for <span th:text="${dto.profile.userName}">username</span></h1>
 
 <div th:if="${#lists.isEmpty(dto.wishLists)}">
     <p>Din ønskeliste er tom.</p>
 </div>
 
+<!-- Liste over ønskelister -->
 <ul th:if="${!#lists.isEmpty(dto.wishLists)}">
     <li th:each="wishlist : ${dto.wishLists}">
-        <strong th:text="${wishlist.name}">Navn på ønskeliste</strong> -
-        <span th:text="${wishlist.description}">Beskrivelse</span>
+        <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" th:text="${wishlist.name}"
+        style="text-decoration: underline; color: blue; cursor: pointer;">
+        <strong th:text="${wishlist.name}">wishlist name</strong>
+        </a>
+        <span th:text="${wishlist.description}">description</span>
     </li>
 </ul>
 
-<hr>
+    <a th:href="@{/{profileId}/wishlists/createnewlist(profileId=${profileId})}" class="btn primary">➕ Opret ny ønskeliste</a>
 
-<form th:action="@{/create-wishlist}" method="post">
-    <label for="title">Titel:</label>
-    <input type="text" id="title" name="title" required><br>
+</main>
 
-    <label for="description">Beskrivelse:</label>
-    <input type="text" id="description" name="description"><br>
 
-    <button type="submit">Tilføj ønskeliste</button>
-</form>
-
-<p><a th:href="@{/logout}">Log ud</a></p>
 </body>
 </html>

@@ -24,18 +24,7 @@ public class WishListRepository implements IWishListRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public void save(WishList wishList) {
 
-        WishList excistingWishes = findById(wishList.getId());
-
-        if (excistingWishes != null) {
-            update(wishList);
-        } create(wishList);
-
-    }
-
-    //Opretter
     @Override
     public WishList create(WishList wishList) {
         System.out.println("Creating wishlist with name: " + wishList.getName()); //Logs
@@ -59,25 +48,39 @@ public class WishListRepository implements IWishListRepository {
 
     @Override
     public WishList findById(Integer id) {
-        String sql = "SELECT id, name, description FROM wish_list WHERE id = ?";
+        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE id = ?";
 
             return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), id); //Returnerer wishList-objekt
+
     }
 
     @Override
     public List<WishList> findAll() {
-        String sql = "SELECT id, name, description FROM wish_list";
+        String sql = "SELECT id, name, description, profile_id FROM wish_list";
         return jdbcTemplate.query(sql, new WishListRowMapper());
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        String sql = "DELETE FROM wish_list WHERE id = ?";
 
-            jdbcTemplate.update(sql, id);
+@Override
+public void deleteById(Integer id) {
+    try {
 
+        String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
 
+        if (count == null || count == 0) {
+            throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
+        }
+        // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
+        String deleteSql = "DELETE FROM wish_list WHERE id = ?";
+        jdbcTemplate.update(deleteSql, id);
+
+    } catch (Exception e) {
+
+        throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
     }
+}
+
 
     @Override
     public WishList update(WishList wishList) {

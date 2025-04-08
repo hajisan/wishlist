@@ -1,7 +1,6 @@
 package com.example.wishlist.unitTest.service;
 
 import com.example.wishlist.exception.ResourceNotFoundException;
-import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.IWishListRepository;
 import com.example.wishlist.service.WishListService;
@@ -15,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
@@ -106,17 +104,6 @@ public class WishListServiceTest {
         assertThrows(ResourceNotFoundException.class, () -> wishListService.update(null));
 
         verify(iWishListRepository, never()).update(testWishList);
-    }
-
-    // -------------------- save() -------------------- METODE
-
-    @Test
-    void save_shouldCallSave() {
-        wishListService.save(testWishList);
-
-        verify(iWishListRepository).save(testWishList);
-        verify(iWishListRepository, times(1)).save(testWishList);
-
     }
 
     // -------------------- create() ----------------- METODE

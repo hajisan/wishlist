@@ -1,43 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Log ind – Wishlist</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/typografi.css}">
 </head>
 <body>
+<div class="site-wrapper">
 
-<header class="topbar">
-    <a th:href="@{/}" class="logo">🎁 Wishlist</a>
-    <nav class="nav-links">
-        <a th:href="@{/login}" class="btn secondary">Log ind</a>
-        <a th:href="@{/signup}" class="btn primary">Opret</a>
-    </nav>
-</header>
+    <!-- Topbar -->
+    <header class="topbar">
+        <a th:href="@{/}" class="logo">Presently</a>
+        <nav class="nav-links">
+            <a th:href="@{/login}" class="btn secondary">Log ind</a>
+            <a th:href="@{/signup}" class="btn primary">Opret</a>
+        </nav>
+    </header>
 
-<main class="login-container">
-    <div class="login-box">
-        <h2>Log ind på din profil</h2>
+    <!-- Login -->
+    <main class="login-container">
+        <div class="login-box">
+            <h2>Log ind på din profil</h2>
 
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="Brugernavn" required>
-            <input type="password" name="password" placeholder="Adgangskode" required>
-            <button type="submit" class="btn primary full-width">Log ind</button>
-        </form>
+            <form th:action="@{/login}" method="post">
+                <input type="text" name="username" placeholder="Brugernavn" required>
+                <input type="password" name="password" placeholder="Adgangskode" required>
+                <button type="submit" class="btn primary full-width">Log ind</button>
+            </form>
 
-        <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
+            <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
 
-        <p class="signup-link">Har du ikke en profil? <a th:href="@{/signup}">Opret en her</a></p>
-    </div>
-</main>
+            <p class="signup-link">Har du ikke en profil? <a th:href="@{/signup}">Opret en her</a></p>
+        </div>
+    </main>
 
-<footer class="footer">
-    <a th:href="@{/information}">Om os</a>
-    <a th:href="@{/information}">Cookies</a>
-    <a th:href="@{/information}">FAQ</a>
-    <a th:href="@{/information}">Privatliv</a>
-    <a th:href="@{/information}">Kontakt</a>
-</footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <a th:href="@{/information}">Om os</a>
+        <a th:href="@{/information}">Cookies</a>
+        <a th:href="@{/information}">FAQ</a>
+        <a th:href="@{/information}">Privatliv</a>
+        <a th:href="@{/information}">Kontakt</a>
+    </footer>
 
+</div>
 </body>
 </html>

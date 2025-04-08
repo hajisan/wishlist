@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,6 +55,7 @@ public class WishWishListServiceTest {
         assertEquals("https://apple.com", result.wishes().get(0).getLink());
 
     }
+
     @Test
     void findWishWithWishList_returnsDTO_withEmptyWishList() {
         int wishListId = 2;
@@ -69,8 +71,4 @@ public class WishWishListServiceTest {
         assertEquals(wishList, result.wishList());
         assertTrue(result.wishes().isEmpty());
     }
-
-
-
-
 }
