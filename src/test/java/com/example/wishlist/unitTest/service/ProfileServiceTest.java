@@ -34,7 +34,7 @@ public class ProfileServiceTest {
         testProfile.setId(1);
         testProfile.setName("Test Name");
         testProfile.setEmail("test@example.com");
-        testProfile.setUserName("testUser");
+        testProfile.setUsername("testUser");
         testProfile.setPassword("secret123");
         testProfile.setBirthday(LocalDate.of(1990, 1, 1));
     }
@@ -52,7 +52,7 @@ public class ProfileServiceTest {
         //Act & Assert
         assertNotNull(result);
         assertEquals("Test Name", result.getName());
-        assertEquals("testUser", result.getUserName());
+        assertEquals("testUser", result.getUsername());
         assertEquals("test@example.com", result.getEmail());
         assertEquals("secret123", result.getPassword());
         assertEquals(LocalDate.of(1990, 1, 1), result.getBirthday());
@@ -130,7 +130,7 @@ public class ProfileServiceTest {
         List<Profile> result = profileService.findAll();
 
         assertEquals(1, result.size());
-        assertEquals("testUser", result.get(0).getUserName());
+        assertEquals("testUser", result.get(0).getUsername());
         assertEquals("secret123", result.get(0).getPassword());
         verify(iProfileRepository).findAll();
         verify(iProfileRepository, times(1)).findAll();
