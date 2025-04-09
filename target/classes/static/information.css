@@ -1,0 +1,14 @@
+/* ========== Basale farver og layout ========== */
+@import url('fragments/global/base.css');
+
+/* ========== Typografi ========== */
+@import url('fragments/global/typografi.css');
+
+/* ========== Struktur og layout ========== */
+@import url('fragments/global/header.css');
+@import url('fragments/articles/information.css');
+@import url('fragments/global/footer.css');
+
+/* ========== Modals ========== */
+@import url('fragments/login_signup/login-modal.css');
+@import url('fragments/login_signup/signup-modal.css');

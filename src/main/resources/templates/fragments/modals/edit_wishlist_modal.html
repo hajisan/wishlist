@@ -1,0 +1,26 @@
+<!-- ========== EDIT WISHLIST MODAL ========== -->
+<div th:fragment="edit-wishlist">
+    <div id="editWishlistModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeEditWishlistModal()">×</button>
+            <h2>Rediger ønskeliste</h2>
+
+            <!-- Edit form -->
+            <form id="editWishlistForm" method="post" th:attr="data-profile-id=${dto.profile.id}">
+                <label for="edit-name">Ny titel:</label>
+                <input type="text" id="edit-name" name="name" required><br>
+
+                <label for="edit-description">Ny beskrivelse:</label>
+                <input type="text" id="edit-description" name="description"><br>
+
+                <button type="submit" class="btn primary full-width">💾 Gem ændringer</button>
+            </form>
+
+            <!-- Delete form -->
+            <form id="deleteWishlistForm" method="post"
+                  onsubmit="return confirm('Er du sikker på, at du vil slette ønskelisten?');">
+                <button type="submit" class="btn danger full-width">🗑️ Slet ønskeliste</button>
+            </form>
+        </div>
+    </div>
+</div>

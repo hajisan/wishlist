@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Min profil – Wishlist</title>-->
+<!--    <link rel="stylesheet" th:href="@{/stylesgamle.css}">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<header class="topbar">-->
+<!--    <a th:href="@{/}" class="logo">🎁 Wishlist</a>-->
+<!--    <nav class="nav-links">-->
+<!--        <a th:href="@{/logout}" class="btn secondary">Log ud</a>-->
+<!--    </nav>-->
+<!--</header>-->
+
+<!--<main class="login-container">-->
+<!--    <div class="login-box">-->
+<!--        <h2>Opdater din profil</h2>-->
+
+<!--        <form th:action="@{/{profileId}/profile/edit(profileId=${profileId})}" method="post">-->
+<!--            <input type="text" name="name" placeholder="Fulde navn" required>-->
+<!--            <input type="email" name="email" placeholder="Email" required>-->
+<!--            <input type="text" name="username" placeholder="Brugernavn" required>-->
+<!--            <input type="password" name="password" placeholder="Adgangskode" required>-->
+<!--            <input type="password" name="repeatPassword" placeholder="Gentag adgangskode" required>-->
+<!--            <input type="date" name="birthday" placeholder="Fødselsdag" required>-->
+<!--            <button type="submit" class="btn primary full-width">Opdater Profil</button>-->
+<!--        </form>-->
+<!--        <form th:action="@{/{profileId}/profile/delete(profileId=${profileId})}" method="post"-->
+<!--              onsubmit="return confirm('Er du sikker på, at du vil slette din profil? Dette kan ikke fortrydes!');">-->
+<!--            <button type="submit" class="btn danger full-width">🗑️ Slet Profil</button>-->
+<!--        </form>-->
+
+<!--        <p class="error" th:if="${passwordMismatch}">Adgangskoderne matcher ikke</p>-->
+<!--        <p class="error" th:if="${profileAlreadyExists}">Brugernavnet er allerede i brug</p>-->
+<!--        <p class="error" th:if="${dateErrorMessage}" th:text="${dateErrorMessage}"></p>-->
+
+
+<!--    </div>-->
+<!--</main>-->
+
+<!--</body>-->
+<!--</html>-->

@@ -2,7 +2,6 @@ package com.example.wishlist.controller;
 
 import com.example.wishlist.dto.WishWishListDTO;
 import com.example.wishlist.exception.ResourceNotFoundException;
-import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.service.*;
@@ -160,7 +159,7 @@ public class WishController {
         wish.setId(wishId);
         wishService.update(wish); // din service skal have denne metode
 
-        return "redirect:/" + profileId + "/wishlists/" + wishlistId + "/wishes";
+        return "redirect:/" + profileId + "/wishlist/" + wishlistId + "/wishes";
     }
 
     // --------------------------- Delete() ------------------------------

@@ -1,0 +1,35 @@
+<!-- ========== EDIT WISH MODAL ========== -->
+<div id="edit-wish" class="modal-overlay" th:fragment="edit-wish">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeEditWishModal()">&times;</button>
+    <h2>Redigér Ønske</h2>
+
+    <form th:action="@{|/${profileId}/wishlists/${wishlistId}/wish/${wish.id}/update|}" method="post" class="edit-wish-form">
+      <input type="hidden" id="edit-wish-form-profileId" name="profileId">
+      <input type="hidden" id="edit-wish-form-wishlistId" name="wishlistId">
+      <input type="hidden" id="edit-wish-form-wishId" name="wishId">
+
+      <label for="edit-wish-name">Navn:</label>
+      <input type="text" id="edit-wish-name" name="name" required>
+
+      <label for="edit-wish-description">Beskrivelse:</label>
+      <input type="text" id="edit-wish-description" name="description">
+
+      <label for="edit-wish-link">Link:</label>
+      <input type="url" id="edit-wish-link" name="link">
+
+      <label for="edit-wish-quantity">Antal:</label>
+      <input type="number" id="edit-wish-quantity" name="quantity" min="1">
+
+      <label for="edit-wish-price">Pris:</label>
+      <input type="number" id="edit-wish-price" name="price" step="0.01">
+
+      <button type="submit" class="btn primary full-width">💾 Gem</button>
+    </form>
+
+    <form method="post" class="edit-wish-form" id="delete-wish-form"
+          onsubmit="return confirm('Er du sikker på, at du vil slette ønsket?');">
+      <button type="submit" class="btn danger full-width">🗑️ Slet Ønske</button>
+    </form>
+  </div>
+</div>
