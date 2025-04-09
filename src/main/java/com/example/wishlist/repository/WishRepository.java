@@ -69,7 +69,7 @@ public class WishRepository implements IWishRepository {
     }
 
     @Override
-    public List<Wish> findByWishListId(Integer wishListId) {
+    public List<Wish> findWishesByWishListId(Integer wishListId) {
 
         String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_list_id = ?";
 

@@ -1,7 +1,7 @@
 package com.example.wishlist.controller;
 
 import com.example.wishlist.exception.DateTimeFormatException;
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
 import jakarta.servlet.http.HttpSession;

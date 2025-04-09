@@ -84,11 +84,11 @@ public class WishListControllerTest {
         String viewName = controller.postCreateWishList(testProfile.getId(), name, description, session);
 
         // Kalder create() én gang + sammenligner indholdet
-        ArgumentCaptor<WishList> captor = ArgumentCaptor.forClass(WishList.class);
+        ArgumentCaptor<WishList> captor = ArgumentCaptor.forClass(WishList.class); // ArgumentCaptor skal fange information der bliver posted for WishList
 
-        verify(iWishListService).create(captor.capture());
+        verify(iWishListService).create(captor.capture()); // Her fanger den med sin capture()-metode
 
-        WishList actualWishList = captor.getValue();
+        WishList actualWishList = captor.getValue(); // De fangede data laves til det opdaterede Wish, som bruges til at tjekke, om vores testWish faktisk blev opdateret
 
         //Assert
         assertEquals(name, actualWishList.getName());

@@ -1,7 +1,6 @@
 package com.example.wishlist.integrationTest;
 
 import com.example.wishlist.model.Wish;
-import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.WishRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,7 @@ class WishRepositoryTest {
         String wish4Link = "https://www.ikea.com/dk/da/p/trebent-spisepinde-4-saet-bambus-90342971/?utm_source=google&utm_medium=surfaces&utm_campaign=shopping_feed&utm_content=free_google_shopping_clicks_Eating&gStoreCode=686&gQT=1";
 
 
-        // Act - Hent profiler fra database med deres ID
+        // Act
         Wish testWishFromDatabase1 = wishRepository.findById(1);
         Wish testWishFromDatabase4 = wishRepository.findById(4);
 
@@ -90,16 +89,16 @@ class WishRepositoryTest {
 
     @Test
     void deleteById() {
-        // Arrange -
+        // Arrange
         String wishName = "Birgers Lurpak";
         String deletedWishListName = "Arnes Yndlingsairfryer";
 
-        // Act -
+        // Act
         wishRepository.deleteById(1);
         Wish testWishFromDatabase = wishRepository.findById(3);
         List<Wish> testList = new ArrayList<>(wishRepository.findAll());
 
-        // Assert -
+        // Assert
         assertEquals(wishName, testWishFromDatabase.getName());
         assertNotEquals(wishName, deletedWishListName);
         assertEquals(3, testList.size());
@@ -125,7 +124,7 @@ class WishRepositoryTest {
     }
 
     @Test
-    void findByWishListId() {
+    void findWishesByWishListId() {
         // Arrange
         String wishName = "Arnes Yndlingsairfryer";
         String wishDescription = "Ninja Airfryer";
@@ -138,7 +137,7 @@ class WishRepositoryTest {
         desiredWishes.add(wishesInListOfWishes);
 
         // Act
-        List<Wish> actualWishesFromDatabase = new ArrayList<>(wishRepository.findByWishListId(wishListId));
+        List<Wish> actualWishesFromDatabase = new ArrayList<>(wishRepository.findWishesByWishListId(wishListId));
 
         // Assert
         assertEquals(desiredWishes.get(0).getName(), actualWishesFromDatabase.get(0).getName());

@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class) //Til at bruge @Mock og @Injectmocks
 class ProfileControllerTest {
 
+    // Alle vores nødvendige Beans
     @Mock
     private HttpSession session;
 

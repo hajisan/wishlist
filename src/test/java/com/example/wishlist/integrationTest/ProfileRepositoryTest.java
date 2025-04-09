@@ -58,7 +58,7 @@ class ProfileRepositoryTest {
         LocalDate profile2Birthday = LocalDate.of(2000, 1, 1);
         String profile2Email = "Test2@example.com";
 
-        // Act - Hent profiler fra database med deres ID
+        // Act
         Profile testProfileFromDatabase1 = profileRepository.findById(1);
         Profile testProfileFromDatabase2 = profileRepository.findById(2);
 
@@ -84,29 +84,27 @@ class ProfileRepositoryTest {
         for (int i = 0; i < testList.size(); i++) {
             assertEquals(profileNames.get(i), testList.get(i).getName());
         }
-        // assertEquals(profileNames.get(0), testList.get(0).getName());
-        // assertEquals(profileNames.get(1), testList.get(1).getName());
     }
 
     @Test
     void deleteById() {
-        // Arrange -
+        // Arrange
         String profileName = "Birger";
         LocalDate profileBirthday = LocalDate.of(2000, 1, 1);
         String profileEmail = "Test2@example.com";
         String deletedProfileName = "Arne";
 
-        // Act -
+        // Act
         profileRepository.deleteById(1);
         Profile testProfileFromDatabase = profileRepository.findById(2);
         List<Profile> testList = new ArrayList<>(profileRepository.findAll());
 
-        // Assert -
+        // Assert
         assertEquals(profileName, testProfileFromDatabase.getName());
         assertEquals(profileBirthday, testProfileFromDatabase.getBirthday());
         assertEquals(profileEmail, testProfileFromDatabase.getEmail());
-        assertNotEquals(profileName, deletedProfileName);
-        assertEquals(1, testList.size());
+        assertNotEquals(testProfileFromDatabase.getName(), deletedProfileName); // Tjekker at den slettede profils navn ikke
+        assertEquals(1, testList.size()); // Tjekker at der faktisk kun er én profil tilbage da den anden er blevet slettet
     }
 
     @Test
@@ -130,16 +128,16 @@ class ProfileRepositoryTest {
 
     @Test
     void findProfileByUserName() {
-        // Arrange -
+        // Arrange
         String desiredProfileName = "Arne";
         String undesiredProfileName = "Birger";
         int desiredId = 1;
         String profileUserName = "test1";
 
-        // Act -
+        // Act
         Profile testProfileFromDatabase = profileRepository.findProfileByUserName(profileUserName);
 
-        // Assert -
+        // Assert
         assertEquals(desiredId, testProfileFromDatabase.getId());
         assertEquals(desiredProfileName, testProfileFromDatabase.getName());
         assertNotEquals(undesiredProfileName, testProfileFromDatabase.getName());

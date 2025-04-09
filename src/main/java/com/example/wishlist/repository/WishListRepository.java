@@ -1,7 +1,7 @@
 package com.example.wishlist.repository;
 
 
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.rowMapper.WishListRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -64,19 +64,19 @@ public class WishListRepository implements IWishListRepository {
     }
 
     @Override //Finder ønskelister til specifik profil
-    public List<WishList> findByProfileId(Integer profileId) {
+    public List<WishList> findWishListsByProfileId(Integer profileId) {
 
         String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE profile_id = ?";
         return jdbcTemplate.query(sql, new WishListRowMapper(), profileId);
     }
 
     @Override // Finder ønskeliste til specifikt ønskeliste navn og profil
-    public WishList findByNameAndProfile(String name, Integer profileId) {
+    public WishList findWishListByWishListNameAndProfileId(String wishListName, Integer profileId) {
         String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE name = ? AND profile_id = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), name, profileId);
+            return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), wishListName, profileId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Wishlist with name " + name + " for profile ID " + profileId + " not found.");
+            throw new ResourceNotFoundException("Wishlist with name " + wishListName + " for profile ID " + profileId + " not found.");
         }
     }
 

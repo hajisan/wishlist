@@ -1,6 +1,6 @@
 package com.example.wishlist.repository;
 
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.rowMapper.ProfileRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
