@@ -1,6 +1,5 @@
 package com.example.wishlist.controller;
 
-import com.example.wishlist.exception.DateTimeFormatException;
 import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("")
@@ -26,12 +23,6 @@ public class ProfileController {
 
         model.addAttribute("message", e.getMessage());
         return "error"; // thymeleaf skabelon i templates/error/
-    }
-
-    @ExceptionHandler(DateTimeFormatException.class)
-    public String handleDateParseError(Model model, DateTimeFormatException e) {
-        model.addAttribute("dateErrorMessage", e.getMessage());
-        return "signup";
     }
 
 //---------------------------------------------------------------------------------------------------
@@ -144,18 +135,15 @@ public class ProfileController {
             return "signup";
 
         }
-        LocalDate parsedDate; //gemmer parsed dato
 
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            parsedDate = LocalDate.parse(birthday, formatter);
-        }
-        catch (DateTimeFormatException e) {
-            throw new DateTimeFormatException(); //Kaster brugerdefineret fejl
-        }
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate parsedDate = LocalDate.parse(birthday, formatter);
+//
+//       Profile profile = new Profile(name, parsedDate, email, username, password);
+        Profile profile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
+        profileService.create(profile); //gemmer parsed dato
 
-        Profile profile = new Profile(name, parsedDate, email, username, password);
-        profileService.create(profile);
+
 
         return "redirect:/login";
         }
@@ -211,10 +199,12 @@ public class ProfileController {
             return "signup";
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
-        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
+//        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
+//
+//        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
-        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
+        Profile profile = new Profile(profileId, name, Profile.getStringAsLocalDate(birthday), email, username, password);
 
         profileService.update(profile);
         return "redirect:/{profileId}/wishlists";
