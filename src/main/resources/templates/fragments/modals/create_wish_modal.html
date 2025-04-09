@@ -1,0 +1,26 @@
+<!-- ========== CREATE WISH MODAL ========== -->
+<div id="createWishModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeCreateWishModal()">&times;</button>
+    <h2>Opret nyt ønske</h2>
+
+    <form th:action="@{|/${profileId}/wishlists/${wishlistName}/createnewwish|}" method="post" class="edit-wishlist-form">
+      <label for="name">Navn på ønsket:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="description">Beskrivelse:</label>
+      <input type="text" id="description" name="description">
+
+      <label for="link">Link (valgfrit):</label>
+      <input type="url" id="link" name="link">
+
+      <label for="quantity">Antal:</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1">
+
+      <label for="price">Pris:</label>
+      <input type="number" id="price" name="price" step="0.01">
+
+      <button type="submit" class="btn primary full-width">➕ Tilføj Ønske</button>
+    </form>
+  </div>
+</div>

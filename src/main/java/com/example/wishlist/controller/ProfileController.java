@@ -1,7 +1,6 @@
 package com.example.wishlist.controller;
 
-import com.example.wishlist.exception.DateTimeFormatException;
-import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
+import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
 import jakarta.servlet.http.HttpSession;
@@ -28,13 +27,6 @@ public class ProfileController {
 
         model.addAttribute("message", e.getMessage());
         return "error"; // thymeleaf skabelon i templates/error/
-    }
-
-    // @TODO Skal fjernes? Vi bruger den ikke nogen steder
-    @ExceptionHandler(DateTimeFormatException.class)
-    public String handleDateParseError(Model model, DateTimeFormatException e) {
-        model.addAttribute("dateErrorMessage", e.getMessage());
-        return "signup";
     }
 
 //---------------------------------------------------------------------------------------------------
@@ -87,7 +79,7 @@ public class ProfileController {
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "login";
+        return "index";
     }
 
     @PostMapping("/login")
@@ -121,7 +113,7 @@ public class ProfileController {
 
     @GetMapping("/signup")
     public String getSignUp() {
-        return "signup";
+        return "index";
     }
 
     //------------------------------------ Create() ------------------------------------
@@ -146,9 +138,15 @@ public class ProfileController {
             return "signup";
 
         }
-        LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
-        Profile profile = new Profile(name, parsedDate, email, username, password);
-        profileService.create(profile);
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate parsedDate = LocalDate.parse(birthday, formatter);
+//
+//       Profile profile = new Profile(name, parsedDate, email, username, password);
+        Profile profile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
+        profileService.create(profile); //gemmer parsed dato
+
+
 
         return "redirect:/login";
     }
@@ -209,6 +207,12 @@ public class ProfileController {
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
+//        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
+//
+//        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
+
 
         LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);

@@ -37,7 +37,7 @@ public class ProfileRepository implements IProfileRepository {
             ps.setString(1, profile.getName());
             ps.setString(2, profile.getBirthday().format(DateTimeFormatter.ISO_LOCAL_DATE)); //MySQL time-format
             ps.setString(3, profile.getEmail());
-            ps.setString(4, profile.getUserName());
+            ps.setString(4, profile.getUsername());
             ps.setString(5, profile.getPassword());
             return ps;
         }, keyHolder);
@@ -88,7 +88,7 @@ public class ProfileRepository implements IProfileRepository {
                 profile.getName(),
                 java.sql.Date.valueOf(profile.getBirthday()),
                 profile.getEmail(),
-                profile.getUserName(),
+                profile.getUsername(),
                 profile.getPassword(),
                 profile.getId()
         );

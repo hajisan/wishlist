@@ -1,10 +1,9 @@
 package com.example.wishlist.model;
 
 import java.time.LocalDate;
-
 public class Profile {
 
-    private String name, email, userName, password;
+    private String name, email, username, password;
     private LocalDate birthday;
     private int id;
 
@@ -12,26 +11,25 @@ public class Profile {
 //--------------------------------------     Constructors     ---------------------------------------
 //---------------------------------------------------------------------------------------------------
 
-    public Profile(int id, String name, LocalDate birthday, String email, String userName, String password) {
+    public Profile(int id, String name, LocalDate birthday, String email, String username, String password) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
 
     // Bruges kun til create() - ellers kommer id ikke med
-    public Profile(String name, LocalDate birthday, String email, String userName, String password) {
+    public Profile(String name, LocalDate birthday, String email, String username, String password) {
         this.name = name;
         this.birthday = birthday;
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
-
-    public Profile(String userName, String password) {
-        this.userName = userName;
+    public Profile(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -58,12 +56,12 @@ public class Profile {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -111,6 +109,6 @@ public class Profile {
                 Username: %s
                 Password: %s
                 Birthday: %s
-                ID      : %d""", name, email, userName, password, birthday, id);
+                ID      : %d""", name, email, username, password, birthday, id);
     }
 }

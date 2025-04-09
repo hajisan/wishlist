@@ -1,0 +1,79 @@
+/* ========== CHARITY PAGE STYLES ========== */
+
+.page-container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.info-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.05));
+    transition: box-shadow 0.3s ease;
+}
+
+.info-box:hover {
+    box-shadow: var(--shadow-lg, 0 6px 18px rgba(0, 0, 0, 0.08));
+}
+
+.info-box h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-primary, #333);
+}
+
+.info-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text, #444);
+}
+
+.info-box ul {
+    padding-left: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.info-box li {
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.info-box a {
+    text-decoration: none;
+    color: var(--color-accent, #007BFF);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.info-box a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .info-box {
+        padding: 1.5rem;
+    }
+
+    .info-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .info-box p,
+    .info-box li {
+        font-size: 0.95rem;
+    }
+}

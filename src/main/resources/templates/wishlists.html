@@ -15,7 +15,8 @@
 <header class="topbar">
     <a th:href="@{/}" class="logo">Presently</a>
     <nav class="nav-links">
-        <a href="javascript:void(0);" class="btn secondary" onclick="openProfileModal()">Se Profil</a>
+        <!-- Se profil & log ud-->
+        <a href="javascript:void(0);" class="btn secondary" onclick="openProfileModal(this)">Se Profil</a>
         <a th:href="@{/logout}" class="btn secondary">Log ud</a>
     </nav>
 </header>
@@ -24,7 +25,7 @@
 <main>
     <section class="wishlist-section">
 
-        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.userName}">username</span></h1>
+        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.username}">username</span></h1>
 
         <!-- Hvis ingen ønskelister -->
         <div th:if="${#lists.isEmpty(dto.wishLists)}" class="empty-message">
@@ -37,6 +38,7 @@
                 <h2 class="wishlist-title" th:text="${wishlist.name}">Ønskeliste Navn</h2>
                 <p class="wishlist-description" th:text="${wishlist.description}">Beskrivelse af ønskelisten</p>
                 <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" class="btn secondary small">Vis ønsker</a>
+                    <!-- Rediger ønskeliste -->
                     <button type="button"
                             class="btn secondary small"
                             onclick="openEditWishlistModal(this)"
@@ -48,39 +50,23 @@
 
         <!-- Opret ny ønskeliste -->
         <div class="create-new-wrapper">
-            <a href="javascript:void(0);" class="btn primary" onclick="openCreateWishlistModal()">+ Opret ønskeliste</a>
+            <a href="javascript:void(0);" class="btn primary" onclick="openCreateWishlistModal(this)">+ Opret ønskeliste</a>
         </div>
 
     </section>
 </main>
 
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 <!-- Modal -->
-<div th:replace="~{fragments/profile_page_modal :: profile-page}"></div>
-<div th:replace="~{fragments/edit_profile_page_modal :: edit-profile}"></div>
-<div th:replace="~{fragments/create_wishlist_modal :: create-wishlist}"></div>
-<div th:replace="~{fragments/edit_wishlist_modal :: edit-wishlist}"></div>
+<div th:replace="~{fragments/modals/profile_page_modal :: profile-page}"></div>
+<div th:replace="~{fragments/modals/edit_profile_page_modal :: edit-profile}"></div>
+<div th:replace="~{fragments/modals/create_wishlist_modal :: create-wishlist}"></div>
+<div th:replace="~{fragments/modals/edit_wishlist_modal :: edit-wishlist}"></div>
 
 <!-- SCRIPTS -->
-<script th:src="@{/ui-effects.js}" type="module"></script>
-<script th:src="@{/ui-effects.js}" type="module"></script>
-<script type="module">
-    import {
-        openProfileModal,
-        closeProfileModal,
-        openCreateWishlistModal,
-        closeCreateWishlistModal,
-        openEditWishlistModal,
-        closeEditWishlistModal
-    } from '/ui-effects.js';
-
-    window.openProfileModal = openProfileModal;
-    window.closeProfileModal = closeProfileModal;
-    window.openCreateWishlistModal = openCreateWishlistModal;
-    window.closeCreateWishlistModal = closeCreateWishlistModal;
-    window.openEditWishlistModal = openEditWishlistModal;
-    window.closeEditWishlistModal = closeEditWishlistModal;
-</script>
-
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 
 </body>
 </html>

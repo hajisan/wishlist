@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/stylesOLD.css}">
-    <link rel="stylesheet" th:href="@{/fragments/typografi.css}">
+    <link rel="stylesheet" th:href="@{/sustainability.css}">
 </head>
 <body>
 
@@ -49,58 +48,15 @@
     </section>
 </main>
 
-<footer class="footer">
-    <a th:href="@{'/information#about'}">Om os</a>
-    <a th:href="@{'/information#cookies'}">Cookies</a>
-    <a th:href="@{'/information#faq'}">FAQ</a>
-    <a th:href="@{'/information#privacy'}">Privatliv</a>
-    <a th:href="@{'/information#contact'}">Kontakt</a>
-</footer>
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- LOGIN MODAL -->
-<div class="modal-overlay" id="loginModal">
-    <div class="modal-box">
-        <button class="close-btn" onclick="closeModal()">×</button>
-        <h2>Log ind</h2>
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="Brugernavn" required>
-            <input type="password" name="password" placeholder="Adgangskode" required>
-            <button type="submit" class="btn primary full-width">Log ind</button>
-        </form>
-        <p class="error" th:if="${wrongCredentials}">Forkert brugernavn eller adgangskode</p>
-        <p class="signup-link">Har du ikke en profil? <a href="javascript:void(0);" onclick="closeModal(); openSignup()">Opret en her</a></p>
-    </div>
-</div>
+<!-- MODAL FOR LOGIN & SIGNUP -->
+<div th:replace="~{fragments/modals/login_modal :: login}"></div>
+<div th:replace="~{fragments/modals/signup_modal :: signup}"></div>
 
-<!-- SIGNUP MODAL -->
-<div class="signup-overlay" id="signupModal">
-    <div class="signup-box">
-        <button class="signup-close-btn" onclick="closeSignup()">×</button>
-        <h2>Opret bruger</h2>
-        <form th:action="@{/signup}" method="post">
-            <input type="text" name="username" placeholder="Brugernavn" required>
-            <input type="email" name="email" placeholder="E-mail" required>
-            <input type="password" name="password" placeholder="Adgangskode" required>
-            <input type="password" name="repeatPassword" placeholder="Gentag adgangskode" required>
-            <input type="text" name="name" placeholder="Navn" required>
-            <input type="date" name="birthday" placeholder="Fødselsdato" required>
-            <button type="submit" class="btn primary full-width">Opret</button>
-        </form>
-        <p class="error" th:if="${signupError}">Noget gik galt – prøv igen</p>
-        <p class="error" th:if="${profileAlreadyExists}">Brugernavnet findes allerede</p>
-        <p class="error" th:if="${passwordMismatch}">Adgangskoderne matcher ikke</p>
-        <p class="login-link">Har du allerede en profil? <a href="javascript:void(0);" onclick="closeSignup(); openModal();">Log ind</a></p>
-    </div>
-</div>
-
+<!-- SCRIPTS -->
 <script th:src="@{/ui-effects.js}"></script>
-<script type="module">
-    import { openModal, closeModal, openSignup, closeSignup } from '/ui-effects.js';
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-    window.openSignup = openSignup;
-    window.closeSignup = closeSignup;
-</script>
 
 </body>
 </html>
