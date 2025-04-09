@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,10 +18,12 @@ import java.time.format.DateTimeFormatter;
 public class ProfileController {
     private final IProfileService profileService;
 
+    // Dependency Injection af IProfileService-interfacet i constructoren
     public ProfileController(IProfileService profileService) {
         this.profileService = profileService;
     }
 
+    // ExceptionHandler-annotationen fanger og håndterer vores ResourceNotFoundExceptions
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleNotFound(Model model, ResourceNotFoundException e) {
 
@@ -28,6 +31,7 @@ public class ProfileController {
         return "error"; // thymeleaf skabelon i templates/error/
     }
 
+    // @TODO Skal fjernes? Vi bruger den ikke nogen steder
     @ExceptionHandler(DateTimeFormatException.class)
     public String handleDateParseError(Model model, DateTimeFormatException e) {
         model.addAttribute("dateErrorMessage", e.getMessage());
@@ -87,12 +91,6 @@ public class ProfileController {
         return "login";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "index";
-    }
-
     @PostMapping("/login")
     public String postLogin(
             @RequestParam("username") String username,
@@ -100,7 +98,6 @@ public class ProfileController {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         // Brug en metode i IProfileService til at tjekke login-informationer
-
         Profile profile = profileService.login(username, password);
 
         if (profile != null) {
@@ -111,8 +108,14 @@ public class ProfileController {
         }
 
         model.addAttribute("wrongCredentials", true);
-        return "index"; // <- viser forsiden igen, men med fejl
+        return "index"; // <- viser forsiden igen, men med fejl vha. Thymeleaf
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
     }
 
     // --------------------------- Hent Create() -------------------------------------
@@ -134,31 +137,22 @@ public class ProfileController {
             @RequestParam("birthday") String birthday,
             Model model
     ) {
-        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+        if (!password.equals(repeatPassword)) { // Adgangskoder skal være ens
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
 
-        if (profileService.profileAlreadyExists(username)) { //Tjekker om bruger findes
+        if (profileService.profileAlreadyExists(username)) { // Tjekker om bruger findes
             model.addAttribute("profileAlreadyExists", true);
             return "signup";
 
         }
-        LocalDate parsedDate; //gemmer parsed dato
-
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            parsedDate = LocalDate.parse(birthday, formatter);
-        }
-        catch (DateTimeFormatException e) {
-            throw new DateTimeFormatException(); //Kaster brugerdefineret fejl
-        }
-
+        LocalDate parsedDate = Profile.getStringAsLocalDate(birthday); // Gemmer parsed dato
         Profile profile = new Profile(name, parsedDate, email, username, password);
         profileService.create(profile);
 
         return "redirect:/login";
-        }
+    }
 
     // ----------------------------- Read() -------------------------------------
 
@@ -168,7 +162,9 @@ public class ProfileController {
             HttpSession session, Model model
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         model.addAttribute("profileId", profileId);
         model.addAttribute("profile", profileService.findById(profileId));
@@ -183,9 +179,11 @@ public class ProfileController {
             @PathVariable int profileId,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
-        model.addAttribute("profile", profileService.findById(profileId)); //Sender hele objektet med til redigering
+        model.addAttribute("profile", profileService.findById(profileId)); // Sender hele objektet med til redigering
 
         return "edit-profile-page";
     }
@@ -203,17 +201,17 @@ public class ProfileController {
             @RequestParam("birthday") String birthday,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
 
-        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+        if (!password.equals(repeatPassword)) { // Adgangskoder skal være ens
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
-        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
-
+        LocalDate parsedDate = Profile.getStringAsLocalDate(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
@@ -227,7 +225,9 @@ public class ProfileController {
             @PathVariable int profileId,
             HttpSession session) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        }
 
         profileService.deleteById(profileId);
 
@@ -235,6 +235,4 @@ public class ProfileController {
 
         return "index";
     }
-
-
 }

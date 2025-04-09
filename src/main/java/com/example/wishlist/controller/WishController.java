@@ -17,6 +17,7 @@ public class WishController {
     private final WishWishListService wishWishListService;
     private final IWishListService iWishListService;
 
+    // Dependency Injection af IWishListService-interfacet, IWishService-interfacet og WishWishListService i constructoren
     public WishController(IWishService wishService, WishWishListService wishWishListService, IWishListService iWishListService) {
         this.wishService = wishService;
         this.wishWishListService = wishWishListService;
@@ -27,7 +28,7 @@ public class WishController {
     public String handleNotFound(Model model, ResourceNotFoundException e) {
 
         model.addAttribute("message", e.getMessage());
-        return "error"; // thymeleaf skabelon i templates/error/
+        return "error"; // Thymeleaf-skabelon i templates/error/
     }
 
 
@@ -40,7 +41,9 @@ public class WishController {
             HttpSession session, Model model
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         model.addAttribute("profileId", profileId);
         model.addAttribute("wishlistName", wishlistName);
@@ -63,7 +66,9 @@ public class WishController {
             HttpSession session
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         Wish wish = new Wish(name, description, link, quantity, price, wishlistId);
 
@@ -81,7 +86,9 @@ public class WishController {
             HttpSession session, Model model
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         // Hent ønskeliste + tilhørende ønsker (med ID)
         WishWishListDTO dto = wishWishListService.findWishWithWishList(wishlistId);
@@ -100,11 +107,12 @@ public class WishController {
             @PathVariable int profileId,
             @PathVariable int wishlistId,
             @PathVariable int wishId,
-            HttpSession session,
-            Model model
+            HttpSession session, Model model
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        }
 
         Wish wish = wishService.findById(wishId);
         WishList wishList = iWishListService.findById(wishlistId);
@@ -125,17 +133,18 @@ public class WishController {
             @PathVariable int profileId,
             @PathVariable int wishlistId,
             @PathVariable int wishId,
-            HttpSession session,
-            Model model
+            HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         Wish wish = wishService.findById(wishId);
 
         WishList wishList = iWishListService.findById(wishlistId);
 
         model.addAttribute("wish", wish);
-        model.addAttribute("profileId", profileId); //Lægger id-data i modellen, så html-siden kan bruge dem
+        model.addAttribute("profileId", profileId); // Lægger id-data i modellen, så html-siden kan bruge dem
         model.addAttribute("wishlistId", wishList.getId());
         return "edit-wish";
     }
@@ -154,11 +163,13 @@ public class WishController {
             @RequestParam double price,
             HttpSession session
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         Wish wish = new Wish(name, description, link, quantity, price, wishlistId);
         wish.setId(wishId);
-        wishService.update(wish); // din service skal have denne metode
+        wishService.update(wish);
 
         return "redirect:/" + profileId + "/wishlists/" + wishlistId + "/wishes";
     }
@@ -172,11 +183,12 @@ public class WishController {
             @PathVariable int wishId,
             HttpSession session
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
-        wishService.deleteById(wishId); // Slet ønsket
+        wishService.deleteById(wishId);
 
         return "redirect:/" + profileId + "/wishlists/" + wishlistId + "/wishes"; // Gå tilbage til ønskelisten
     }
-
 }
