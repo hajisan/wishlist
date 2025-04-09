@@ -65,7 +65,7 @@ public class ProfileControllerTest {
 
         //Act
         mockMvc.perform(post("/signup")
-                .param("username", testProfile.getUserName())
+                .param("username", testProfile.getUsername())
                 .param("password", testProfile.getPassword())
                 .param("repeatPassword", testProfile.getPassword())
                 .param("name", testProfile.getName())
@@ -135,7 +135,7 @@ public class ProfileControllerTest {
         //Act
         mockMvc.perform(post("/" + testProfile.getId() + "/profile/edit")
                         .sessionAttr("profile", testProfile)
-                        .param("username", testProfile.getUserName())
+                        .param("username", testProfile.getUsername())
                         .param("password", testProfile.getPassword())
                         .param("repeatPassword", testProfile.getPassword())
                         .param("name", testProfile.getName())
@@ -170,11 +170,11 @@ public class ProfileControllerTest {
     void testPostLogin() throws Exception {
 
         //Arrange - når login kaldes med disse argumenter, returnér testProfilen
-        when(iProfileService.login(testProfile.getUserName(), testProfile.getPassword())).thenReturn(testProfile);
+        when(iProfileService.login(testProfile.getUsername(), testProfile.getPassword())).thenReturn(testProfile);
 
         //Act - kører selve testen
         mockMvc.perform(post("/login")
-                        .param("username", testProfile.getUserName())
+                        .param("username", testProfile.getUsername())
                         .param("password", testProfile.getPassword()))
                 .andExpect(status().is3xxRedirection()) //Assert - er svaret/responsen korrekt?
                 .andExpect(redirectedUrl("/" + testProfile.getId() + "/wishlists"));
