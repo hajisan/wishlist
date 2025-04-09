@@ -31,7 +31,7 @@ public class WishWishListServiceTest {
     private WishWishListService wishWishListService;
 
     @Test
-    void findWishListWithWishes_returnsDTO_whenWishListExists() {
+    void testFindWishListWithWishesReturnsDTOWhenWishListExists() {
         // Arrange
         int wishListId = 1;
 
@@ -43,8 +43,8 @@ public class WishWishListServiceTest {
                         new Wish("Bog", "Kvinden i buret", "https://saxo.com", 1, 3, 59.95, wishListId)
                 );
 
-        Mockito.when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
-        Mockito.when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(wishes);
+        Mockito.lenient().when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
+        Mockito.lenient().when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(wishes);
 
         // Act
         WishWishListDTO result = wishWishListService.findWishWithWishList(wishListId);
@@ -59,15 +59,15 @@ public class WishWishListServiceTest {
     }
 
     @Test
-    void findWishWithWishList_returnsDTO_withEmptyWishList() {
+    void testFindWishWithWishListReturnsDTOWithEmptyWishList() {
         // Arrange
         int wishListId = 2;
 
         WishList wishList = new WishList(wishListId, "Christmas", "Pressy", 5);
         List<Wish> emptyWishes = List.of();
 
-        Mockito.when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
-        Mockito.when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(emptyWishes);
+        Mockito.lenient().when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
+        Mockito.lenient().when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(emptyWishes);
 
         // Act
         WishWishListDTO result = wishWishListService.findWishWithWishList(wishListId);

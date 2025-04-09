@@ -30,6 +30,7 @@ public class ProfileServiceTest {
 
     @BeforeEach
     void setUp() { // Alle felter for Profile
+        // Arrange for alle testmetoder
         testProfile = new Profile();
         testProfile.setId(1);
         testProfile.setName("Test Name");
@@ -42,14 +43,13 @@ public class ProfileServiceTest {
     // --------------- findById() ---------------------- METODE
 
     @Test
-    void findById_shouldReturnProfile_whenFound() {
-
+    void testFindByIdShouldReturnProfileWhenProfileIsFound() {
         // Arrange
-        when(iProfileRepository.findById(1)).thenReturn(testProfile);
-
-        Profile result = profileService.findById(1);
+        lenient().when(iProfileRepository.findById(1)).thenReturn(testProfile);
 
         // Act & Assert
+        Profile result = profileService.findById(1);
+
         assertNotNull(result);
         assertEquals("Test Name", result.getName());
         assertEquals("testUser", result.getUsername());
@@ -61,9 +61,9 @@ public class ProfileServiceTest {
     }
 
     @Test
-    void findById_shouldThrowException_whenNotFound() {
+    void testFindByIdShouldThrowExceptionWhenProfileNotFound() {
         // Arrange
-        when(iProfileRepository.findById(999)).thenReturn(null);
+        lenient().when(iProfileRepository.findById(999)).thenReturn(null);
 
         // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> profileService.findById(999));
@@ -74,9 +74,9 @@ public class ProfileServiceTest {
     // ---------------- deleteById() ---------------- METODE
 
     @Test
-    void deleteById_shouldCallDelete_whenProfileExists() {
+    void testDeleteByIdShouldCallDeleteWhenProfileExists() {
         // Arrange
-        when(iProfileRepository.findById(1)).thenReturn(testProfile);
+        lenient().when(iProfileRepository.findById(1)).thenReturn(testProfile);
 
         // Act & Assert
         profileService.deleteById(1);
@@ -86,7 +86,7 @@ public class ProfileServiceTest {
     }
 
     @Test
-    void deleteById_shouldThrowException_whenProfileNotFound() {
+    void testDeleteByIdShouldThrowExceptionWhenProfileNotFound() {
         // Arrange
         when(iProfileRepository.findById(999)).thenReturn(null); //999 = dummy id
 
@@ -98,17 +98,17 @@ public class ProfileServiceTest {
     // ------------------ update() -------------------- METODE
 
     @Test
-    void update_shouldCallUpdate_whenProfileNotNull() {
+    void testUpdateShouldCallUpdateWhenProfileNotNull() {
         //Arrange
-        profileService.update(testProfile);
 
         // Act & Assert
+        profileService.update(testProfile);
         verify(iProfileRepository).update(testProfile);
         verify(iProfileRepository, times(1)).update(testProfile);
     }
 
     @Test
-    void update_shouldThrowException_whenProfileIsNull() {
+    void testUpdateShouldThrowExceptionWhenProfileIsNull() {
         // Arrange
 
         // Act & Assert
@@ -119,11 +119,11 @@ public class ProfileServiceTest {
     // -------------------- create() ----------------- METODE
 
     @Test
-    void create_shouldCallCreate() {
+    void testCreateShouldCallCreate() {
         // Arrange
-        profileService.create(testProfile);
 
         // Act & Assert
+        profileService.create(testProfile);
         verify(iProfileRepository).create(testProfile);
         verify(iProfileRepository, times(1)).create(testProfile);
     }
@@ -131,9 +131,9 @@ public class ProfileServiceTest {
     // -------------------- findAll() ----------------- METODE
 
     @Test
-    void findAll_shouldReturnList() {
+    void testFindAllShouldReturnList() {
         // Arrange
-        when(iProfileRepository.findAll()).thenReturn(List.of(testProfile));
+        lenient().when(iProfileRepository.findAll()).thenReturn(List.of(testProfile));
 
         // Act & Assert
         List<Profile> result = profileService.findAll();
