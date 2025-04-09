@@ -1,6 +1,6 @@
 <!-- ========== EDIT WISHLIST MODAL ========== -->
 <div th:fragment="edit-wishlist">
-    <div id="editWishlistModal" class="modal-overlay">
+    <div id="editWishListModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeEditWishlistModal()">×</button>
             <h2>Rediger ønskeliste</h2>
@@ -17,10 +17,19 @@
             </form>
 
             <!-- Delete form -->
-            <form id="deleteWishlistForm" method="post"
+            <form id="deleteWishListForm" method="post"
+                  data-profile-id="${dto.profile.id}"
+                  data-wishlist-id=""
                   onsubmit="return confirm('Er du sikker på, at du vil slette ønskelisten?');">
                 <button type="submit" class="btn danger full-width">🗑️ Slet ønskeliste</button>
             </form>
+
+
+
+<!--            <form id="deleteWishlistForm" method="post"-->
+<!--                  onsubmit="return confirm('Er du sikker på, at du vil slette ønskelisten?');">-->
+<!--                <button type="submit" class="btn danger full-width">🗑️ Slet ønskeliste</button>-->
+<!--            </form>-->
         </div>
     </div>
 </div>

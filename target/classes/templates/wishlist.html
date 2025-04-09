@@ -69,37 +69,12 @@
 <!-- MODAL FOR LOGIN & SIGNUP -->
 <div th:replace="~{fragments/modals/profile_page_modal :: profile-page}"></div>
 <div th:replace="~{fragments/modals/edit_profile_page_modal :: edit-profile}"></div>
-<div th:replace="~{fragments/modals/create_wish_modal :: create-wishlist}"></div>
+<!--<div th:replace="~{fragments/modals/create_wish_modal :: create-wish}"></div>-->
+<div th:replace="~{fragments/modals/create_wish_modal :: create-wish(wishList=${dto.wishList}, profileId=${profileId})}"></div>
 <div th:replace="~{fragments/modals/edit_wish_modal :: edit-wishlist}"></div>
 
 <!-- SCRIPTS -->
 <script th:src="@{/ui-effects.js}"></script>
-
-<!--<script type="module">-->
-<!--    import {-->
-<!--        openProfileModal,-->
-<!--        closeProfileModal,-->
-<!--        openCreateWishlistModal,-->
-<!--        closeCreateWishlistModal,-->
-<!--        openEditWishlistModal,-->
-<!--        closeEditWishlistModal,-->
-<!--        openCreateWishModal,-->
-<!--        closeCreateWishModal,-->
-<!--        openEditWishModal,-->
-<!--        closeEditWishModal-->
-<!--    } from '/ui-effects.js';-->
-
-<!--    window.openProfileModal = openProfileModal;-->
-<!--    window.closeProfileModal = closeProfileModal;-->
-<!--    window.openCreateWishlistModal = openCreateWishlistModal;-->
-<!--    window.closeCreateWishlistModal = closeCreateWishlistModal;-->
-<!--    window.openEditWishlistModal = openEditWishlistModal;-->
-<!--    window.closeEditWishlistModal = closeEditWishlistModal;-->
-<!--    window.openCreateWishModal = openCreateWishModal;-->
-<!--    window.closeCreateWishModal = closeCreateWishModal;-->
-<!--    window.openEditWishModal = openEditWishModal;-->
-<!--    window.closeEditWishModal = closeEditWishModal;-->
-<!--</script>-->
 
 </body>
 </html>
