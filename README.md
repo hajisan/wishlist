@@ -1,4 +1,4 @@
-presently-djbpg9frcdffe4a9.northeurope-01.azurewebsites.net
+http://presently-djbpg9frcdffe4a9.northeurope-01.azurewebsites.net
 
 # 📘 Wishlist – Projekt Presently
 
