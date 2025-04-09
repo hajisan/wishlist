@@ -201,29 +201,32 @@ document.addEventListener("DOMContentLoaded", () => {
 // ========== Edit ønskeliste modal ==========
 document.addEventListener("DOMContentLoaded", () => {
     window.openEditWishlistModal = (button) => {
-        const modal = document.getElementById("editWishlistModal");
+        const modal = document.getElementById("editWishListModal");
         const editForm = modal.querySelector("#editWishlistForm");
-        const deleteForm = modal.querySelector("#deleteWishlistForm");
+        const deleteForm = modal.querySelector("#deleteWishListForm");
+
         const nameInput = modal.querySelector("#edit-name");
         const descInput = modal.querySelector("#edit-description");
 
-        // Udfyld felter med data
+        // Udfyld felter
         nameInput.value = button.dataset.name;
         descInput.value = button.dataset.description;
 
-        // Opdatér formens action
+        // Opdatér action-URLs
         const wishlistId = button.dataset.id;
         const profileId = editForm.getAttribute("data-profile-id");
 
         editForm.action = `/${profileId}/wishlists/${wishlistId}/edit`;
-        deleteForm.action = `/${profileId}/wishlists/${wishlistId}/delete`;
+        if (deleteForm) {
+            deleteForm.action = `/${profileId}/wishlists/${wishlistId}/delete`;
+        }
 
         modal.style.display = "flex";
         setTimeout(() => modal.classList.add("visible"), 10);
     };
 
     window.closeEditWishlistModal = () => {
-        const modal = document.getElementById("editWishlistModal");
+        const modal = document.getElementById("editWishListModal");
         modal.classList.remove("visible");
         setTimeout(() => modal.style.display = "none", 200);
     };
@@ -306,5 +309,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-console.log("script loaded ✅")
