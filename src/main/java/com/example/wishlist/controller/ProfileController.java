@@ -75,7 +75,7 @@ public class ProfileController {
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "login";
+        return "index";
     }
 
     @GetMapping("/logout")
@@ -110,7 +110,7 @@ public class ProfileController {
 
     @GetMapping("/signup")
     public String getSignUp() {
-        return "signup";
+        return "index";
     }
 
     // ----------------------------- Create() -------------------------------------
