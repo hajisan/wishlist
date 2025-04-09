@@ -6,7 +6,6 @@ import com.example.wishlist.model.Profile;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.*;
 
 public class ProfileRowMapper implements RowMapper<Profile> {
 

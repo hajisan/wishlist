@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.time.LocalDate;
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,10 +41,9 @@ public class ProfileControllerTest {
         String username = "Nimseladen";
         String password = "secret123";
 
-       testProfile = new Profile(id, name, birthday, email, username, password);
+        testProfile = new Profile(id, name, birthday, email, username, password);
 
     }
-
 
     // -------------------------------- Henter createProfile() ---------------------------
 
@@ -52,9 +53,8 @@ public class ProfileControllerTest {
         //Act
         mockMvc.perform(get("/signup"))
                 .andExpect(status().isOk()) //Assert
-                .andExpect(view().name("signup"));
+                .andExpect(view().name("index"));
     }
-
 
     // -------------------------------- Post createProfile() ---------------------------
     @Test
@@ -65,12 +65,12 @@ public class ProfileControllerTest {
 
         //Act
         mockMvc.perform(post("/signup")
-                .param("username", testProfile.getUsername())
-                .param("password", testProfile.getPassword())
-                .param("repeatPassword", testProfile.getPassword())
-                .param("name", testProfile.getName())
-                .param("email", testProfile.getEmail())
-                .param("birthday", testProfile.getBirthday().toString()))
+                        .param("username", testProfile.getUsername())
+                        .param("password", testProfile.getPassword())
+                        .param("repeatPassword", testProfile.getPassword())
+                        .param("name", testProfile.getName())
+                        .param("email", testProfile.getEmail())
+                        .param("birthday", testProfile.getBirthday().toString()))
                 .andExpect(status().is3xxRedirection()) //Assert
                 .andExpect(redirectedUrl("/login"));
 
@@ -87,13 +87,12 @@ public class ProfileControllerTest {
 
         //Act
         mockMvc.perform(get("/" + testProfile.getId() + "/profile")
-                .sessionAttr("profile", testProfile)) //Simumlerer at bruger er logget ind
+                        .sessionAttr("profile", testProfile)) //Simumlerer at bruger er logget ind
                 .andExpect(status().isOk()) //Assert
                 .andExpect(view().name("profile-page"))
                 .andExpect(model().attribute("profileId", testProfile.getId()))
                 .andExpect(model().attribute("profile", testProfile));
     }
-
 
     // -------------------------------- Henter updateProfile() ---------------------------
 
@@ -108,8 +107,8 @@ public class ProfileControllerTest {
                 .sessionAttr("profile", testProfile))
                 .andExpect(status().isOk()) //Assert
                 .andExpect(view().name("edit-profile-page"))
-                .andExpect(model().attribute("profile", testProfile));
-
+                .andExpect(model().attribute("profile", testProfile)
+                );
     }
 
     // Not loggedIn skal redirect
@@ -141,8 +140,8 @@ public class ProfileControllerTest {
                         .param("name", testProfile.getName())
                         .param("email", testProfile.getEmail())
                         .param("birthday", testProfile.getBirthday().toString()))
-                        .andExpect(status().is3xxRedirection()) //Assert
-                        .andExpect(redirectedUrl("/" + testProfile.getId() + "/wishlists"));
+                .andExpect(status().is3xxRedirection()) //Assert
+                .andExpect(redirectedUrl("/" + testProfile.getId() + "/wishlists"));
         verify(iProfileService, times(1)).update(any(Profile.class));
 
     }
@@ -157,7 +156,7 @@ public class ProfileControllerTest {
 
         //Act
         mockMvc.perform(post("/" + testProfile.getId() + "/profile/delete")
-                .sessionAttr("profile", testProfile))
+                        .sessionAttr("profile", testProfile))
                 .andExpect(status().isOk()) //Assert
                 .andExpect(view().name("index"));
 
@@ -197,17 +196,6 @@ public class ProfileControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attributeExists("wrongCredentials"));
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -42,13 +42,12 @@ public class WishListServiceTest {
 
     @Test
     void findById_shouldReturnWish_whenFound() {
-
-        //Arrange
+        // Arrange
         when(iWishListRepository.findById(200)).thenReturn(testWishList);
 
         WishList result = wishListService.findById(200);
 
-        //Act & Assert
+        // Act & Assert
 
         assertNotNull(result);
         assertEquals("ØnskeListeTest", result.getName());
@@ -60,10 +59,11 @@ public class WishListServiceTest {
 
     @Test
     void findById_shouldThrowException_whenNotFound() {
+        // Arrange
         when(iWishListRepository.findById(2)).thenReturn(null);
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishListService.findById(2));
-
         verify(iWishListRepository, times(1)).findById(anyInt());
     }
 
@@ -71,29 +71,32 @@ public class WishListServiceTest {
 
     @Test
     void deleteById_shouldCallDelete_whenWishExists() {
+        // Arrange
         when(iWishListRepository.findById(1)).thenReturn(testWishList);
 
+        // Act & Assert
         wishListService.deleteById(1);
-
         verify(iWishListRepository).deleteById(1);
         verify(iWishListRepository, times(1)).deleteById(anyInt());
     }
 
     @Test
     void deleteById_shouldThrowException_whenWishNotFound() {
-
+        // Arrange
         when(iWishListRepository.findById(2)).thenReturn(null); //2 = dummy id
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishListService.deleteById(2));
-
         verify(iWishListRepository, never()).deleteById(anyInt());
     }
     // ------------------ update() -------------------- METODE
 
     @Test
     void update_shouldCallUpdate_whenWishNotNull() {
+        // Arrange
         wishListService.update(testWishList);
 
+        // Act & Assert
         verify(iWishListRepository).update(testWishList);
 
         verify(iWishListRepository, times(1)).update(testWishList);
@@ -101,6 +104,9 @@ public class WishListServiceTest {
 
     @Test
     void update_shouldThrowException_whenWishIsNull() {
+        // Arrange - setUp()
+
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishListService.update(null));
 
         verify(iWishListRepository, never()).update(testWishList);
@@ -110,6 +116,9 @@ public class WishListServiceTest {
 
     @Test
     void create_shouldCallCreate() {
+        // Arrange - setUp()
+
+        // Act & Assert
         wishListService.create(testWishList);
 
         verify(iWishListRepository).create(testWishList);
@@ -120,9 +129,10 @@ public class WishListServiceTest {
 
     @Test
     void findAll_shouldReturnList() {
-
+        // Arrange
         when(iWishListRepository.findAll()).thenReturn(List.of(testWishList));
 
+        // Act & Assert
         List<WishList> result = wishListService.findAll();
 
         assertEquals(1, result.size());
