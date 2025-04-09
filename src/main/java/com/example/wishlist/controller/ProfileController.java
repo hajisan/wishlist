@@ -117,14 +117,14 @@ public class ProfileController {
         return "index";
     }
 
-    // --------------------------- Hent Create() -------------------------------------
+    //--------------------------------- Hent Create() ----------------------------------
 
     @GetMapping("/signup")
     public String getSignUp() {
         return "signup";
     }
 
-    // ----------------------------- Create() -------------------------------------
+    //------------------------------------ Create() ------------------------------------
 
     @PostMapping("/signup")
     public String postSignUp(
@@ -153,7 +153,7 @@ public class ProfileController {
         return "redirect:/login";
     }
 
-    // ----------------------------- Read() -------------------------------------
+    //------------------------------------ Read() ------------------------------------
 
     @GetMapping("/{profileId}/profile")
     public String getProfilePage(
@@ -171,7 +171,7 @@ public class ProfileController {
         return "profile-page";
     }
 
-    // ----------------------------- Hent Update() -----------------------------------
+    //------------------------------------ Hent Update() ----------------------------------
 
     @GetMapping("/{profileId}/profile/edit")
     public String getProfileEditPage(
@@ -187,7 +187,7 @@ public class ProfileController {
         return "edit-profile-page";
     }
 
-    // ----------------------------- Update() -------------------------------------
+    //------------------------------------ Update() ------------------------------------
 
     @PostMapping("/{profileId}/profile/edit")
     public String postProfileEditPage(
@@ -217,7 +217,7 @@ public class ProfileController {
         return "redirect:/{profileId}/wishlists";
     }
 
-    // ----------------------------- Delete() -------------------------------------
+    //------------------------------------ Delete() ------------------------------------
 
     @PostMapping("/{profileId}/profile/delete")
     public String deleteProfile(

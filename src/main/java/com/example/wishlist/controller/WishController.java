@@ -2,7 +2,6 @@ package com.example.wishlist.controller;
 
 import com.example.wishlist.dto.WishWishListDTO;
 import com.example.wishlist.exception.ResourceNotFoundException;
-import com.example.wishlist.model.Profile;
 import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.service.*;

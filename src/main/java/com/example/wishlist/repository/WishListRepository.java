@@ -24,6 +24,7 @@ public class WishListRepository implements IWishListRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public WishList create(WishList wishList) {
@@ -33,6 +34,7 @@ public class WishListRepository implements IWishListRepository {
 
         KeyHolder keyHolder = new GeneratedKeyHolder(); //Interface der autogenererer primary key
 
+        // Bruger PreparedStatement sammen med vores GeneratedKeyHolder til at kunne autogenerere et nyt id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, wishList.getName());
@@ -43,8 +45,9 @@ public class WishListRepository implements IWishListRepository {
         wishList.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
 
         return wishList;
-
     }
+
+    //------------------------------------- Read() -------------------------------------
 
     @Override
     public WishList findById(Integer id) {
@@ -60,27 +63,24 @@ public class WishListRepository implements IWishListRepository {
         return jdbcTemplate.query(sql, new WishListRowMapper());
     }
 
+    @Override //Finder ønskelister til specifik profil
+    public List<WishList> findByProfileId(Integer profileId) {
 
-    @Override
-    public void deleteById(Integer id) {
+        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE profile_id = ?";
+        return jdbcTemplate.query(sql, new WishListRowMapper(), profileId);
+    }
+
+    @Override // Finder ønskeliste til specifikt ønskeliste navn og profil
+    public WishList findByNameAndProfile(String name, Integer profileId) {
+        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE name = ? AND profile_id = ?";
         try {
-
-            String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
-            Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
-
-            if (count == null || count == 0) {
-                throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
-            }
-            // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
-            String deleteSql = "DELETE FROM wish_list WHERE id = ?";
-            jdbcTemplate.update(deleteSql, id);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
+            return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), name, profileId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Wishlist with name " + name + " for profile ID " + profileId + " not found.");
         }
     }
 
+    //------------------------------------ Update() ------------------------------------
 
     @Override
     public WishList update(WishList wishList) {
@@ -93,29 +93,25 @@ public class WishListRepository implements IWishListRepository {
                 wishList.getDescription(),
                 wishList.getId() //Parameter -> id til WHERE
         );
-
         return wishList;
-
     }
 
-    @Override //Finder ønskelister til specifik profil
-    public List<WishList> findByProfileId(Integer profileId) {
+    //------------------------------------ Delete() ------------------------------------
 
-        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE profile_id = ?";
-        return jdbcTemplate.query(sql, new WishListRowMapper(), profileId);
-    }
-
-    // -----------BRUGES DENNE METODE? ------------------------------ kh Sofie -------------------
-
-    @Override // Finder ønskeliste til specifikt ønskeliste navn og profil
-    public WishList findByNameAndProfile(String name, Integer profileId) {
-        String sql = "SELECT id, name, description, profile_id FROM wish_list WHERE name = ? AND profile_id = ?";
+    @Override
+    public void deleteById(Integer id) {
         try {
-            return jdbcTemplate.queryForObject(sql, new WishListRowMapper(), name, profileId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Wishlist with name " + name + " for profile ID " + profileId + " not found.");
+            String checkSql = "SELECT COUNT(*) FROM wish_list WHERE id = ?";
+            Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, id);
+
+            if (count == null || count == 0) {
+                throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
+            }
+            // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
+            String deleteSql = "DELETE FROM wish_list WHERE id = ?";
+            jdbcTemplate.update(deleteSql, id);
+        } catch (Exception e) {
+            throw new RuntimeException("Noget gik galt under sletning af ønskelisten med ID " + id, e);
         }
     }
-
-
 }

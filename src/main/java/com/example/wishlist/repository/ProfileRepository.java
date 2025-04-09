@@ -18,11 +18,12 @@ public class ProfileRepository implements IProfileRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-
+    // Injection af JdbcTemplate til databasekald
     public ProfileRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public Profile create(Profile profile) {
@@ -30,6 +31,7 @@ public class ProfileRepository implements IProfileRepository {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        // Bruger PreparedStatement sammen med vores GeneratedKeyHolder til at kunne autogenerere et nyt id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, profile.getName());
@@ -49,6 +51,8 @@ public class ProfileRepository implements IProfileRepository {
 
     }
 
+    //------------------------------------ Read() ------------------------------------
+
     @Override
     public Profile findById(Integer id) {
         String sql = "SELECT * FROM profile WHERE id = ?";
@@ -64,10 +68,15 @@ public class ProfileRepository implements IProfileRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        String sql = "DELETE FROM profile WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+    public Profile findProfileByUserName(String username) {
+        String sql = "SELECT * FROM profile WHERE username = ?";
+        List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
+
+        if (oneProfileAsList.isEmpty()) { return null; }
+        return oneProfileAsList.get(0);
     }
+
+    //------------------------------------ Update() ------------------------------------
 
     @Override
     public Profile update(Profile profile) {
@@ -83,20 +92,14 @@ public class ProfileRepository implements IProfileRepository {
                 profile.getPassword(),
                 profile.getId()
         );
-
         return profile;
     }
 
+    //------------------------------------ Delete() ------------------------------------
 
     @Override
-    public Profile findProfileByUserName(String username) {
-        String sql = "SELECT * FROM profile WHERE username = ?";
-        List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
-
-        if (oneProfileAsList.isEmpty()) { return null; }
-        return oneProfileAsList.get(0);
+    public void deleteById(Integer id) {
+        String sql = "DELETE FROM profile WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
-
-
-
 }
