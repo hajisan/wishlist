@@ -37,14 +37,14 @@
             <div th:each="wishlist : ${dto.wishLists}" class="wishlist-card">
                 <h2 class="wishlist-title" th:text="${wishlist.name}">Ønskeliste Navn</h2>
                 <p class="wishlist-description" th:text="${wishlist.description}">Beskrivelse af ønskelisten</p>
-<!--                <a th:href="@{|/${profileId}/wishlists/${wishlistId}/wishes|}" class="btn secondary small">Vis ønsker</a>-->
+                <a th:href="@{|/${profileId}/wishlists/${wishlistId}/wishes|}" class="btn secondary small">Vis ønsker</a>
 
-                <a th:href="@{/{profileId}/wishlists/{wishlistId}/wishes(profileId=${profileId}, wishlistId=${dto.wishList.id})}"
+<!--                <a th:href="@{/{profileId}/wishlists/{wishlistId}/wishes(profileId=${profileId}, wishlistId=${dto.wishList.id})}"-->
 
-                   class="btn secondary small">
+<!--                   class="btn secondary small">-->
 
-                    Vis ønsker
-                </a>
+<!--                    Vis ønsker-->
+<!--                </a>-->
 
 
 

@@ -38,7 +38,7 @@ public class ProfileWishListServiceTest {
     private ProfileWishListService profileWishListService;
 
     @Test
-    void findProfileWithWishLists_returnsDTO_whenProfileExists() {
+    void testFindProfileWithWishListsReturnsDTOWhenProfileExists() {
 
         // Arrange
         Profile profile = new Profile(
@@ -55,16 +55,16 @@ public class ProfileWishListServiceTest {
                 new WishList(11, "Birthday", "gaming gear", 1)
         );
 
-        Mockito.when(iProfileRepository.findById(1)).thenReturn(profile);
-        Mockito.when(iWishListRepository.findWishListsByProfileId(1)).thenReturn(wishLists);
+        Mockito.lenient().when(iProfileRepository.findById(1)).thenReturn(profile);
+        Mockito.lenient().when(iWishListRepository.findWishListsByProfileId(1)).thenReturn(wishLists);
 
         // Act
 
         ProfileWishListDTO dto = profileWishListService.findProfileWithWishLists(1);
 
         // Assert
-        assertEquals(profile, dto.profile()); //Sammenligner dto-profilen med vores hjemmelavede profil
-        assertEquals(wishLists, dto.wishLists());
+        assertEquals(profile, dto.profile());     // Sammenligner dto'ens indhold med vores hjemmelavede profil
+        assertEquals(wishLists, dto.wishLists()); // og vores hjemmelavede liste af wishlists
 
         verify(iProfileRepository, times(1)).findById(anyInt());
         verify(iWishListRepository, times(1)).findWishListsByProfileId(anyInt());
@@ -72,7 +72,7 @@ public class ProfileWishListServiceTest {
     }
 
     @Test
-    void findProfileWithWishLists_throwsException_whenProfileNotFound() {
+    void testFindProfileWithWishListsThrowsExceptionWhenProfileNotFound() {
         // Arrange
         int profileId = 404;
 
