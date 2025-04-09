@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IProfileService extends IService<Profile, Integer> {
 
+    //------------------------------------ Standardmetoder fra IService ------------------------------------
+
     Profile create(Profile profile);
 
     Profile findById(Integer id);
@@ -15,6 +17,8 @@ public interface IProfileService extends IService<Profile, Integer> {
     void deleteById(Integer id);
 
     Profile update(Profile profile);
+
+    //------------------------------- Specifikke metoder til IProfileService -------------------------------
 
     boolean profileAlreadyExists(String username);
 

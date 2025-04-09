@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IWishListService extends IService<WishList, Integer> {
 
+    //------------------------------------ Standardmetoder fra IService ------------------------------------
+
     WishList create(WishList wishList);
 
     WishList findById(Integer id);
@@ -15,5 +17,4 @@ public interface IWishListService extends IService<WishList, Integer> {
     void deleteById(Integer id);
 
     WishList update(WishList wishList);
-
 }

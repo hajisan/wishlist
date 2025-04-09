@@ -2,16 +2,13 @@ package com.example.wishlist.integrationTest;
 
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.repository.ProfileRepository;
-import com.example.wishlist.rowMapper.ProfileRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +35,7 @@ class ProfileRepositoryTest {
         String profile3Name = "Charlie";
 
         // Act - Indsæt ny profil i databasen og gem personer fra deres ID (ikke muligt uden også at kalde andre metoder)
-        profileRepository.create(new Profile("Charlie", Profile.getStringAsLocalDate("1967-11-12"), "Charlies@Angels.dk", "charchar", "angels4lyfe"));
+        profileRepository.create(new Profile("Charlie", Profile.getLocalDateFromString("1967-11-12"), "Charlies@Angels.dk", "charchar", "angels4lyfe"));
         Profile testProfileFromDatabase1 = profileRepository.findById(1);
         Profile testProfileFromDatabase2 = profileRepository.findById(2);
         Profile testProfileFromDatabase3 = profileRepository.findById(3);
@@ -61,7 +58,7 @@ class ProfileRepositoryTest {
         LocalDate profile2Birthday = LocalDate.of(2000, 1, 1);
         String profile2Email = "Test2@example.com";
 
-        // Act - Hent profiler fra database med deres ID
+        // Act
         Profile testProfileFromDatabase1 = profileRepository.findById(1);
         Profile testProfileFromDatabase2 = profileRepository.findById(2);
 
@@ -87,29 +84,27 @@ class ProfileRepositoryTest {
         for (int i = 0; i < testList.size(); i++) {
             assertEquals(profileNames.get(i), testList.get(i).getName());
         }
-        // assertEquals(profileNames.get(0), testList.get(0).getName());
-        // assertEquals(profileNames.get(1), testList.get(1).getName());
     }
 
     @Test
     void deleteById() {
-        // Arrange -
+        // Arrange
         String profileName = "Birger";
         LocalDate profileBirthday = LocalDate.of(2000, 1, 1);
         String profileEmail = "Test2@example.com";
         String deletedProfileName = "Arne";
 
-        // Act -
+        // Act
         profileRepository.deleteById(1);
         Profile testProfileFromDatabase = profileRepository.findById(2);
         List<Profile> testList = new ArrayList<>(profileRepository.findAll());
 
-        // Assert -
+        // Assert
         assertEquals(profileName, testProfileFromDatabase.getName());
         assertEquals(profileBirthday, testProfileFromDatabase.getBirthday());
         assertEquals(profileEmail, testProfileFromDatabase.getEmail());
-        assertNotEquals(profileName, deletedProfileName);
-        assertEquals(1, testList.size());
+        assertNotEquals(testProfileFromDatabase.getName(), deletedProfileName); // Tjekker at den slettede profils navn ikke
+        assertEquals(1, testList.size()); // Tjekker at der faktisk kun er én profil tilbage da den anden er blevet slettet
     }
 
     @Test
@@ -133,16 +128,16 @@ class ProfileRepositoryTest {
 
     @Test
     void findProfileByUserName() {
-        // Arrange -
+        // Arrange
         String desiredProfileName = "Arne";
         String undesiredProfileName = "Birger";
         int desiredId = 1;
         String profileUserName = "test1";
 
-        // Act -
+        // Act
         Profile testProfileFromDatabase = profileRepository.findProfileByUserName(profileUserName);
 
-        // Assert -
+        // Assert
         assertEquals(desiredId, testProfileFromDatabase.getId());
         assertEquals(desiredProfileName, testProfileFromDatabase.getName());
         assertNotEquals(undesiredProfileName, testProfileFromDatabase.getName());

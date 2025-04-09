@@ -1,7 +1,7 @@
 package com.example.wishlist.repository;
 
 import com.example.wishlist.model.Wish;
-import com.example.wishlist.model.WishList;
+
 import com.example.wishlist.rowMapper.WishRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +22,8 @@ public class WishRepository implements IWishRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //------------------------------------ Create() ------------------------------------
+
     @Override
     public Wish create(Wish wish) {
 
@@ -29,6 +31,7 @@ public class WishRepository implements IWishRepository {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        // Bruger PreparedStatement sammen med vores GeneratedKeyHolder til at kunne autogenerere et nyt id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, wish.getName());
@@ -44,6 +47,8 @@ public class WishRepository implements IWishRepository {
         return wish;
     }
 
+    //------------------------------------- Read() -------------------------------------
+
     @Override
     public Wish findById(Integer id) {
 
@@ -55,24 +60,23 @@ public class WishRepository implements IWishRepository {
         }
     }
 
-
     @Override
     public List<Wish> findAll() {
 
         String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM Wish";
 
         return jdbcTemplate.query(sql, new WishRowMapper());
-
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public List<Wish> findWishesByWishListId(Integer wishListId) {
 
-        String sql = "DELETE FROM Wish WHERE id = ?";
+        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_list_id = ?";
 
-
-        jdbcTemplate.update(sql, id);
+        return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);
     }
+
+    //------------------------------------ Update() ------------------------------------
 
     @Override
     public Wish update(Wish wish) {
@@ -89,14 +93,16 @@ public class WishRepository implements IWishRepository {
                 wish.getId()
         );
         return wish;
-
     }
 
+    //------------------------------------ Delete() ------------------------------------
+
     @Override
-    public List<Wish> findByWishListId(Integer wishListId) {
+    public void deleteById(Integer id) {
 
-        String sql = "SELECT id, name, description, link, quantity, price, wish_list_id FROM wish WHERE wish_list_id = ?";
+        String sql = "DELETE FROM Wish WHERE id = ?";
 
-        return jdbcTemplate.query(sql, new WishRowMapper(), wishListId);
+
+        jdbcTemplate.update(sql, id);
     }
 }

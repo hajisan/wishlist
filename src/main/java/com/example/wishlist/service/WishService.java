@@ -1,6 +1,6 @@
 package com.example.wishlist.service;
 
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.Wish;
 import com.example.wishlist.repository.IWishRepository;
 import org.springframework.stereotype.Service;
@@ -11,28 +11,27 @@ import java.util.List;
 
 public class WishService implements IWishService {
 
+    // Injection af IWishRepository-interface i constructor
     private final IWishRepository iWishRepository;
 
     public WishService(IWishRepository iWishRepository) {
         this.iWishRepository = iWishRepository;
     }
 
-    // --------------------------- Create() -------------------------------------
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public Wish create(Wish wish) {
 
         return iWishRepository.create(wish);
-
     }
 
-    // --------------------------- Read() -------------------------------------
+    //------------------------------------ Read() ------------------------------------
 
     @Override
     public List<Wish> findAll() {
         return iWishRepository.findAll();
     }
-
 
     @Override
     public Wish findById(Integer id) {
@@ -45,7 +44,7 @@ public class WishService implements IWishService {
         return wish;
     }
 
-    // --------------------------- Update() -------------------------------------
+    //------------------------------------ Update() ------------------------------------
 
 
     @Override
@@ -56,10 +55,9 @@ public class WishService implements IWishService {
         }
 
         return iWishRepository.update(wish);
-
     }
 
-    // --------------------------- Delete() -------------------------------------
+    //------------------------------------ Delete() ------------------------------------
 
     @Override
     public void deleteById(Integer id) {
@@ -70,7 +68,5 @@ public class WishService implements IWishService {
             throw new ResourceNotFoundException("You cannot delete a non-existing wish with ID: " + id);
         }
         iWishRepository.deleteById(id); //Sletter hvis det findes
-
     }
-
 }
