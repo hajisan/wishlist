@@ -1,0 +1,18 @@
+<!-- ========== PROFILE PAGE MODAL ========== -->
+<div th:fragment="profile-page">
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeProfileModal()">×</button>
+            <h2>Min profil</h2>
+                <div class="profile-details">
+                    <img th:src="@{/images/mockup-placeholder.png}" alt="Profilbillede" class="profile-img">
+                    <p><strong>Navn:</strong> <span th:text="${session.profile.name}">Name</span></p>
+                    <p><strong>Brugernavn:</strong> <span th:text="${session.profile.username}">Username</span></p>
+                    <p><strong>Email:</strong> <span th:text="${session.profile.email}">email@example.com</span></p>
+                    <p><strong>Fødselsdag:</strong> <span th:text="${session.profile.birthday}">dd/mm/yyyy</span></p>
+                </div>
+            <button type="button" class="btn secondary full-width" onclick="openEditProfileModal()">Opdater profil</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,74 @@
+/* ========== Sustainability Page ========== */
+
+.page-container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-box {
+    padding: 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #f6fff8;
+    transition: transform 0.2s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-4px);
+}
+
+.info-box h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #2e7d32;
+    font-family: 'Poppins', sans-serif;
+}
+
+.info-box p,
+.info-box li {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.info-box ul {
+    padding-left: 1.2rem;
+    list-style-type: disc;
+}
+
+.info-box a {
+    color: #388e3c;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.info-box a:hover {
+    color: #2e7d32;
+    text-decoration: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 1rem;
+    }
+
+    .info-box {
+        padding: 1.5rem;
+    }
+
+    .info-box h2 {
+        font-size: 1.4rem;
+    }
+}

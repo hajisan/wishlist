@@ -1,0 +1,23 @@
+<!-- ========== CREATE WISHLIST MODAL ========== -->
+<div th:fragment="create-wishlist">
+    <div id="createWishlistModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeCreateWishlistModal()">×</button>
+            <h2>Opret ønskeliste</h2>
+
+            <form class="create-wishlist-form" th:action="@{/{profileId}/wishlists/createnewlist(profileId=${profileId})}" method="post">
+                <div class="form-group">
+                    <label for="title">Titel:</label>
+                    <input type="text" id="title" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Beskrivelse:</label>
+                    <input type="text" id="description" name="description">
+                </div>
+
+                <button type="submit" class="btn primary full-width">Tilføj ønskeliste</button>
+            </form>
+        </div>
+    </div>
+</div>

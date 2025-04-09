@@ -1,0 +1,42 @@
+/* ========== HERO SECTION ========== */
+.hero {
+    position: relative;
+    width: 100%;
+
+    padding: 100px 20px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--color-primary);
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+.hero h1 {
+    font-family: 'Boldonse', serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

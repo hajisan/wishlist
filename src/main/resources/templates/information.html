@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Om os – Presently</title>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/information.css}">
+</head>
+<body>
+
+<div th:replace="fragments/login_signup_header :: header"></div>
+
+<main class="page-container">
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Velkommen til Presently</h1>
+            <p>Din digitale ønskeliste – med fokus på bæredygtige valg og meningsfulde gaver.</p>
+            <a href="#about" class="btn primary big">Læs mere</a>
+        </div>
+    </section>
+
+    <section id="about" class="info-section">
+        <div class="card">
+            <h2>Om os</h2>
+            <p><strong>Wishlist</strong> gør det nemt at samle dine gaveønsker ét sted og dele dem med dem, du holder af.</p>
+            <p>Vi opfordrer til mere bæredygtige gavevalg: <strong>oplevelser, genbrug, hjemmelavede gaver og donationer</strong> – små skridt, der gør en stor forskel.</p>
+        </div>
+    </section>
+
+    <section class="info-boxes">
+        <div class="info-box">
+            <h2>Giv grønt</h2>
+            <p>Tilføj oplevelser, hjemmelavede ting eller donationer til velgørenhed direkte på din ønskeliste.</p>
+        </div>
+        <div class="info-box">
+            <h2>Del nemt</h2>
+            <p>Send dine lister til venner og familie med et enkelt link – så de aldrig er i tvivl om, hvad du ønsker dig.</p>
+        </div>
+    </section>
+
+    <section id="cookies" class="info-section">
+        <div class="card">
+            <h2>Cookies</h2>
+            <p>Vi bruger cookies til at forbedre din oplevelse. Nogle cookies er nødvendige, mens andre hjælper os med statistik og forbedringer.</p>
+        </div>
+    </section>
+
+    <section id="faq" class="info-section">
+        <div class="card">
+            <h2>FAQ</h2>
+            <p><strong>Hvordan opretter jeg en ønskeliste?</strong><br>Opret en bruger og klik på “Ny ønskeliste”.</p>
+            <p><strong>Kan jeg dele min ønskeliste?</strong><br>Ja! Du får et link, som du kan sende til andre.</p>
+            <p><strong>Er Wishlist gratis?</strong><br>Ja, Wishlist er helt gratis at bruge.</p>
+        </div>
+    </section>
+
+    <section id="privacy" class="info-section">
+        <div class="card">
+            <h2>Privatliv</h2>
+            <p>Vi tager dit privatliv seriøst. Dine oplysninger deles aldrig uden samtykke, og du kan til enhver tid slette din konto og data.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="info-section">
+        <div class="card">
+            <h2>Kontakt</h2>
+            <p>Spørgsmål eller feedback? Skriv til os på <a href="mailto:kontakt@wishlist.dk">kontakt@wishlist.dk</a>.</p>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- MODAL FOR LOGIN & SIGNUP -->
+<div th:replace="~{fragments/modals/login_modal :: login}"></div>
+<div th:replace="~{fragments/modals/signup_modal :: signup}"></div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/ui-effects.js}"></script>
+
+</body>
+</html>

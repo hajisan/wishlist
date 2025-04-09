@@ -1,25 +1,36 @@
 package com.example.wishlist.model;
 
-
-
 import java.time.LocalDate;
-
 public class Profile {
 
-
-    private String name, email, userName, password;
+    private String name, email, username, password;
     private LocalDate birthday;
     private int id;
 
-    public Profile(String name, String email, String userName, String password, LocalDate birthday, int id) {
-        this.name = name;
-        this.email = email;
-        this.userName = userName;
-        this.password = password;
-        this.birthday = birthday;
+    public Profile(int id, String name, LocalDate birthday, String email, String username, String password) {
         this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
-    public Profile() {}
+
+    //MÅ KUN BRUGES TIL CREATE, ELLERS KOMMER ID IKKE MED
+    public Profile(String name, LocalDate birthday, String email, String username, String password) {
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+    public Profile(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Profile() {
+    }
 
     public String getName() {
         return name;
@@ -37,12 +48,12 @@ public class Profile {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -55,6 +66,10 @@ public class Profile {
 
     public LocalDate getBirthday() {
         return birthday;
+    }
+
+    public static LocalDate getStringAsLocalDate(String date) {
+        return LocalDate.of(Integer.parseInt(date.split("-")[0]), Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]));
     }
 
     public void setBirthday(LocalDate birthday) {
@@ -77,8 +92,7 @@ public class Profile {
                 Username: %s
                 Password: %s
                 Birthday: %s
-                ID      : %d""", name, email, userName, password, birthday, id);
+                ID      : %d""", name, email, username, password, birthday, id);
     }
-
-
 }
+

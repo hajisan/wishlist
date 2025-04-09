@@ -1,0 +1,18 @@
+/* ========== Basale farver og layout ========== */
+@import url('fragments/global/base.css');
+
+/* ========== Typografi ========== */
+@import url('fragments/global/typografi.css');
+
+/* ========== Struktur og layout ========== */
+@import url('fragments/global/header.css');
+@import url('fragments/global/footer.css');
+
+/* ========== Wishlist layout ========== */
+@import url('fragments/wishlist/wishlists.css');
+
+/* ========== Modals ========== */
+@import url('fragments/profile/profile-page-modal.css');
+@import url('fragments/profile/edit-profile-modal.css');
+@import url('fragments/wishlist/create-wishlist-modal.css');
+@import url('fragments/wishlist/edit-wishlist-modal.css');

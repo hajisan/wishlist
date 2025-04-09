@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Presently'">Presently</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" th:href="@{/wishlists.css}">
+</head>
+
+<body>
+
+<!-- Topbar -->
+<header class="topbar">
+    <a th:href="@{/}" class="logo">Presently</a>
+    <nav class="nav-links">
+        <!-- Se profil & log ud-->
+        <a href="javascript:void(0);" class="btn secondary" onclick="openProfileModal(this)">Se Profil</a>
+        <a th:href="@{/logout}" class="btn secondary">Log ud</a>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main>
+    <section class="wishlist-section">
+
+        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.username}">username</span></h1>
+
+        <!-- Hvis ingen ønskelister -->
+        <div th:if="${#lists.isEmpty(dto.wishLists)}" class="empty-message">
+            <p>Du har endnu ikke oprettet nogen ønskelister.</p>
+        </div>
+
+        <!-- Liste over ønskelister -->
+        <div th:if="${!#lists.isEmpty(dto.wishLists)}" class="wishlist-grid">
+            <div th:each="wishlist : ${dto.wishLists}" class="wishlist-card">
+                <h2 class="wishlist-title" th:text="${wishlist.name}">Ønskeliste Navn</h2>
+                <p class="wishlist-description" th:text="${wishlist.description}">Beskrivelse af ønskelisten</p>
+                <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" class="btn secondary small">Vis ønsker</a>
+                    <!-- Rediger ønskeliste -->
+                    <button type="button"
+                            class="btn secondary small"
+                            onclick="openEditWishlistModal(this)"
+                            th:attr="data-id=${wishlist.id}, data-name=${wishlist.name}, data-description=${wishlist.description}">
+                        ✏️ Rediger
+                    </button>
+            </div>
+        </div>
+
+        <!-- Opret ny ønskeliste -->
+        <div class="create-new-wrapper">
+            <a href="javascript:void(0);" class="btn primary" onclick="openCreateWishlistModal(this)">+ Opret ønskeliste</a>
+        </div>
+
+    </section>
+</main>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Modal -->
+<div th:replace="~{fragments/modals/profile_page_modal :: profile-page}"></div>
+<div th:replace="~{fragments/modals/edit_profile_page_modal :: edit-profile}"></div>
+<div th:replace="~{fragments/modals/create_wishlist_modal :: create-wishlist}"></div>
+<div th:replace="~{fragments/modals/edit_wishlist_modal :: edit-wishlist}"></div>
+
+<!-- SCRIPTS -->
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+
+</body>
+</html>

@@ -1,18 +1,31 @@
 package com.example.wishlist.model;
-import java.util.List;
+
 
 public class WishList {
 
-    private String name;
-    private int id;
-    private List<Wish> wishes;
-    //Profile profile??
+    private String name, description;
+    private int id, profileId;
 
-    public WishList(List<Wish> wishes, int id, String name) {
-        this.wishes = wishes;
+    public WishList(int id, String name, String description, int profileId) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.profileId = profileId;
     }
+    public WishList(String name, String description, int profileId) {
+        this.name = name;
+        this.description = description;
+        this.profileId = profileId;
+    }
+
+
+
+    public WishList(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public WishList() {}
 
     public String getName() {
         return name;
@@ -30,17 +43,25 @@ public class WishList {
         this.id = id;
     }
 
-    public List<Wish> getWishes() {
-        return wishes;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setWishes(List<Wish> wishes) {
-        this.wishes = wishes;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
 
     @Override
     public String toString() {
-        return "Name " + name + " ID " + id + " Wishes " + wishes;
+        return "Name " + name + " ID " + id;
     }
 
 

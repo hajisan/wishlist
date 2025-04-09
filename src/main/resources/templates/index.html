@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Presently'">Presently</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" th:href="@{/index.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<div th:replace="~{fragments/login_signup_header :: header}"></div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <video autoplay muted loop playsinline class="hero-video-bg">
+        <source th:src="@{/video/hero-video.mp4}" type="video/mp4">
+    </video>
+    <div class="hero-content">
+        <h1>ALLE DINE ØNSKER<br>SAMLET ÈT STED</h1>
+        <a href="javascript:void(0);" class="btn big primary" onclick="openSignup()">Opret en profil</a>
+    </div>
+</section>
+
+<!-- INSPIRATION BANNER SECTION -->
+<section class="inspiration-banner">
+
+    <div class="inspiration-track" id="scroll-track">
+        <div class="inspiration-logos" th:each="i : ${#numbers.sequence(1,2)}">
+            <a th:href="@{'https://www.rodekors.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/rødekors.png}" alt="Røde Kors logo">
+            </a>
+            <a th:href="@{'https://hjerteforeningen.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/hjerteforeningen.png}" alt="Hjerteforeningen logo">
+            </a>
+            <a th:href="@{'https://www.noedhjaelp.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/folkekirkens-nødhjælp.png}" alt="Folkekirkens Nødhjælp logo">
+            </a>
+            <a th:href="@{'https://bornsvilkar.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/børns-vilkår.png}" alt="Børns Vilkår logo">
+            </a>
+            <a th:href="@{'https://moedrehjaelpen.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/mødrehjælpen.png}" alt="Mødrehjælpen logo">
+            </a>
+            <a th:href="@{'https://flygtning.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/drc_dansk_flygtningehjælp.png}" alt="Dansk Flygtningehjælp logo">
+            </a>
+            <a th:href="@{'https://psykiatrifonden.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/psykiatrifonden.svg}" alt="Psykiatrifonden logo">
+            </a>
+            <a th:href="@{'https://duf.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/duf.svg}" alt="DUF logo">
+            </a>
+            <a th:href="@{'https://redbarnet.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/redbarnet.png}" alt="Red Barnet logo">
+            </a>
+            <a th:href="@{'https://www.cancer.dk'}" target="_blank" class="logo-wrapper">
+                <img th:src="@{/images/banner-logo/kræftens-bekæmpelse.svg}" alt="Kræftens Bekæmpelse logo">
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- SCROLL DOWN SECTION -->
+<section class="scroll-down">
+    <span>Bæredygtighed starter med et ønske</span>
+    <a href="#inspiration" class="arrow" aria-label="Scroll ned">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+        </svg>
+    </a>
+</section>
+
+<!-- INFO SECTION -->
+<section id="inspiration" class="info-boxes">
+    <div class="info-box">
+        <h2><a th:href="@{/sustainability}">Bæredygtighed</a></h2>
+        <p>
+            Bæredygtighed handler ikke kun om at reducere affald – det handler om at tage aktive valg, der gør en forskel.
+            Når du opretter ønsker med omtanke, støtter du brands og oplevelser med ansvarlige værdier,
+            og inspirerer samtidig dine nærmeste til at gøre det samme.
+        </p>
+        <a th:href="@{/sustainability}" class="read-more">Læs mere →</a>
+    </div>
+    <div class="info-box">
+        <h2><a th:href="@{/charity}">Velgørenhed</a></h2>
+        <p>
+            Ønsker kan også give videre. Ved at inkludere donationer eller støtte til organisationer i din ønskeliste,
+            er du med til at skabe værdi for andre – og inspirere dine gæster til at gøre en forskel sammen med dig.
+        </p>
+        <a th:href="@{/charity}" class="read-more">Læs mere →</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- MODAL FOR LOGIN & SIGNUP -->
+<div th:replace="~{fragments/modals/login_modal :: login}"></div>
+<div th:replace="~{fragments/modals/signup_modal :: signup}"></div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/ui-effects.js}"></script>
+
+</body>
+</html>
