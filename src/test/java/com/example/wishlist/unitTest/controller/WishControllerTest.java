@@ -100,11 +100,11 @@ public class WishControllerTest {
         ResourceNotFoundException exception = new ResourceNotFoundException(message);
 
         //Act
-        String view = controller.handleNotFound(model, exception);
+        String viewName = controller.handleNotFound(model, exception);
 
         //Assert
         verify(model).addAttribute("message", message);
-        assertEquals("error", view);
+        assertEquals("error", viewName);
     }
 
     // -------------------------------- Henter createWish() ---------------------------

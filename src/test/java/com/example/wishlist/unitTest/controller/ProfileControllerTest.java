@@ -1,6 +1,7 @@
 package com.example.wishlist.unitTest.controller;
 
 import com.example.wishlist.controller.WishController;
+import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.service.IProfileService;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class) //Til at bruge @Mock og @Injectmocks
@@ -55,13 +57,47 @@ class ProfileControllerTest {
     // Bruger ikke tearDown() = der ændres ikke noget globalt i systemet, kun lokalt i de enkelte tests
 
 
-    // ------------------------------ ResourceNotFoundException.class -----------------------
+    // ------------------------------ ResourceNotFoundException.class --------------------
+
+    @Test
+    void handleNotFound() {
+
+        //Arrange
+        String message = "Profile not found";
+        ResourceNotFoundException exception = new ResourceNotFoundException(message);
+
+        //Act
+        String viewName = controller.handleNotFound(model, exception);
+
+        //Assert
+        verify(model).addAttribute("message", message);
+        assertEquals("error", viewName);
+
+    }
+
+    // ------------------------------ DateTimeFormatException.class --------------------
+
+    @Test
+    void handleDateParseError() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
+    }
 
 
     // -------------------------------- Henter createProfile() ---------------------------
 
     @Test
     void getSignUp() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
     }
 
     // -------------------------------- Post createProfile() ---------------------------
@@ -69,24 +105,48 @@ class ProfileControllerTest {
 
     @Test
     void postSignUp() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
     }
 
     // -------------------------------- Hent readProfile() ---------------------------
 
     @Test
     void getProfilePage() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
     }
 
     // -------------------------------- Hent updateProfile() ---------------------------
 
     @Test
     void getProfileEditPage() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
     }
 
     // -------------------------------- Post updateProfile() ---------------------------
 
     @Test
     void postProfileEditPage() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
 
     }
 
@@ -95,11 +155,23 @@ class ProfileControllerTest {
     @Test
     void deleteById() {
 
+        //Arrange
+
+        //Act
+
+        //Assert
+
     }
 
     // -------------------------------- Alle de andre --------------------------------
 
     @Test
     void postLogin() {
+
+        //Arrange
+
+        //Act
+
+        //Assert
     }
 }
