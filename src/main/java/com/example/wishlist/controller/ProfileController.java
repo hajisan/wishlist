@@ -143,7 +143,7 @@ public class ProfileController {
 //        LocalDate parsedDate = LocalDate.parse(birthday, formatter);
 //
 //       Profile profile = new Profile(name, parsedDate, email, username, password);
-        Profile profile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
+        Profile profile = new Profile(name, Profile.getLocalDateFromString(birthday), email, username, password);
         profileService.create(profile); //gemmer parsed dato
 
 

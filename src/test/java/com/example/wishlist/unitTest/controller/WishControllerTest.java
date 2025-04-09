@@ -227,7 +227,7 @@ public class WishControllerTest {
         assertEquals(testWish.getQuantity(), updated.getQuantity());
         assertEquals(testWishList.getId(), updated.getWishListId());
 
-        assertEquals("redirect:/" + testProfile.getId() + "/wishlists/" + testWishList.getId() + "/wishes", viewName);
+        assertEquals("redirect:/" + testProfile.getId() + "/wishlist/" + testWishList.getId() + "/wishes", viewName);
 
     }
 

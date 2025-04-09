@@ -18,8 +18,7 @@ import org.springframework.ui.Model;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) //Til at bruge @Mock og @Injectmocks
 class ProfileControllerTest {
@@ -52,7 +51,7 @@ class ProfileControllerTest {
         testProfile = new Profile(profileId, profileName, birthday, email, username, password);
 
         //Mock session, så mock'ed controller tror at bruger er logget ind
-        when(session.getAttribute("profile")).thenReturn(testProfile);
+        lenient().when(session.getAttribute("profile")).thenReturn(testProfile);
     }
 
     // Bruger ikke tearDown() = der ændres ikke noget globalt i systemet, kun lokalt i de enkelte tests
@@ -75,7 +74,6 @@ class ProfileControllerTest {
         assertEquals("error", viewName);
 
     }
-
 
 
     // -------------------------------- Henter createProfile() ---------------------------

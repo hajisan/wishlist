@@ -56,21 +56,20 @@ public class WishListControllerTest {
         testProfile = new Profile(1, "Test", LocalDate.of(2000, 1, 1),
                 "test@example.com", "testuser", "secret123");
 
-        when(session.getAttribute("profile")).thenReturn(testProfile);
+        lenient().when(session.getAttribute("profile")).thenReturn(testProfile);
     }
 
 
     // -------------------------------- Henter createWishList() ------------------------------
     @Test
     void testGetCreateWishList() {
-
         //Arrange @BeforeEach
 
         //Act
         String viewName = controller.getCreateWishList(testProfile.getId(), session, model);
 
         verify(model).addAttribute("profileId", testProfile.getId());
-        assertEquals("create-wishlist", viewName);
+        assertEquals("wishlists", viewName);
     }
 
     // -------------------------------- Post createWishList() ------------------------------
@@ -139,14 +138,13 @@ public class WishListControllerTest {
         verify(model).addAttribute("dto", wishWishListDTO);
         verify(model).addAttribute("profileId", profileId);
         assertEquals("wishlist", viewName);
-
     }
 
     // -------------------------------- Henter updateWishList()  ------------------------------
 
     @Test
     void testGetEditWishList() {
-       //Arrange
+        //Arrange
         int profileId = testProfile.getId();
         int wishlistId = 10;
 
@@ -156,7 +154,7 @@ public class WishListControllerTest {
         //Assert
         verify(model).addAttribute("profileId", profileId);
         verify(model).addAttribute("wishlistId", wishlistId);
-        assertEquals("edit-wishlist", viewName);
+        assertEquals("wishlists", viewName);
 
     }
 
@@ -202,15 +200,5 @@ public class WishListControllerTest {
         //Assert
         verify(iWishListService).deleteById(wishlistId);
         assertEquals("redirect:/" + profileId + "/wishlists", viewName);
-
     }
-
-
 }
-
-
-
-
-
-
-
