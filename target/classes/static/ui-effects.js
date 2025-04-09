@@ -135,12 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// ========== Profilmodal ==========
+// ========== Profil modal ==========
 document.addEventListener("DOMContentLoaded", () => {
     const profileModal = document.getElementById("profileModal");
     if (!profileModal) return;
 
     window.openProfileModal = () => {
+        const profileModal = document.getElementById("profileModal");
+        if (!profileModal) return;
+
         profileModal.style.display = "flex";
         setTimeout(() => profileModal.classList.add("visible"), 10);
     };
@@ -199,7 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     window.openEditWishlistModal = (button) => {
         const modal = document.getElementById("editWishlistModal");
-        const form = modal.querySelector("form");
+        const editForm = modal.querySelector("#editWishlistForm");
+        const deleteForm = modal.querySelector("#deleteWishlistForm");
         const nameInput = modal.querySelector("#edit-name");
         const descInput = modal.querySelector("#edit-description");
 
@@ -209,8 +213,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Opdatér formens action
         const wishlistId = button.dataset.id;
-        const profileId = form.getAttribute("data-profile-id");
-        form.action = `/${profileId}/wishlists/${wishlistId}/edit`;
+        const profileId = editForm.getAttribute("data-profile-id");
+
+        editForm.action = `/${profileId}/wishlists/${wishlistId}/edit`;
+        deleteForm.action = `/${profileId}/wishlists/${wishlistId}/delete`;
 
         modal.style.display = "flex";
         setTimeout(() => modal.classList.add("visible"), 10);
@@ -222,3 +228,83 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => modal.style.display = "none", 200);
     };
 });
+
+// ========== Create Wish Modal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    const createWishModal = document.getElementById("createWishModal");
+    if (!createWishModal) return;
+
+    window.openCreateWishModal = () => {
+        createWishModal.style.display = "flex";
+        setTimeout(() => createWishModal.classList.add("visible"), 10);
+    };
+
+    window.closeCreateWishModal = () => {
+        createWishModal.classList.remove("visible");
+        setTimeout(() => (createWishModal.style.display = "none"), 200);
+    };
+
+    createWishModal.addEventListener("click", (e) => {
+        if (e.target === createWishModal) closeCreateWishModal();
+    });
+});
+
+// ========== Edit Ønske Modal ==========
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("editWishModal");
+
+    if (!modal) return;
+
+    const form = modal.querySelector("#editWishForm");
+    const deleteForm = modal.querySelector("#deleteWishForm");
+
+    window.openEditWishModal = (button) => {
+        // Hent data fra knappen
+        const wishId = button.dataset.id;
+        const name = button.dataset.name;
+        const desc = button.dataset.description;
+        const link = button.dataset.link;
+        const qty = button.dataset.quantity;
+        const price = button.dataset.price;
+        const profileId = button.dataset.profileid;
+        const wishlistId = button.dataset.wishlistid;
+
+        // Sæt værdier i inputfelterne
+        modal.querySelector("#edit-wish-name").value = name;
+        modal.querySelector("#edit-wish-description").value = desc;
+        modal.querySelector("#edit-wish-link").value = link;
+        modal.querySelector("#edit-wish-quantity").value = qty;
+        modal.querySelector("#edit-wish-price").value = price;
+
+        // Opdater formens action attribut
+        form.action = `/${profileId}/wishlists/${wishlistId}/wish/${wishId}/update`;
+        deleteForm.action = `/${profileId}/wishlists/${wishlistId}/wish/${wishId}/delete`;
+
+        // Vis modal
+        modal.style.display = "flex";
+        setTimeout(() => modal.classList.add("visible"), 10);
+    };
+
+    window.closeEditWishModal = () => {
+        modal.classList.remove("visible");
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 200);
+    };
+
+    // Luk modal hvis man klikker udenfor modal-boksen
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeEditWishModal();
+        }
+    });
+
+    // Luk modal med Escape
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("visible")) {
+            closeEditWishModal();
+        }
+    });
+});
+
+console.log("script loaded ✅")

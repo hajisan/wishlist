@@ -46,7 +46,7 @@ public class WishListController {
 
         model.addAttribute("profileId", profileId);
 
-        return "create-wishlist";
+        return "wishlists";
     }
 
     // ----------------------------- Create() -------------------------------------
@@ -118,7 +118,7 @@ public class WishListController {
         model.addAttribute("profileId", profileId);
         model.addAttribute("wishlistId", wishlistId);
 
-        return "edit-wishlist";
+        return "wishlists";
     }
 
     // ----------------------------- Update() -------------------------------------

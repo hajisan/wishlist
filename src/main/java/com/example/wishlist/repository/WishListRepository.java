@@ -71,9 +71,15 @@ public class WishListRepository implements IWishListRepository {
             if (count == null || count == 0) {
                 throw new ResourceNotFoundException("Ønskeliste med ID " + id + " blev ikke fundet og kan ikke slettes.");
             }
+
+//            // 1. Slet alle wishes der hører til ønskelisten
+//            String deleteWishesSql = "DELETE FROM wish WHERE wish_list_id = ?";
+//            jdbcTemplate.update(deleteWishesSql, id);
+
+            // 2. Slet selve ønskelisten
             // Hvis den findes, slet den – alle wishes bliver automatisk slettet pga. ON DELETE CASCADE
-            String deleteSql = "DELETE FROM wish_list WHERE id = ?";
-            jdbcTemplate.update(deleteSql, id);
+            String deleteListSql = "DELETE FROM wish_list WHERE id = ?";
+            jdbcTemplate.update(deleteListSql, id);
 
         } catch (Exception e) {
 

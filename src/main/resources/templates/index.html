@@ -11,7 +11,7 @@
 <body>
 
 <!-- HEADER -->
-<div th:replace="~{fragments/index_header :: header}"></div>
+<div th:replace="~{fragments/login_signup_header :: header}"></div>
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -99,18 +99,11 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <!-- MODAL FOR LOGIN & SIGNUP -->
-<div th:replace="~{fragments/login_modal :: login}"></div>
-<div th:replace="~{fragments/signup_modal :: signup}"></div>
+<div th:replace="~{fragments/modals/login_modal :: login}"></div>
+<div th:replace="~{fragments/modals/signup_modal :: signup}"></div>
 
 <!-- SCRIPTS -->
 <script th:src="@{/ui-effects.js}"></script>
-<script type="module">
-    import { openModal, closeModal, openSignup, closeSignup } from '/ui-effects.js';
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-    window.openSignup = openSignup;
-    window.closeSignup = closeSignup;
-</script>
 
 </body>
 </html>
