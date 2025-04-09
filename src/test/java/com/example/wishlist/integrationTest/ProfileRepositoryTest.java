@@ -2,16 +2,13 @@ package com.example.wishlist.integrationTest;
 
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.repository.ProfileRepository;
-import com.example.wishlist.rowMapper.ProfileRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +35,7 @@ class ProfileRepositoryTest {
         String profile3Name = "Charlie";
 
         // Act - Indsæt ny profil i databasen og gem personer fra deres ID (ikke muligt uden også at kalde andre metoder)
-        profileRepository.create(new Profile("Charlie", Profile.getStringAsLocalDate("1967-11-12"), "Charlies@Angels.dk", "charchar", "angels4lyfe"));
+        profileRepository.create(new Profile("Charlie", Profile.getLocalDateFromString("1967-11-12"), "Charlies@Angels.dk", "charchar", "angels4lyfe"));
         Profile testProfileFromDatabase1 = profileRepository.findById(1);
         Profile testProfileFromDatabase2 = profileRepository.findById(2);
         Profile testProfileFromDatabase3 = profileRepository.findById(3);

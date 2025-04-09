@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("")
@@ -147,7 +146,7 @@ public class ProfileController {
             return "signup";
 
         }
-        LocalDate parsedDate = Profile.getStringAsLocalDate(birthday); // Gemmer parsed dato
+        LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(name, parsedDate, email, username, password);
         profileService.create(profile);
 
@@ -211,7 +210,7 @@ public class ProfileController {
             return "signup";
         }
 
-        LocalDate parsedDate = Profile.getStringAsLocalDate(birthday); // Gemmer parsed dato
+        LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
