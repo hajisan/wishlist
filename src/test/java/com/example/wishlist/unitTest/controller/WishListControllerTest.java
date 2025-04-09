@@ -65,9 +65,11 @@ public class WishListControllerTest {
     void testGetCreateWishList() {
         //Arrange @BeforeEach
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: getCreateWishList()
         String viewName = controller.getCreateWishList(testProfile.getId(), session, model);
 
+
+        //Assert - tjekker om modellen får profilId med + viewName
         verify(model).addAttribute("profileId", testProfile.getId());
         assertEquals("wishlists", viewName);
     }
@@ -79,17 +81,16 @@ public class WishListControllerTest {
         String name = "Christmas";
         String description = "Wishes";
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: postCreateWishList()
         String viewName = controller.postCreateWishList(testProfile.getId(), name, description, session);
 
-        // Kalder create() én gang + sammenligner indholdet
-        ArgumentCaptor<WishList> captor = ArgumentCaptor.forClass(WishList.class); // ArgumentCaptor skal fange information der bliver posted for WishList
+        //ArgumentCaptor skal fange information der bliver posted for WishList
+        ArgumentCaptor<WishList> captor = ArgumentCaptor.forClass(WishList.class);
 
-        verify(iWishListService).create(captor.capture()); // Her fanger den med sin capture()-metode
-
-        WishList actualWishList = captor.getValue(); // De fangede data laves til det opdaterede Wish, som bruges til at tjekke, om vores testWish faktisk blev opdateret
-
-        //Assert
+        //Assert - tjekker at værdierne for de to lister er de samme (de skal være ens)
+        verify(iWishListService).create(captor.capture());//kalder create() og fanger ønskelistens værdier
+        //De fangede data laves til det opdaterede Wish, som bruges til at tjekke, om vores testWish faktisk blev oprettet
+        WishList actualWishList = captor.getValue();
         assertEquals(name, actualWishList.getName());
         assertEquals(description, actualWishList.getDescription());
         assertEquals(testProfile.getId(), actualWishList.getProfileId());
@@ -101,7 +102,7 @@ public class WishListControllerTest {
 
     @Test
     void testGetWishLists() {
-        // Arrange
+        // Arrange - opretter to ønskelister med ønsker
         List<WishList> fakeWishLists = List.of(
                 new WishList(1, "Jul", "Gaver", 1),
                 new WishList(2, "Fødselsdag", "Flere gaver", 1)
@@ -109,12 +110,13 @@ public class WishListControllerTest {
 
         ProfileWishListDTO dto = new ProfileWishListDTO(testProfile, fakeWishLists);
 
-        when(profileWishListService.findProfileWithWishLists(testProfile.getId())).thenReturn(dto);
+        lenient().when(profileWishListService.findProfileWithWishLists(testProfile.getId())).thenReturn(dto);
 
-        // Act
+        // Act - kalder metoden, jeg vil teste: getWishLists()
         String viewName = controller.getWishLists(testProfile.getId(), session, model);
 
-        // Assert
+
+        // Assert - tjekker at modellen tager dto-objektet og profilId med + viewName
         verify(model).addAttribute("dto", dto);
         verify(model).addAttribute("profileId", testProfile.getId());
         assertEquals("wishlists", viewName);
@@ -129,12 +131,13 @@ public class WishListControllerTest {
         int profileId = 1;
         int wishListId = 10;
 
-        when(wishWishListService.findWishWithWishList(wishListId)).thenReturn(wishWishListDTO);
+        lenient().when(wishWishListService.findWishWithWishList(wishListId)).thenReturn(wishWishListDTO);
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: getSpecificWishList()
         String viewName = controller.getSpecificWishList(profileId, wishListId, session, model);
 
-        //Assert
+
+        //Assert - tjekker at modellen tager dto-objektet med og profilID + viewName()
         verify(model).addAttribute("dto", wishWishListDTO);
         verify(model).addAttribute("profileId", profileId);
         assertEquals("wishlist", viewName);
@@ -148,10 +151,11 @@ public class WishListControllerTest {
         int profileId = testProfile.getId();
         int wishlistId = 10;
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: getEditWishList()
         String viewName = controller.getEditWishList(profileId, wishlistId, session, model);
 
-        //Assert
+
+        //Assert - tjekker at modellen tager profilID og ønskelisteID med + viewName
         verify(model).addAttribute("profileId", profileId);
         verify(model).addAttribute("wishlistId", wishlistId);
         assertEquals("wishlists", viewName);
@@ -169,15 +173,13 @@ public class WishListControllerTest {
         String name = "Christmas";
         String description = "Update description";
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: postEditWishList()
         String viewName = controller.postEditWishList(profileId, wishlistId, name, description, session);
-
-        //Assert
         ArgumentCaptor<WishList> captor = ArgumentCaptor.forClass(WishList.class);
+
+        //Assert - tjekker at ønskelisten opdateres + sammenligner værdierne for de to ønskelister (skal være de samme)
         verify(iWishListService).update(captor.capture());
-
         WishList updated = captor.getValue();
-
         assertEquals(wishlistId, updated.getId());
         assertEquals(name, updated.getName());
         assertEquals(description, updated.getDescription());
@@ -194,10 +196,11 @@ public class WishListControllerTest {
         int profileId = testProfile.getId();
         int wishlistId = 10;
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: deleteWishList()
         String viewName = controller.deleteWishList(profileId, wishlistId, session);
 
-        //Assert
+
+        //Assert - tjekker at ønskelisten blev slettet + redirect
         verify(iWishListService).deleteById(wishlistId);
         assertEquals("redirect:/" + profileId + "/wishlists", viewName);
     }

@@ -66,7 +66,7 @@ public class WishControllerTest {
         testProfile = new Profile(profileId, profileName, birthday, email, username, password);
 
         //Mock session, så mock'ed controller tror at bruger er logget ind
-        when(session.getAttribute("profile")).thenReturn(testProfile);
+        lenient().when(session.getAttribute("profile")).thenReturn(testProfile);
 
 
         //Sætter wishList op
@@ -99,10 +99,10 @@ public class WishControllerTest {
         String message = "Wish not found";
         ResourceNotFoundException exception = new ResourceNotFoundException(message);
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: handeNotFound()
         String viewName = controller.handleNotFound(model, exception);
 
-        //Assert
+        //Assert - tjekker at alt går som forventet
         verify(model).addAttribute("message", message);
         assertEquals("error", viewName);
     }
@@ -113,10 +113,10 @@ public class WishControllerTest {
 
         //Arrange - @BeforeEach
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: getCreateWish()
         String viewName = controller.getCreateWish(testProfile.getId(), testWishList.getName(), session, model);
 
-        //Assert
+        //Assert - tjekker at attributterne sendes med modellen og viewName
         verify(model).addAttribute("profileId", testProfile.getId());
         verify(model).addAttribute("wishlistName", testWishList.getName());
         verify(model).addAttribute(eq("wish"), any(Wish.class));
@@ -129,14 +129,14 @@ public class WishControllerTest {
 
         //Arrange - @BeforeEach
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: postCreateWish()
         String viewName = controller.postCreateWish(
                 testProfile.getId(), testWishList.getId(),
                 testWish.getName(), testWish.getDescription(),
                 testWish.getLink(), testWish.getQuantity(),
                 testWish.getPrice(), session);
 
-        //Assert
+        //Assert - tjekker at den opretter et ønske og redirecter
         verify(iWishService).create(any(Wish.class));
         assertEquals("redirect:/" + testProfile.getId() + "/wishlists/" + testWishList.getId() + "/wishes", viewName);
 
@@ -146,15 +146,15 @@ public class WishControllerTest {
 
     @Test
     void getAllWishesForWishlist() {
-        //Arrange
-        WishWishListDTO dto = mock(WishWishListDTO.class);
 
+        //Arrange - Når controller kalder findWishWithWishList så giv mig ønskerne for dén wishlist
+        WishWishListDTO dto = wishWishListService.findWishWithWishList(testWishList.getId());
+        lenient().when(wishWishListService.findWishWithWishList(testWishList.getId())).thenReturn(dto);
 
-        //Act
-        when(wishWishListService.findWishWithWishList(testWishList.getId())).thenReturn(dto);
+        //Act - kalder metoden, jeg vil teste: getAllWishesForWishlist()
         String viewName = controller.getAllWishesForWishlist(testProfile.getId(), testWishList.getId(), session, model);
 
-        //Assert
+        //Assert - tjekker at profilID og dto-objektet sendes med modellen + viewName
         verify(model).addAttribute("profileId", testProfile.getId());
         verify(model).addAttribute("dto", dto);
         assertEquals("wishlist", viewName);
@@ -164,15 +164,15 @@ public class WishControllerTest {
 
     @Test
     void getWishDetails() {
-        //Arrange - @BeforeEach
 
-        //Act
-        when(iWishService.findById(testWish.getId())).thenReturn(testWish);
-        when(iWishListService.findById(testWishList.getId())).thenReturn(testWishList);
+        //Arrange - Når controller kalder findById så giv mig det ønske jeg kalder på dens ID
+        lenient().when(iWishService.findById(testWish.getId())).thenReturn(testWish);
+        lenient().when(iWishListService.findById(testWishList.getId())).thenReturn(testWishList);
 
+        //Act - kalder metoden, jeg vil teste: getOneWish()
         String viewName = controller.getOneWish(testProfile.getId(), testWishList.getId(), testWish.getId(), session, model);
 
-        //Assert
+        //Assert - tjekker at alt går som forventet
         verify(model).addAttribute("wish", testWish);
         verify(model).addAttribute("profileId", testProfile.getId());
         verify(model).addAttribute("wishlistId", testWishList.getId());
@@ -184,15 +184,14 @@ public class WishControllerTest {
 
     @Test
     void getEditWishForm() {
-        //Arrange - @BeforeEach
+        //Arrange - Når controller kalder findById så giv mig det ønske jeg kalder på dens ID
+        lenient().when(iWishService.findById(testWish.getId())).thenReturn(testWish);
+        lenient().when(iWishListService.findById(testWishList.getId())).thenReturn(testWishList);
 
-
-        //Act
-        when(iWishService.findById(testWish.getId())).thenReturn(testWish);
-        when(iWishListService.findById(testWishList.getId())).thenReturn(testWishList);
+        //Act - kalder metoden, jeg vil teste: showEditForm()
         String viewName = controller.showEditWishForm(testProfile.getId(), testWishList.getId(), testWish.getId(), session, model);
 
-        //Assert
+        //Assert - tjekker at ønsket, profilID og ønskelisteID sendes med modellen + viewName
         verify(model).addAttribute("wish", testWish);
         verify(model).addAttribute("profileId", testProfile.getId());
         verify(model).addAttribute("wishlistId", testWishList.getId());
@@ -203,10 +202,10 @@ public class WishControllerTest {
     // -------------------------------- Post updateWish() ------------------------------
 
     @Test
-    void postEditWishForm() {
+    void updateWish() {
         //Arrange - @BeforeEach
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: updateWish()
         String viewName = controller.updateWish(
                 testProfile.getId(), testWishList.getId(),
                 testWish.getId(), testWish.getName(),
@@ -214,12 +213,15 @@ public class WishControllerTest {
                 testWish.getQuantity(), testWish.getPrice(),
                 session);
 
-        ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class); // ArgumentCaptor skal fange information der bliver posted for Wish
-        verify(iWishService).update(captor.capture()); // Her fanger den med sin capture()-metode
+        // ArgumentCaptor skal fange information der bliver posted for Wish
+        ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class);
 
-        Wish updated = captor.getValue(); // De fangede data laves til det opdaterede Wish, som bruges til at tjekke, om vores testWish faktisk blev opdateret
 
-        //Assert
+        //Assert - tjekker at værdierne i captor-objektet og testWish er de samme + redirect
+        // Her fanger den værdierne med sin capture()-metode
+        verify(iWishService).update(captor.capture());
+        //Henter Wish-objekt, som ArgumentCaptor fangede efter controller kaldte iWishService.update()
+        Wish updated = captor.getValue();
         assertEquals(testWish.getId(), updated.getId());
         assertEquals(testWish.getName(), updated.getName());
         assertEquals(testWish.getDescription(), updated.getDescription());
@@ -236,11 +238,12 @@ public class WishControllerTest {
 
         //Arrange - @BeforeEach
 
-        //Act
+        //Act - kalder metoden, jeg vil teste: deleteWish()
         String viewName = controller.deleteWish(testProfile.getId(), testWishList.getId(), testWish.getId(), session);
-        verify(iWishService).deleteById(testWish.getId());
 
-        //Assert
+
+        //Assert - tjekker at deleteById() sletter ønsket + redirect
+        verify(iWishService).deleteById(testWish.getId());
         assertEquals("redirect:/" + testProfile.getId() + "/wishlists/" + testWishList.getId() + "/wishes", viewName);
 
     }

@@ -65,9 +65,10 @@ public class ProfileServiceTest {
         // Arrange
         when(iProfileRepository.findById(999)).thenReturn(null);
 
-        // Act & Assert
+        // Act & Assert - forventer at metoden kaster en exception, når ikke-eksisterende ID gives som argument
         assertThrows(ResourceNotFoundException.class, () -> profileService.findById(999));
 
+        //Ikke kald deleteById(), hvis ID ikke findes
         verify(iProfileRepository, never()).deleteById(anyInt());
     }
 
