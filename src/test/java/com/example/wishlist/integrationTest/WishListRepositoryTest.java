@@ -1,10 +1,15 @@
 package com.example.wishlist.integrationTest;
 
+import com.example.wishlist.dto.WishWishListDTO;
+import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.WishListRepository;
+import com.example.wishlist.repository.WishRepository;
+import com.example.wishlist.service.WishWishListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
@@ -23,6 +28,11 @@ class WishListRepositoryTest {
 
     @Autowired
     WishListRepository wishListRepository;
+
+    @Autowired
+    WishRepository wishRepository;
+
+
 
     @Test
     void create() {
@@ -92,14 +102,37 @@ class WishListRepositoryTest {
 
         // Act -
         wishListRepository.deleteById(1);
+
         WishList testWishListFromDatabase = wishListRepository.findById(2);
-        List<WishList> testList = new ArrayList<>(wishListRepository.findAll());
+        List<WishList> testList = wishListRepository.findAll();
 
         // Assert -
-        assertEquals(wishListName, testWishListFromDatabase.getName());
-        assertEquals(wishListDescription, testWishListFromDatabase.getDescription());
-        assertNotEquals(wishListName, deletedWishListName);
-        assertEquals(1, testList.size());
+        assertEquals(wishListName, testWishListFromDatabase.getName()); //Birgers listes navn
+        assertEquals(wishListDescription, testWishListFromDatabase.getDescription()); //Birgers listes beskrivelse
+
+        assertEquals(1, testList.size()); //Der er kun én wishlist i Repository
+
+    }
+
+    // ----------------------- Slet ønskerne på en ønskeliste ---------------------
+
+    @Test
+    void deleteWishesForWishList() {
+
+        //Arrange
+        List<Wish> wishes = wishRepository.findByWishListId(1); //Får en liste af ønsker ud fra ønskelisteID
+        int beforeDeletion = wishes.size();
+
+
+        //Act
+        wishListRepository.deleteById(1);
+        List<Wish> wishesAfter = wishRepository.findByWishListId(1); //Får en liste af ønsker ud fra ønskelisteID
+        int afterDeletion = wishesAfter.size();
+
+
+        //Assert
+        assertEquals(2, beforeDeletion);
+        assertEquals(0, afterDeletion);
     }
 
     @Test
