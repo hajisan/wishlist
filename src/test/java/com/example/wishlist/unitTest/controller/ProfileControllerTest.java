@@ -75,17 +75,6 @@ class ProfileControllerTest {
 
     }
 
-    // ------------------------------ DateTimeFormatException.class --------------------
-
-    @Test
-    void handleDateParseError() {
-
-        //Arrange
-
-        //Act
-
-        //Assert
-    }
 
 
     // -------------------------------- Henter createProfile() ---------------------------
