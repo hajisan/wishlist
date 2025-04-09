@@ -98,7 +98,7 @@ class WishListRepositoryTest {
         // Assert
         assertEquals(wishListName, testWishListFromDatabase.getName());
         assertEquals(wishListDescription, testWishListFromDatabase.getDescription());
-        assertNotEquals(wishListName, deletedWishListName);
+        assertNotEquals(deletedWishListName, testWishListFromDatabase.getName());
         assertEquals(1, testList.size());
     }
 
