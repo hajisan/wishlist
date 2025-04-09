@@ -25,7 +25,7 @@
 <main>
     <section class="wishlist-section">
 
-        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.userName}">username</span></h1>
+        <h1 class="wishlist-heading">Ønskelister for <span th:text="${dto.profile.username}">username</span></h1>
 
         <!-- Hvis ingen ønskelister -->
         <div th:if="${#lists.isEmpty(dto.wishLists)}" class="empty-message">

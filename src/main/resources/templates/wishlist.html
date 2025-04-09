@@ -67,8 +67,10 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <!-- MODAL FOR LOGIN & SIGNUP -->
-<div th:replace="~{fragments/modals/login_modal :: login}"></div>
-<div th:replace="~{fragments/modals/signup_modal :: signup}"></div>
+<div th:replace="~{fragments/modals/profile_page_modal :: profile-page}"></div>
+<div th:replace="~{fragments/modals/edit_profile_page_modal :: edit-profile}"></div>
+<div th:replace="~{fragments/modals/create_wish_modal :: create-wishlist}"></div>
+<div th:replace="~{fragments/modals/edit_wish_modal :: edit-wishlist}"></div>
 
 <!-- SCRIPTS -->
 <script th:src="@{/ui-effects.js}"></script>

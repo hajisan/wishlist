@@ -43,14 +43,12 @@ public class WishServiceTest {
 
     @Test
     void findById_shouldReturnWish_whenFound() {
-
-        //Arrange
+        // Arrange
         when(iWishRepository.findById(1)).thenReturn(testWish);
 
         Wish result = wishService.findById(1);
 
-        //Act & Assert
-
+        // Act & Assert
         assertNotNull(result);
         assertEquals("Ønsketest", result.getName());
         assertEquals("Test", result.getDescription());
@@ -63,8 +61,10 @@ public class WishServiceTest {
 
     @Test
     void findById_shouldThrowException_whenNotFound() {
+        // Arrange
         when(iWishRepository.findById(2)).thenReturn(null);
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishService.findById(2));
 
         verify(iWishRepository, times(1)).findById(anyInt());
@@ -74,8 +74,10 @@ public class WishServiceTest {
 
     @Test
     void deleteById_shouldCallDelete_whenWishExists() {
+        // Arrange
         when(iWishRepository.findById(1)).thenReturn(testWish);
 
+        // Act & Assert
         wishService.deleteById(1);
 
         verify(iWishRepository).deleteById(1);
@@ -84,9 +86,10 @@ public class WishServiceTest {
 
     @Test
     void deleteById_shouldThrowException_whenWishNotFound() {
-
+        // Arrange
         when(iWishRepository.findById(2)).thenReturn(null); //2 = dummy id
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishService.deleteById(2));
 
         verify(iWishRepository, never()).deleteById(anyInt());
@@ -95,6 +98,9 @@ public class WishServiceTest {
 
     @Test
     void update_shouldCallUpdate_whenWishNotNull() {
+        // Arrange - setUp()
+
+        // Act & Assert
         wishService.update(testWish);
 
         verify(iWishRepository).update(testWish);
@@ -104,8 +110,10 @@ public class WishServiceTest {
 
     @Test
     void update_shouldThrowException_whenWishIsNull() {
+        // Arrange - setUp()
         assertThrows(ResourceNotFoundException.class, () -> wishService.update(null));
 
+        // Act & Assert
         verify(iWishRepository, never()).update(testWish);
     }
 
@@ -113,6 +121,9 @@ public class WishServiceTest {
 
     @Test
     void create_shouldCallCreate() {
+        // Arrange - setUp()
+
+        // Act & Assert
         wishService.create(testWish);
 
         verify(iWishRepository).create(testWish);
@@ -123,9 +134,10 @@ public class WishServiceTest {
 
     @Test
     void findAll_shouldReturnList() {
-
+        // Arrange
         when(iWishRepository.findAll()).thenReturn(List.of(testWish));
 
+        // Act & Assert
         List<Wish> result = wishService.findAll();
 
         assertEquals(1, result.size());

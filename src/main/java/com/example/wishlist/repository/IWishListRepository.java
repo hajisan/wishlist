@@ -16,7 +16,7 @@ public interface IWishListRepository extends IRepository<WishList, Integer> {
 
     void deleteById(Integer id);
 
-    List<WishList> findByProfileId(Integer profileId);
-    WishList findByNameAndProfile(String name, Integer id);
+    List<WishList> findWishListsByProfileId(Integer profileId);
+    WishList findWishListByWishListNameAndProfileId(String name, Integer id);
 
 }

@@ -1,6 +1,6 @@
 package com.example.wishlist.repository;
 
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.rowMapper.ProfileRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,11 +18,12 @@ public class ProfileRepository implements IProfileRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-
+    // Injection af JdbcTemplate til databasekald
     public ProfileRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public Profile create(Profile profile) {
@@ -30,12 +31,13 @@ public class ProfileRepository implements IProfileRepository {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        // Bruger PreparedStatement sammen med vores GeneratedKeyHolder til at kunne autogenerere et nyt id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, profile.getName());
             ps.setString(2, profile.getBirthday().format(DateTimeFormatter.ISO_LOCAL_DATE)); //MySQL time-format
             ps.setString(3, profile.getEmail());
-            ps.setString(4, profile.getUserName());
+            ps.setString(4, profile.getUsername());
             ps.setString(5, profile.getPassword());
             return ps;
         }, keyHolder);
@@ -48,6 +50,8 @@ public class ProfileRepository implements IProfileRepository {
         return profile;
 
     }
+
+    //------------------------------------ Read() ------------------------------------
 
     @Override
     public Profile findById(Integer id) {
@@ -64,10 +68,15 @@ public class ProfileRepository implements IProfileRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        String sql = "DELETE FROM profile WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+    public Profile findProfileByUserName(String username) {
+        String sql = "SELECT * FROM profile WHERE username = ?";
+        List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
+
+        if (oneProfileAsList.isEmpty()) { return null; }
+        return oneProfileAsList.get(0);
     }
+
+    //------------------------------------ Update() ------------------------------------
 
     @Override
     public Profile update(Profile profile) {
@@ -79,24 +88,18 @@ public class ProfileRepository implements IProfileRepository {
                 profile.getName(),
                 java.sql.Date.valueOf(profile.getBirthday()),
                 profile.getEmail(),
-                profile.getUserName(),
+                profile.getUsername(),
                 profile.getPassword(),
                 profile.getId()
         );
-
         return profile;
     }
 
+    //------------------------------------ Delete() ------------------------------------
 
     @Override
-    public Profile findProfileByUserName(String username) {
-        String sql = "SELECT * FROM profile WHERE username = ?";
-        List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
-
-        if (oneProfileAsList.isEmpty()) { return null; }
-        return oneProfileAsList.get(0);
+    public void deleteById(Integer id) {
+        String sql = "DELETE FROM profile WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
-
-
-
 }

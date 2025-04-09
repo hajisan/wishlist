@@ -9,15 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("")
 public class ProfileController {
     private final IProfileService profileService;
 
+    // Dependency Injection af IProfileService-interfacet i constructoren
     public ProfileController(IProfileService profileService) {
         this.profileService = profileService;
     }
 
+    // ExceptionHandler-annotationen fanger og håndterer vores ResourceNotFoundExceptions
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleNotFound(Model model, ResourceNotFoundException e) {
 
@@ -75,12 +79,6 @@ public class ProfileController {
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
         return "index";
     }
 
@@ -91,7 +89,6 @@ public class ProfileController {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         // Brug en metode i IProfileService til at tjekke login-informationer
-
         Profile profile = profileService.login(username, password);
 
         if (profile != null) {
@@ -102,18 +99,24 @@ public class ProfileController {
         }
 
         model.addAttribute("wrongCredentials", true);
-        return "index"; // <- viser forsiden igen, men med fejl
+        return "index"; // <- viser forsiden igen, men med fejl vha. Thymeleaf
 
     }
 
-    // --------------------------- Hent Create() -------------------------------------
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
+
+    //--------------------------------- Hent Create() ----------------------------------
 
     @GetMapping("/signup")
     public String getSignUp() {
-        return "signup";
+        return "index";
     }
 
-    // ----------------------------- Create() -------------------------------------
+    //------------------------------------ Create() ------------------------------------
 
     @PostMapping("/signup")
     public String postSignUp(
@@ -125,12 +128,12 @@ public class ProfileController {
             @RequestParam("birthday") String birthday,
             Model model
     ) {
-        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+        if (!password.equals(repeatPassword)) { // Adgangskoder skal være ens
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
 
-        if (profileService.profileAlreadyExists(username)) { //Tjekker om bruger findes
+        if (profileService.profileAlreadyExists(username)) { // Tjekker om bruger findes
             model.addAttribute("profileAlreadyExists", true);
             return "signup";
 
@@ -140,15 +143,15 @@ public class ProfileController {
 //        LocalDate parsedDate = LocalDate.parse(birthday, formatter);
 //
 //       Profile profile = new Profile(name, parsedDate, email, username, password);
-        Profile profile = new Profile(name, Profile.getStringAsLocalDate(birthday), email, username, password);
+        Profile profile = new Profile(name, Profile.getLocalDateFromString(birthday), email, username, password);
         profileService.create(profile); //gemmer parsed dato
 
 
 
         return "redirect:/login";
-        }
+    }
 
-    // ----------------------------- Read() -------------------------------------
+    //------------------------------------ Read() ------------------------------------
 
     @GetMapping("/{profileId}/profile")
     public String getProfilePage(
@@ -156,7 +159,9 @@ public class ProfileController {
             HttpSession session, Model model
     ) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
         model.addAttribute("profileId", profileId);
         model.addAttribute("profile", profileService.findById(profileId));
@@ -164,21 +169,23 @@ public class ProfileController {
         return "profile-page";
     }
 
-    // ----------------------------- Hent Update() -----------------------------------
+    //------------------------------------ Hent Update() ----------------------------------
 
     @GetMapping("/{profileId}/profile/edit")
     public String getProfileEditPage(
             @PathVariable int profileId,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
-        model.addAttribute("profile", profileService.findById(profileId)); //Sender hele objektet med til redigering
+        model.addAttribute("profile", profileService.findById(profileId)); // Sender hele objektet med til redigering
 
         return "edit-profile-page";
     }
 
-    // ----------------------------- Update() -------------------------------------
+    //------------------------------------ Update() ------------------------------------
 
     @PostMapping("/{profileId}/profile/edit")
     public String postProfileEditPage(
@@ -191,10 +198,12 @@ public class ProfileController {
             @RequestParam("birthday") String birthday,
             HttpSession session, Model model
     ) {
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; } //Tjekker om bruger er logget ind
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        } // Tjekker om bruger er logget ind
 
 
-        if (!password.equals(repeatPassword)) { //Adgangskoder skal være ens
+        if (!password.equals(repeatPassword)) { // Adgangskoder skal være ens
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
@@ -204,20 +213,24 @@ public class ProfileController {
 //
 //        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
-        Profile profile = new Profile(profileId, name, Profile.getStringAsLocalDate(birthday), email, username, password);
+
+        LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
+        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
         return "redirect:/{profileId}/wishlists";
     }
 
-    // ----------------------------- Delete() -------------------------------------
+    //------------------------------------ Delete() ------------------------------------
 
     @PostMapping("/{profileId}/profile/delete")
     public String deleteProfile(
             @PathVariable int profileId,
             HttpSession session) {
 
-        if (session.getAttribute("profile") == null) { return "redirect:/login"; }
+        if (session.getAttribute("profile") == null) {
+            return "redirect:/login";
+        }
 
         profileService.deleteById(profileId);
 
@@ -225,6 +238,4 @@ public class ProfileController {
 
         return "index";
     }
-
-
 }
