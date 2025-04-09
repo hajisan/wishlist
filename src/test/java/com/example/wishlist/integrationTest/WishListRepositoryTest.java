@@ -1,10 +1,13 @@
 package com.example.wishlist.integrationTest;
 
+import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.WishListRepository;
+import com.example.wishlist.repository.WishRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
@@ -23,6 +26,11 @@ class WishListRepositoryTest {
 
     @Autowired
     WishListRepository wishListRepository;
+
+    @Autowired
+    WishRepository wishRepository;
+
+
 
     @Test
     void create() {
@@ -101,6 +109,26 @@ class WishListRepositoryTest {
         assertNotEquals(deletedWishListName, testWishListFromDatabase.getName());
         assertEquals(1, testList.size());
     }
+    // ----------------------- Slet ønskerne på en ønskeliste ---------------------
+
+    @Test
+    void deleteWishesForWishList() {
+
+        //Arrange
+        List<Wish> wishes = wishRepository.findWishesByWishListId(1); //Får en liste af ønsker ud fra ønskelisteID
+        int beforeDeletion = wishes.size();
+
+
+        //Act
+        wishListRepository.deleteById(1);
+        List<Wish> wishesAfter = wishRepository.findWishesByWishListId(1); //Får en liste af ønsker ud fra ønskelisteID
+        int afterDeletion = wishesAfter.size();
+
+
+        //Assert
+        assertEquals(2, beforeDeletion);
+        assertEquals(0, afterDeletion);
+        }
 
     @Test
     void update() {
