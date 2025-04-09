@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 
 import java.time.LocalDate;
@@ -37,9 +38,9 @@ public class ProfileWishListServiceTest {
     private ProfileWishListService profileWishListService;
 
     @Test
-    void findProfileWithWishLists_returnsDTO_whenProfileExists(){
+    void findProfileWithWishLists_returnsDTO_whenProfileExists() {
 
-        //Arrange
+        // Arrange
         Profile profile = new Profile(
                 1,
                 "Test Name",
@@ -55,31 +56,33 @@ public class ProfileWishListServiceTest {
         );
 
         Mockito.when(iProfileRepository.findById(1)).thenReturn(profile);
-        Mockito.when(iWishListRepository.findByProfileId(1)).thenReturn(wishLists);
+        Mockito.when(iWishListRepository.findWishListsByProfileId(1)).thenReturn(wishLists);
 
-        //Act
+        // Act
 
         ProfileWishListDTO dto = profileWishListService.findProfileWithWishLists(1);
 
-        //Assert
+        // Assert
         assertEquals(profile, dto.profile()); //Sammenligner dto-profilen med vores hjemmelavede profil
         assertEquals(wishLists, dto.wishLists());
 
         verify(iProfileRepository, times(1)).findById(anyInt());
-        verify(iWishListRepository, times(1)).findByProfileId(anyInt());
+        verify(iWishListRepository, times(1)).findWishListsByProfileId(anyInt());
 
     }
 
     @Test
     void findProfileWithWishLists_throwsException_whenProfileNotFound() {
+        // Arrange
         int profileId = 404;
 
         Mockito.when(iProfileRepository.findById(profileId)).thenReturn(null);
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class,
                 () -> profileWishListService.findProfileWithWishLists(profileId)
         );
 
-        verify(iWishListRepository, never()).findByProfileId(anyInt());
+        verify(iWishListRepository, never()).findWishListsByProfileId(anyInt());
     }
 }

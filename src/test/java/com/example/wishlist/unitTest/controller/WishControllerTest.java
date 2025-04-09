@@ -73,7 +73,7 @@ public class WishControllerTest {
         int wishListId = 10;
         String wishListName = "Christmas";
         String wishListDescription = "Pressy";
-        testWishList = new WishList(wishListId, wishListName,wishListDescription, profileId);
+        testWishList = new WishList(wishListId, wishListName, wishListDescription, profileId);
 
 
         //Sætter wish op
@@ -214,10 +214,10 @@ public class WishControllerTest {
                 testWish.getQuantity(), testWish.getPrice(),
                 session);
 
-        ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class);
-        verify(iWishService).update(captor.capture());
+        ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class); // ArgumentCaptor skal fange information der bliver posted for Wish
+        verify(iWishService).update(captor.capture()); // Her fanger den med sin capture()-metode
 
-        Wish updated = captor.getValue();
+        Wish updated = captor.getValue(); // De fangede data laves til det opdaterede Wish, som bruges til at tjekke, om vores testWish faktisk blev opdateret
 
         //Assert
         assertEquals(testWish.getId(), updated.getId());
@@ -227,9 +227,10 @@ public class WishControllerTest {
         assertEquals(testWish.getQuantity(), updated.getQuantity());
         assertEquals(testWishList.getId(), updated.getWishListId());
 
-        assertEquals("redirect:/" + testProfile.getId() + "/wishlists/" + testWishList.getId() + "/wishes", viewName);
+        assertEquals("redirect:/" + testProfile.getId() + "/wishlist/" + testWishList.getId() + "/wishes", viewName);
 
     }
+
     @Test
     void deleteWish() {
 

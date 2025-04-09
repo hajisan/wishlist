@@ -6,6 +6,10 @@ public class Wish {
     private int id, quantity, wishListId;
     private double price;
 
+//---------------------------------------------------------------------------------------------------
+//--------------------------------------     Constructors     ---------------------------------------
+//---------------------------------------------------------------------------------------------------
+
     public Wish(String name, String description, String link, int id, int quantity, double price, int wishListId) {
         this.name = name;
         this.description = description;
@@ -16,9 +20,7 @@ public class Wish {
         this.wishListId = wishListId;
     }
 
-    public Wish() {}
-
-    // Konstruktør uden id, da id'et bliver autogenereret af databasen
+    // Konstruktør uden id, da id'et bliver autogenereret af databasen. Bruges kun til create()
     public Wish(String name, String description, String link, int quantity, double price, int wishListId) {
         this.name = name;
         this.description = description;
@@ -26,8 +28,14 @@ public class Wish {
         this.quantity = quantity;
         this.price = price;
         this.wishListId = wishListId;
-
     }
+
+    public Wish() {
+    }
+
+//---------------------------------------------------------------------------------------------------
+//-----------------------------------     Getters og Setters     ------------------------------------
+//---------------------------------------------------------------------------------------------------
 
     public String getName() {
         return name;
@@ -85,6 +93,9 @@ public class Wish {
         this.wishListId = wishListId;
     }
 
+//---------------------------------------------------------------------------------------------------
+//-----------------------------     Statiske metoder og toString()     ------------------------------
+//---------------------------------------------------------------------------------------------------
 
     @Override
     public String toString() {
@@ -95,5 +106,4 @@ public class Wish {
                 ID         : %d
                 price      : %f""", name, description, link, id, price);
     }
-
 }

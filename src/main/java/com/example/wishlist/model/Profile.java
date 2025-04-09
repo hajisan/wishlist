@@ -7,6 +7,10 @@ public class Profile {
     private LocalDate birthday;
     private int id;
 
+//---------------------------------------------------------------------------------------------------
+//--------------------------------------     Constructors     ---------------------------------------
+//---------------------------------------------------------------------------------------------------
+
     public Profile(int id, String name, LocalDate birthday, String email, String username, String password) {
         this.id = id;
         this.name = name;
@@ -16,7 +20,7 @@ public class Profile {
         this.password = password;
     }
 
-    //MÅ KUN BRUGES TIL CREATE, ELLERS KOMMER ID IKKE MED
+    // Bruges kun til create() - ellers kommer id ikke med
     public Profile(String name, LocalDate birthday, String email, String username, String password) {
         this.name = name;
         this.birthday = birthday;
@@ -31,6 +35,10 @@ public class Profile {
 
     public Profile() {
     }
+
+//---------------------------------------------------------------------------------------------------
+//-----------------------------------     Getters og Setters     ------------------------------------
+//---------------------------------------------------------------------------------------------------
 
     public String getName() {
         return name;
@@ -68,10 +76,6 @@ public class Profile {
         return birthday;
     }
 
-    public static LocalDate getStringAsLocalDate(String date) {
-        return LocalDate.of(Integer.parseInt(date.split("-")[0]), Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]));
-    }
-
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
@@ -82,6 +86,19 @@ public class Profile {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+//---------------------------------------------------------------------------------------------------
+//-----------------------------     Statiske metoder og toString()     ------------------------------
+//---------------------------------------------------------------------------------------------------
+
+    // Statisk metode, da vi vil kunne bruge den uanset om vi har en instans af Profile eller ej
+    public static LocalDate getLocalDateFromString(String date) {
+        return LocalDate.of(
+                Integer.parseInt(date.split("-")[0]),
+                Integer.parseInt(date.split("-")[1]),
+                Integer.parseInt(date.split("-")[2])
+        );
     }
 
     @Override
@@ -95,4 +112,3 @@ public class Profile {
                 ID      : %d""", name, email, username, password, birthday, id);
     }
 }
-

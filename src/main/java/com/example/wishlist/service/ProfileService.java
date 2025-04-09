@@ -1,6 +1,6 @@
 package com.example.wishlist.service;
 
-import com.example.wishlist.exception.ResourceNotFoundException;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.Profile;
 import com.example.wishlist.repository.IProfileRepository;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,12 @@ public class ProfileService implements IProfileService {
 
     private final IProfileRepository iProfileRepository;
 
+    // Injection af IProfileRepository-interface i constructor
     public ProfileService(IProfileRepository iProfileRepository) {
         this.iProfileRepository = iProfileRepository;
     }
 
-    // --------------------------- Create() -------------------------------------
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public Profile create(Profile profile) {
@@ -24,7 +25,7 @@ public class ProfileService implements IProfileService {
         return iProfileRepository.create(profile);
     }
 
-    // --------------------------- Read() -------------------------------------
+    //------------------------------------ Read() ------------------------------------
 
     @Override
     public Profile findById(Integer id) {
@@ -41,7 +42,7 @@ public class ProfileService implements IProfileService {
         return iProfileRepository.findAll();
     }
 
-    // --------------------------- Update() -------------------------------------
+    //------------------------------------ Update() ------------------------------------
 
     @Override
     public Profile update(Profile profile) {
@@ -52,8 +53,7 @@ public class ProfileService implements IProfileService {
         return iProfileRepository.update(profile);
     }
 
-
-    // --------------------------- Delete() -------------------------------------
+    //------------------------------------ Delete() ------------------------------------
 
 
     @Override
@@ -64,18 +64,14 @@ public class ProfileService implements IProfileService {
             throw new ResourceNotFoundException("Profile with ID: " + id + " not found.");
         }
         iProfileRepository.deleteById(id);
-
     }
 
-    // --------------------------- Profil-tjek() -----------------------------------
-
-
+    //------------------------------------ Profil-tjek() ------------------------------------
 
     @Override
     public boolean profileAlreadyExists(String username) {
         return iProfileRepository.findProfileByUserName(username) != null;
     }
-
 
     @Override
     public Profile login(String username, String password) {

@@ -56,7 +56,7 @@ class WishListRepositoryTest {
         String wishList2Description = "Birgers ønsker";
 
 
-        // Act - Hent profiler fra database med deres ID
+        // Act
         WishList testWishlistFromDatabase1 = wishListRepository.findById(1);
         WishList testWishListFromDatabase2 = wishListRepository.findById(2);
 
@@ -85,20 +85,20 @@ class WishListRepositoryTest {
 
     @Test
     void deleteById() {
-        // Arrange -
+        // Arrange
         String wishListName = "Birgers Liste";
         String wishListDescription = "Birgers ønsker";
         String deletedWishListName = "Arnes Liste";
 
-        // Act -
+        // Act
         wishListRepository.deleteById(1);
         WishList testWishListFromDatabase = wishListRepository.findById(2);
         List<WishList> testList = new ArrayList<>(wishListRepository.findAll());
 
-        // Assert -
+        // Assert
         assertEquals(wishListName, testWishListFromDatabase.getName());
         assertEquals(wishListDescription, testWishListFromDatabase.getDescription());
-        assertNotEquals(wishListName, deletedWishListName);
+        assertNotEquals(deletedWishListName, testWishListFromDatabase.getName());
         assertEquals(1, testList.size());
     }
 
@@ -122,7 +122,7 @@ class WishListRepositoryTest {
     }
 
     @Test
-    void findByProfileId() {
+    void findWishListsByProfileId() {
         // Arrange
         String wishListName = "Arnes Liste";
         String wishListDescription = "Ting til Arne";
@@ -131,7 +131,7 @@ class WishListRepositoryTest {
         desiredWishLists.add(wishListInListOfWishes);
 
         // Act
-        List<WishList> actualWishListsFromDatabase = new ArrayList<>(wishListRepository.findByProfileId(1));
+        List<WishList> actualWishListsFromDatabase = new ArrayList<>(wishListRepository.findWishListsByProfileId(1));
 
         // Assert
         assertEquals(desiredWishLists.get(0).getName(), actualWishListsFromDatabase.get(0).getName());
@@ -139,7 +139,8 @@ class WishListRepositoryTest {
     }
 
     @Test
-    void findByNameAndProfile() {
+    void findWishListByWishListNameAndProfileId() {
+        // Arrange
         String wishList1Name = "Arnes Liste";
         String wishList1Description = "Ting til Arne";
         WishList wishList1 = new WishList(1, wishList1Name, wishList1Description, 1);
@@ -149,8 +150,8 @@ class WishListRepositoryTest {
         WishList wishList2 = new WishList(1, wishList2Name, wishList2Description, 2);
 
         // Act
-        WishList actualWishListFromDatabase1 = wishListRepository.findByNameAndProfile(wishList1Name, 1);
-        WishList actualWishListFromDatabase2 = wishListRepository.findByNameAndProfile(wishList2Name, 2);
+        WishList actualWishListFromDatabase1 = wishListRepository.findWishListByWishListNameAndProfileId(wishList1Name, 1);
+        WishList actualWishListFromDatabase2 = wishListRepository.findWishListByWishListNameAndProfileId(wishList2Name, 2);
 
         // Assert
         assertEquals(wishList1.getName(), actualWishListFromDatabase1.getName());

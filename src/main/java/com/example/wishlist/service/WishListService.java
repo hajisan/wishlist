@@ -1,7 +1,6 @@
 package com.example.wishlist.service;
 
-import com.example.wishlist.exception.ResourceNotFoundException;
-import com.example.wishlist.model.Wish;
+import com.example.wishlist.exception.ResourceNotFoundException; // Vores egen custom exception
 import com.example.wishlist.model.WishList;
 import com.example.wishlist.repository.IWishListRepository;
 import org.springframework.stereotype.Service;
@@ -13,18 +12,19 @@ public class WishListService implements IWishListService {
 
     private final IWishListRepository iWishListRepository;
 
+    // Injection af IWishListRepository-interface i constructor
     public WishListService(IWishListRepository iWishListRepository) {
         this.iWishListRepository = iWishListRepository;
     }
 
-    // -------------------------- Create() -------------------------------------
+    //------------------------------------ Create() ------------------------------------
 
     @Override
     public WishList create(WishList wishList) {
         return iWishListRepository.create(wishList);
     }
 
-    // --------------------------- Read() -------------------------------------
+    //------------------------------------ Read() ------------------------------------
 
     @Override
     public List<WishList> findAll() {
@@ -35,13 +35,13 @@ public class WishListService implements IWishListService {
     public WishList findById(Integer id) {
         WishList wishList = iWishListRepository.findById(id);
 
-        if (wishList == null ) {
+        if (wishList == null) {
             throw new ResourceNotFoundException(("Wish List " + id + " not found."));
         }
         return wishList;
     }
 
-    // --------------------------- Update() -------------------------------------
+    //------------------------------------ Update() ------------------------------------
 
 
     @Override
@@ -52,7 +52,7 @@ public class WishListService implements IWishListService {
         return iWishListRepository.update(wishList);
     }
 
-    // --------------------------- Delete() -------------------------------------
+    //------------------------------------ Delete() ------------------------------------
 
     @Override
     public void deleteById(Integer id) {
@@ -63,6 +63,4 @@ public class WishListService implements IWishListService {
         }
         iWishListRepository.deleteById(id); // Sletter hvis det findes
     }
-
-
 }
