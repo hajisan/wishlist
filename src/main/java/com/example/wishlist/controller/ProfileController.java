@@ -212,6 +212,7 @@ public class ProfileController {
             return "signup";
         }
 
+
         LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
