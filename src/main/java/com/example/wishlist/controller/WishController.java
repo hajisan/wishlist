@@ -159,7 +159,7 @@ public class WishController {
         wish.setId(wishId);
         wishService.update(wish);
 
-        return "redirect:/" + profileId + "/wishlist/" + wishlistId + "/wishes";
+        return "redirect:/" + profileId + "/wishlists/" + wishlistId + "/wishes";
     }
 
     // --------------------------- Delete() ------------------------------
