@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Rediger: ' + ${wish.name}">Rediger ønske</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/form.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+</head>
+<body>
+
+<header class="topbar">
+    <a th:href="@{/}" class="logo">Presently</a>
+</header>
+
+<main class="form-container">
+    <h1>✏️ Rediger ønske</h1>
+
+    <form th:action="@{/{profileId}/wishlists/{wishlistId}/wish/{wishId}/update(
+                         profileId=${profileId},
+                         wishlistId=${wishlistId},
+                         wishId=${wish.id})}"
+          method="post">
+
+        <label for="name">Navn</label>
+        <input type="text" id="name" name="name" th:value="${wish.name}" required />
+
+        <label for="price">Pris</label>
+        <input type="number" step="0.01" id="price" name="price" th:value="${wish.price}" />
+
+        <label for="quantity">Antal</label>
+        <input type="number" id="quantity" name="quantity" min="1" th:value="${wish.quantity}" />
+
+        <label for="description">Beskrivelse</label>
+        <textarea id="description" name="description" rows="4" th:text="${wish.description}"></textarea>
+
+        <label for="link">Link (valgfrit)</label>
+        <input type="url" id="link" name="link" th:value="${wish.link}" />
+
+        <div class="form-buttons">
+            <button type="submit" class="btn primary">Gem ændringer</button>
+            <a th:href="@{/{profileId}/wishlists/{wishlistId}(
+                    profileId=${profileId},
+                    wishlistId=${wishlistId})}"
+               class="btn secondary">
+            </a>
+        </div>
+    </form>
+</main>
+
+</body>
+</html>
