@@ -21,11 +21,13 @@
     <p><strong>Pris:</strong> <span th:text="${wish.price}">0 kr</span></p>
     <p><strong>Beskrivelse:</strong> <span th:text="${wish.description}">Ingen beskrivelse</span></p>
 
+
     <!-- Du kan vise flere felter, fx ønskets link eller billede, hvis det findes -->
     <div th:if="${wish.link != null}">
       <p><strong>Link:</strong>
         <a th:href="${wish.link}" target="_blank" rel="noopener noreferrer" th:text="${wish.link}">Gå til ønsket</a>
       </p>
+      <p><strong>Antal:</strong> <span th:text="${wish.quantity}">Antal</span></p>
     </div>
 
     <div class="back-button">

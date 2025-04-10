@@ -180,6 +180,10 @@ public class ProfileController {
             return "redirect:/login";
         } // Tjekker om bruger er logget ind
 
+        else {
+            session.setAttribute("profile", profileService.findById(profileId));
+        }
+
         model.addAttribute("profile", profileService.findById(profileId)); // Sender hele objektet med til redigering
 
         return "edit-profile-page";
@@ -208,16 +212,12 @@ public class ProfileController {
             return "signup";
         }
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
-//        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
-//
-//        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
-
 
         LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
 
         profileService.update(profile);
+        session.setAttribute("profile", profile);
         return "redirect:/{profileId}/wishlists";
     }
 
