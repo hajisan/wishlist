@@ -4,7 +4,8 @@
     <button class="close-btn" onclick="closeEditWishModal()">&times;</button>
     <h2>Redigér Ønske</h2>
 
-    <form th:action="@{|/${profileId}/wishlists/${wishlistId}/wish/${wish.id}/update|}" method="post" class="edit-wish-form">
+      <form id="edit-wish-form" method="post" class="edit-wish-form">
+
       <input type="hidden" id="edit-wish-form-profileId" name="profileId">
       <input type="hidden" id="edit-wish-form-wishlistId" name="wishlistId">
       <input type="hidden" id="edit-wish-form-wishId" name="wishId">
