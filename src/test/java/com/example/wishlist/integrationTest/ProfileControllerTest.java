@@ -61,7 +61,7 @@ public class ProfileControllerTest {
     void testPostSignUp() throws Exception {
 
         //Arrange
-        when(iProfileService.create(testProfile)).thenReturn(testProfile);
+        lenient().when(iProfileService.create(testProfile)).thenReturn(testProfile);
 
         //Act
         mockMvc.perform(post("/signup")
@@ -83,7 +83,7 @@ public class ProfileControllerTest {
 //    void testGetProfilePage() throws Exception {
 //
 //        //Arrange
-//        when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
+//        lenient().when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
 //
 //        //Act
 //        mockMvc.perform(get("/" + testProfile.getId() + "/profile")
