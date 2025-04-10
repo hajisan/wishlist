@@ -72,7 +72,7 @@ public class ProfileRepository implements IProfileRepository {
         String sql = "SELECT * FROM profile WHERE username = ?";
         List<Profile> oneProfileAsList = jdbcTemplate.query(sql, new ProfileRowMapper(), username);
 
-        if (oneProfileAsList.isEmpty()) { return null; }
+        if (oneProfileAsList.isEmpty()) { return null; } //Dataadgangslogik
         return oneProfileAsList.get(0);
     }
 

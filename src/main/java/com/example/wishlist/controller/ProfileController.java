@@ -139,13 +139,8 @@ public class ProfileController {
 
         }
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate parsedDate = LocalDate.parse(birthday, formatter);
-//
-//       Profile profile = new Profile(name, parsedDate, email, username, password);
         Profile profile = new Profile(name, Profile.getLocalDateFromString(birthday), email, username, password);
         profileService.create(profile); //gemmer parsed dato
-
 
 
         return "redirect:/login";
@@ -207,12 +202,6 @@ public class ProfileController {
             model.addAttribute("passwordMismatch", true);
             return "signup";
         }
-
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//Formatterer brugerinput til MySQL
-//        LocalDate parsedDate = LocalDate.parse(birthday, formatter); //Gemmer parsed dato
-//
-//        Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
-
 
         LocalDate parsedDate = Profile.getLocalDateFromString(birthday); // Gemmer parsed dato
         Profile profile = new Profile(profileId, name, parsedDate, email, username, password);
