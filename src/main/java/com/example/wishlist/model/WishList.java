@@ -6,6 +6,10 @@ public class WishList {
     private String name, description;
     private int id, profileId;
 
+//---------------------------------------------------------------------------------------------------
+//--------------------------------------     Constructors     ---------------------------------------
+//---------------------------------------------------------------------------------------------------
+
     public WishList(int id, String name, String description, int profileId) {
         this.id = id;
         this.name = name;
@@ -18,14 +22,17 @@ public class WishList {
         this.profileId = profileId;
     }
 
-
-
     public WishList(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public WishList() {}
+    public WishList() {
+    }
+
+//---------------------------------------------------------------------------------------------------
+//-----------------------------------     Getters og Setters     ------------------------------------
+//---------------------------------------------------------------------------------------------------
 
     public String getName() {
         return name;
@@ -43,7 +50,6 @@ public class WishList {
         this.id = id;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -51,6 +57,7 @@ public class WishList {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public int getProfileId() {
         return profileId;
     }
@@ -59,10 +66,12 @@ public class WishList {
         this.profileId = profileId;
     }
 
+//---------------------------------------------------------------------------------------------------
+//-----------------------------     Statiske metoder og toString()     ------------------------------
+//---------------------------------------------------------------------------------------------------
+
     @Override
     public String toString() {
         return "Name " + name + " ID " + id;
     }
-
-
 }

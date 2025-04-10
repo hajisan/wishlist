@@ -42,15 +42,13 @@ public class WishServiceTest {
     // --------------- findById() ---------------------- METODE
 
     @Test
-    void findById_shouldReturnWish_whenFound() {
-
-        //Arrange
-        when(iWishRepository.findById(1)).thenReturn(testWish);
+    void testFindByIdShouldReturnWishWhenFound() {
+        // Arrange
+        lenient().when(iWishRepository.findById(1)).thenReturn(testWish);
 
         Wish result = wishService.findById(1);
 
-        //Act & Assert
-
+        // Act & Assert
         assertNotNull(result);
         assertEquals("Ønsketest", result.getName());
         assertEquals("Test", result.getDescription());
@@ -62,9 +60,11 @@ public class WishServiceTest {
     }
 
     @Test
-    void findById_shouldThrowException_whenNotFound() {
-        when(iWishRepository.findById(2)).thenReturn(null);
+    void testFindByIdShouldThrowExceptionWhenNotFound() {
+        // Arrange
+        lenient().when(iWishRepository.findById(2)).thenReturn(null);
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishService.findById(2));
 
         verify(iWishRepository, times(1)).findById(anyInt());
@@ -73,9 +73,11 @@ public class WishServiceTest {
     // ---------------- deleteById() ---------------- METODE
 
     @Test
-    void deleteById_shouldCallDelete_whenWishExists() {
-        when(iWishRepository.findById(1)).thenReturn(testWish);
+    void testDeleteByIdShouldCallDeleteWhenWishExists() {
+        // Arrange
+        lenient().when(iWishRepository.findById(1)).thenReturn(testWish);
 
+        // Act & Assert
         wishService.deleteById(1);
 
         verify(iWishRepository).deleteById(1);
@@ -83,10 +85,11 @@ public class WishServiceTest {
     }
 
     @Test
-    void deleteById_shouldThrowException_whenWishNotFound() {
+    void testDeleteByIdShouldThrowExceptionWhenWishNotFound() {
+        // Arrange
+        lenient().when(iWishRepository.findById(2)).thenReturn(null); //2 = dummy id
 
-        when(iWishRepository.findById(2)).thenReturn(null); //2 = dummy id
-
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> wishService.deleteById(2));
 
         verify(iWishRepository, never()).deleteById(anyInt());
@@ -94,7 +97,10 @@ public class WishServiceTest {
     // ------------------ update() -------------------- METODE
 
     @Test
-    void update_shouldCallUpdate_whenWishNotNull() {
+    void testUpdateShouldCallUpdateWhenWishNotNull() {
+        // Arrange - setUp()
+
+        // Act & Assert
         wishService.update(testWish);
 
         verify(iWishRepository).update(testWish);
@@ -103,16 +109,22 @@ public class WishServiceTest {
     }
 
     @Test
-    void update_shouldThrowException_whenWishIsNull() {
-        assertThrows(ResourceNotFoundException.class, () -> wishService.update(null));
+    void testUpdateShouldThrowExceptionWhenWishIsNull() {
+        // Arrange
 
+
+        // Act & Assert
+        assertThrows(ResourceNotFoundException.class, () -> wishService.update(null));
         verify(iWishRepository, never()).update(testWish);
     }
 
     // -------------------- create() ----------------- METODE
 
     @Test
-    void create_shouldCallCreate() {
+    void testCreateShouldCallCreate() {
+        // Arrange
+
+        // Act & Assert
         wishService.create(testWish);
 
         verify(iWishRepository).create(testWish);
@@ -122,10 +134,11 @@ public class WishServiceTest {
     // -------------------- findAll() ----------------- METODE
 
     @Test
-    void findAll_shouldReturnList() {
+    void testFindAllShouldReturnList() {
+        // Arrange
+        lenient().when(iWishRepository.findAll()).thenReturn(List.of(testWish));
 
-        when(iWishRepository.findAll()).thenReturn(List.of(testWish));
-
+        // Act & Assert
         List<Wish> result = wishService.findAll();
 
         assertEquals(1, result.size());

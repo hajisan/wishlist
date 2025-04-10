@@ -21,15 +21,16 @@ import static org.mockito.Mockito.*;
 public class ProfileServiceTest {
 
     @Mock
-    private IProfileRepository iProfileRepository; //Mock'er repository, så vi ikke behøver database
+    private IProfileRepository iProfileRepository; //Mocker repository, så vi ikke behøver database
 
     @InjectMocks
-    private ProfileService profileService; //Opretter instans af @Service - vi tester kun service-laget
+    private ProfileService profileService; // Opretter instans af @Service - vi tester kun service-laget
 
     private Profile testProfile;
 
     @BeforeEach
-    void setUp() { //Alle felter for Profile
+    void setUp() { // Alle felter for Profile
+        // Arrange for alle testmetoder
         testProfile = new Profile();
         testProfile.setId(1);
         testProfile.setName("Test Name");
@@ -42,14 +43,13 @@ public class ProfileServiceTest {
     // --------------- findById() ---------------------- METODE
 
     @Test
-    void findById_shouldReturnProfile_whenFound() {
+    void testFindByIdShouldReturnProfileWhenProfileIsFound() {
+        // Arrange
+        lenient().when(iProfileRepository.findById(1)).thenReturn(testProfile);
 
-        //Arrange
-        when(iProfileRepository.findById(1)).thenReturn(testProfile);
-
+        // Act & Assert
         Profile result = profileService.findById(1);
 
-        //Act & Assert
         assertNotNull(result);
         assertEquals("Test Name", result.getName());
         assertEquals("testUser", result.getUsername());
@@ -61,20 +61,25 @@ public class ProfileServiceTest {
     }
 
     @Test
-    void findById_shouldThrowException_whenNotFound() {
-        when(iProfileRepository.findById(999)).thenReturn(null);
+    void testFindByIdShouldThrowExceptionWhenProfileNotFound() {
+        // Arrange
+        lenient().when(iProfileRepository.findById(999)).thenReturn(null);
 
+        // Act & Assert - forventer at metoden kaster en exception, når ikke-eksisterende ID gives som argument
         assertThrows(ResourceNotFoundException.class, () -> profileService.findById(999));
 
+        //Ikke kald deleteById(), hvis ID ikke findes
         verify(iProfileRepository, never()).deleteById(anyInt());
     }
 
     // ---------------- deleteById() ---------------- METODE
 
     @Test
-    void deleteById_shouldCallDelete_whenProfileExists() {
-        when(iProfileRepository.findById(1)).thenReturn(testProfile);
+    void testDeleteByIdShouldCallDeleteWhenProfileExists() {
+        // Arrange
+        lenient().when(iProfileRepository.findById(1)).thenReturn(testProfile);
 
+        // Act & Assert
         profileService.deleteById(1);
 
         verify(iProfileRepository).deleteById(1);
@@ -82,41 +87,44 @@ public class ProfileServiceTest {
     }
 
     @Test
-    void deleteById_shouldThrowException_whenProfileNotFound() {
-
+    void testDeleteByIdShouldThrowExceptionWhenProfileNotFound() {
+        // Arrange
         when(iProfileRepository.findById(999)).thenReturn(null); //999 = dummy id
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> profileService.deleteById(999)); //lampda = inline funktion
-
         verify(iProfileRepository, never()).deleteById(anyInt());
     }
 
     // ------------------ update() -------------------- METODE
 
     @Test
-    void update_shouldCallUpdate_whenProfileNotNull() {
+    void testUpdateShouldCallUpdateWhenProfileNotNull() {
+        //Arrange
 
+        // Act & Assert
         profileService.update(testProfile);
-
         verify(iProfileRepository).update(testProfile);
-
         verify(iProfileRepository, times(1)).update(testProfile);
     }
 
     @Test
-    void update_shouldThrowException_whenProfileIsNull() {
+    void testUpdateShouldThrowExceptionWhenProfileIsNull() {
+        // Arrange
 
+        // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> profileService.update(null));
-
         verify(iProfileRepository, never()).update(testProfile);
     }
 
     // -------------------- create() ----------------- METODE
 
     @Test
-    void create_shouldCallCreate() {
-        profileService.create(testProfile);
+    void testCreateShouldCallCreate() {
+        // Arrange
 
+        // Act & Assert
+        profileService.create(testProfile);
         verify(iProfileRepository).create(testProfile);
         verify(iProfileRepository, times(1)).create(testProfile);
     }
@@ -124,9 +132,11 @@ public class ProfileServiceTest {
     // -------------------- findAll() ----------------- METODE
 
     @Test
-    void findAll_shouldReturnList() {
-        when(iProfileRepository.findAll()).thenReturn(List.of(testProfile));
+    void testFindAllShouldReturnList() {
+        // Arrange
+        lenient().when(iProfileRepository.findAll()).thenReturn(List.of(testProfile));
 
+        // Act & Assert
         List<Profile> result = profileService.findAll();
 
         assertEquals(1, result.size());

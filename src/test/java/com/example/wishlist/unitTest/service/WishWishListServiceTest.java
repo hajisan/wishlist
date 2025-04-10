@@ -31,23 +31,25 @@ public class WishWishListServiceTest {
     private WishWishListService wishWishListService;
 
     @Test
-    void findWishListWithWishes_returnsDTO_whenWishListExists() {
-
+    void testFindWishListWithWishesReturnsDTOWhenWishListExists() {
+        // Arrange
         int wishListId = 1;
 
         WishList wishList = new WishList(wishListId, "Christmas", "Pressy", 7);
 
         List<Wish> wishes =
                 List.of(
-                new Wish("iPhone", "iPhone 16", "https://apple.com", 1, 2, 999.95, wishListId),
-                new Wish("Bog", "Kvinden i buret", "https://saxo.com", 1, 3, 59.95, wishListId)
+                        new Wish("iPhone", "iPhone 16", "https://apple.com", 1, 2, 999.95, wishListId),
+                        new Wish("Bog", "Kvinden i buret", "https://saxo.com", 1, 3, 59.95, wishListId)
                 );
 
-        Mockito.when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
-        Mockito.when(iWishRepository.findByWishListId(wishListId)).thenReturn(wishes);
+        Mockito.lenient().when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
+        Mockito.lenient().when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(wishes);
 
+        // Act
         WishWishListDTO result = wishWishListService.findWishWithWishList(wishListId);
 
+        // Assert
         assertEquals(wishList, result.wishList());
         assertEquals(wishes, result.wishes());
         assertEquals(2, result.wishes().size());
@@ -57,17 +59,20 @@ public class WishWishListServiceTest {
     }
 
     @Test
-    void findWishWithWishList_returnsDTO_withEmptyWishList() {
+    void testFindWishWithWishListReturnsDTOWithEmptyWishList() {
+        // Arrange
         int wishListId = 2;
 
         WishList wishList = new WishList(wishListId, "Christmas", "Pressy", 5);
         List<Wish> emptyWishes = List.of();
 
-        Mockito.when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
-        Mockito.when(iWishRepository.findByWishListId(wishListId)).thenReturn(emptyWishes);
+        Mockito.lenient().when(iWishListRepository.findById(wishListId)).thenReturn(wishList);
+        Mockito.lenient().when(iWishRepository.findWishesByWishListId(wishListId)).thenReturn(emptyWishes);
 
+        // Act
         WishWishListDTO result = wishWishListService.findWishWithWishList(wishListId);
 
+        // Assert
         assertEquals(wishList, result.wishList());
         assertTrue(result.wishes().isEmpty());
     }

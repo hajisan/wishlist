@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +37,18 @@
             <div th:each="wishlist : ${dto.wishLists}" class="wishlist-card">
                 <h2 class="wishlist-title" th:text="${wishlist.name}">Ønskeliste Navn</h2>
                 <p class="wishlist-description" th:text="${wishlist.description}">Beskrivelse af ønskelisten</p>
-                <a th:href="@{|/${profileId}/wishlists/${wishlist.id}/wishes|}" class="btn secondary small">Vis ønsker</a>
-                    <!-- Rediger ønskeliste -->
+                <a th:href="@{/{profileId}/wishlists/{wishlistId}/wishes(profileId=${profileId}, wishlistId=${wishlist.id})}" class="btn secondary small">Vis ønsker</a>
+
+<!--                <a th:href="@{/{profileId}/wishlists/{wishlistId}/wishes(profileId=${profileId}, wishlistId=${dto.wishList.id})}"-->
+
+<!--                   class="btn secondary small">-->
+
+<!--                    Vis ønsker-->
+<!--                </a>-->
+
+
+
+                <!-- Rediger ønskeliste -->
                     <button type="button"
                             class="btn secondary small"
                             onclick="openEditWishlistModal(this)"

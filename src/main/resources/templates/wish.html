@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="'Ønske: ' + ${wish.name}">Ønske</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/wish.css}">
+
+  <!-- Du kan evt. genbruge font-links her også -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap">
+</head>
+<body>
+
+<header class="topbar">
+  <a th:href="@{/}" class="logo">Presently</a>
+</header>
+
+<main class="wish-details">
+  <section class="wish-container">
+    <h1 th:text="${wish.name}">Ønske navn</h1>
+    <p><strong>Pris:</strong> <span th:text="${wish.price}">0 kr</span></p>
+    <p><strong>Beskrivelse:</strong> <span th:text="${wish.description}">Ingen beskrivelse</span></p>
+
+    <!-- Du kan vise flere felter, fx ønskets link eller billede, hvis det findes -->
+    <div th:if="${wish.link != null}">
+      <p><strong>Link:</strong>
+        <a th:href="${wish.link}" target="_blank" rel="noopener noreferrer" th:text="${wish.link}">Gå til ønsket</a>
+      </p>
+    </div>
+
+    <div class="back-button">
+
+
+      <div class="back-button">
+        <a th:href="@{/{profileId}/wishlists/{wishlistId}(
+                    profileId=${profileId},
+                    wishlistId=${wishlistId})}"
+           class="btn secondary">
+          ⬅️ Tilbage til ønskelisten
+        </a>
+      </div>
+
+
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER (hvis du vil inkludere den) -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
