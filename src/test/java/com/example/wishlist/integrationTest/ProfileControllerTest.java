@@ -100,8 +100,9 @@ public class ProfileControllerTest {
 //    void testGetProfileEditPage() throws Exception {
 //
 //        //Arrange
+
 //        lenient().when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
-//
+
 //        //Act
 //        mockMvc.perform(get("/" + testProfile.getId() + "/profile/edit")
 //                .sessionAttr("profile", testProfile))
