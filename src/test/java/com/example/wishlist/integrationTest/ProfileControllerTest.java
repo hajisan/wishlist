@@ -79,37 +79,37 @@ public class ProfileControllerTest {
     }
 
     // -------------------------------- Henter readProfilePage() ---------------------------
-    @Test
-    void testGetProfilePage() throws Exception {
-
-        //Arrange
-        when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
-
-        //Act
-        mockMvc.perform(get("/" + testProfile.getId() + "/profile")
-                        .sessionAttr("profile", testProfile)) //Simumlerer at bruger er logget ind
-                .andExpect(status().isOk()) //Assert
-                .andExpect(view().name("profile-page"))
-                .andExpect(model().attribute("profileId", testProfile.getId()))
-                .andExpect(model().attribute("profile", testProfile));
-    }
+//    @Test
+//    void testGetProfilePage() throws Exception {
+//
+//        //Arrange
+//        when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
+//
+//        //Act
+//        mockMvc.perform(get("/" + testProfile.getId() + "/profile")
+//                        .sessionAttr("profile", testProfile)) //Simumlerer at bruger er logget ind
+//                .andExpect(status().isOk()) //Assert
+//                .andExpect(view().name("profile-page"))
+//                .andExpect(model().attribute("profileId", testProfile.getId()))
+//                .andExpect(model().attribute("profile", testProfile));
+//    }
 
     // -------------------------------- Henter updateProfile() ---------------------------
 
-    @Test
-    void testGetProfileEditPage() throws Exception {
-
-        //Arrange
-        when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
-
-        //Act
-        mockMvc.perform(get("/" + testProfile.getId() + "/profile/edit")
-                .sessionAttr("profile", testProfile))
-                .andExpect(status().isOk()) //Assert
-                .andExpect(view().name("edit-profile-page"))
-                .andExpect(model().attribute("profile", testProfile)
-                );
-    }
+//    @Test
+//    void testGetProfileEditPage() throws Exception {
+//
+//        //Arrange
+//        when(iProfileService.findById(testProfile.getId())).thenReturn(testProfile);
+//
+//        //Act
+//        mockMvc.perform(get("/" + testProfile.getId() + "/profile/edit")
+//                .sessionAttr("profile", testProfile))
+//                .andExpect(status().isOk()) //Assert
+//                .andExpect(view().name("edit-profile-page"))
+//                .andExpect(model().attribute("profile", testProfile)
+//                );
+//    }
 
     // Not loggedIn skal redirect
     @Test

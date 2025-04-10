@@ -13,10 +13,10 @@ public class WishListApplication {
 
 
     }
-//    @PostConstruct
-//    public void debugEnvVars() {
-//        System.out.println("✔ DEV_DATABASE_URL: " + System.getenv("DEV_DATABASE_URL"));
-//        System.out.println("✔ DEV_USERNAME: " + System.getenv("DEV_USERNAME"));
-//        System.out.println("✔ DEV_PASSWORD: " + System.getenv("DEV_PASSWORD"));
-//    }
+    @PostConstruct
+    public void debugEnvVars() {
+        System.out.println("✔ DEV_DATABASE_URL: " + System.getenv("DEV_DATABASE_URL"));
+        System.out.println("✔ DEV_USERNAME: " + System.getenv("DEV_USERNAME"));
+        System.out.println("✔ DEV_PASSWORD: " + System.getenv("DEV_PASSWORD"));
+    }
 }
