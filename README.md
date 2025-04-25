@@ -1,4 +1,4 @@
-http://presently-djbpg9frcdffe4a9.northeurope-01.azurewebsites.net
+http://presently-djbpg9frcdffe4a9.northeurope-01.azurewebsites.net (pt virker linket ikke)
 
 # 📘 Wishlist – Projekt Presently
 
@@ -13,6 +13,15 @@ Vi har højt fokus på bæredygtighed og velgørenhed og har dermed beriget vore
 - ✅ Opret ønsker i dine ønskelister og fjern dem igen!
 - ✅ Del dine ønskelister med andre!
 - 🔜 Reserver et ønske på din vens liste så ingen andre også køber det!
+
+## 👨🏽‍💻 Tech Stack
+
+- Java 21
+- Spring Boot
+- JDBC
+- MySQL
+- HTML / CSS / JS
+- Microsoft Azure
 
 ## 👥 Forfattere
 
@@ -35,6 +44,15 @@ With a strong focus on sustainability and charity we’ve filled the platform wi
 - ✅ Add and remove wishes from your lists!
 - ✅ Share your wishlists with others!
 - 🔜 Reserve a wish on a friend’s list so no one else buys the wish you bought!
+
+## 👨🏽‍💻 Tech Stack
+
+- Java 21
+- Spring Boot
+- JDBC
+- MySQL
+- HTML / CSS / JS
+- Microsoft Azure
 
 ## 👥 Authors
 
