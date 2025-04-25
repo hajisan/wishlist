@@ -33,9 +33,9 @@ Vi sætter pris på alle former for bidrag – store som små.
 
 Hvis du har spørgsmål, er du mere end velkommen til at skrive til os
 
-[JoakimRSWasTaken](https://github.com/JoakimRSWasTaken)
-[sobr0002](https://github.com/sobr0002)
-[hajisan](https://github.com/hajisan)
+- [JoakimRSWasTaken](https://github.com/JoakimRSWasTaken)
+- [sobr0002](https://github.com/sobr0002)
+- [hajisan](https://github.com/hajisan)
 
 ✨ Tak igen for din interesse i at gøre Wishlist-projektet bedre!
 
